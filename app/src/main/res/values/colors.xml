@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="theme_primary">#FF004A7C</color>
+    <color name="theme_primary_dark">#FF153A62</color>
+    <color name="theme_accent">#FF10ACE3</color>
+    <color name="theme_accent_dark">#FF2754B9</color>
+
+    <!-- App Color Palette -->
+    <color name="app_blue">#3f51b5</color>
+    <color name="app_dark_blue">#303f9f</color>
+    <color name="app_light_blue">#c5cae9</color>
+    <color name="app_pink">#ff4081</color>
+    <color name="app_dark_pink">#f50057</color>
+    <color name="app_light_pink">#ff80ab</color>
+    <color name="app_white">#ffffff</color>
+
+    <!-- App Primary Text Colors (Dark text). -->
+    <color name="app_transparent">#00000000</color>
+    <color name="app_error">#ffdd2c00</color>
+    <color name="app_primary_text">#de000000</color> <!-- black 87% -->
+    <color name="app_secondary_text">#8a000000</color> <!-- black 54% -->
+    <color name="app_disabled_text">#61000000</color> <!-- black 38% -->
+    <color name="app_hint_text">#61000000</color> <!-- black 38 % -->
+    <color name="app_divider">#1f000000</color> <!-- black 12% -->
+
+    <!-- App Primary Text Colors (Light text). -->
+    <color name="app_primary_text_inverse">#deffffff</color> <!-- white 87% -->
+    <color name="app_secondary_text_inverse">#b3ffffff</color> <!-- white 70% -->
+    <color name="app_disabled_text_inverse">#80ffffff</color> <!-- white 50% -->
+    <color name="app_hint_text_inverse">#80ffffff</color> <!-- white 50% -->
+    <color name="app_divider_inverse">#1fffffff</color> <!-- white 12% -->
+
+    <!-- App Icon Colors (Dark icons) -->
+    <color name="app_active_icon">#8a000000</color> <!-- black 54% -->
+    <color name="app_inactive_icon">#61000000</color> <!-- black 38 % -->
+
+    <!-- App Icon Colors (Light icons) -->
+    <color name="app_active_icon_inverse">#ffffffff</color> <!-- white 100% -->
+    <color name="app_inactive_icon_inverse">#80ffffff</color> <!-- white 50% -->
+
+</resources>

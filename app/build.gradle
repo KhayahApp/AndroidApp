@@ -1,0 +1,152 @@
+// Manifest version information!
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+def versionBuild = 0 // bump for dogfood builds, public betas, etc.
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    signingConfigs {
+        debug {
+            /*storeFile file("C:\\Users\\msi\\.android\\debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"*/
+        }
+        release {
+            keyAlias 'AppKhayah'
+            storeFile file('REPLACE_FILE_PATH/keystore_littdroidtemplate.jks')
+            storePassword System.getenv("KSTOREPWD_LITTDROID")
+            keyPassword System.getenv("KEYPWD_LITTDROID")
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.khayah.app"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-rules.pro')
+
+            buildConfigField("String", "SERVER_BASE_ENDPOINT", "\"${developing_server_endpoint}\"")
+            buildConfigField("String", "API_BASE_PATH", "\"${developing_api_base_path}\"")
+        }
+
+        qualityassurance {
+            debuggable true
+            minifyEnabled true
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-rules.pro')
+
+            buildConfigField("String", "SERVER_BASE_ENDPOINT", "\"${production_server_endpoint}\"")
+            buildConfigField("String", "API_BASE_PATH", "\"${production_api_base_path}\"")
+
+        }
+
+        release {
+            debuggable false // Don't forget to set debuggable false before release
+            minifyEnabled true // Don't forget to set minifyEnabled true before release
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-rules.pro')
+
+            buildConfigField("String", "SERVER_BASE_ENDPOINT", "\"${production_server_endpoint}\"")
+            buildConfigField("String", "API_BASE_PATH", "\"${production_api_base_path}\"")
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android Support Libraries
+    implementation deps.support.annotations
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.design
+    implementation deps.support.gridlayout
+    implementation deps.support.v4
+    implementation deps.support.core_utils
+    implementation deps.support.vector_drawable
+    implementation deps.support.pref_v7
+    implementation deps.support.pref_v4
+    implementation deps.support.percent
+    implementation deps.support.transition
+    implementation deps.support.support_compat_v4
+    implementation deps.support.support_compat_v7
+    implementation deps.support.constraint_layout
+
+    implementation deps.room.runtime
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.java8
+
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+
+    implementation deps.okhttp.logger
+
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    implementation deps.constraint_layout
+
+    implementation deps.glide
+    implementation deps.timber
+
+    annotationProcessor deps.dagger.android_support_compiler
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.room.compiler
+    annotationProcessor deps.lifecycle.compiler
+
+    testImplementation deps.junit
+    testImplementation deps.mock_web_server
+    testImplementation(deps.arch_core.testing, {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+    testImplementation deps.mockito.core
+
+    androidTestImplementation deps.support.app_compat
+    androidTestImplementation deps.support.recyclerview
+    androidTestImplementation deps.support.cardview
+    androidTestImplementation deps.support.design
+
+    androidTestImplementation(deps.espresso.core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation(deps.espresso.contrib, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+
+    androidTestImplementation(deps.arch_core.testing, {
+    })
+
+}
+
+

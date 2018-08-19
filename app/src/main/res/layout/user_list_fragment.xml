@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="userResource"
+            type="com.khayah.app.vo.Resource"/>
+
+        <variable name="retryCallback"
+            type="com.khayah.app.ui.common.RetryCallback"/>
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/user_list"
+            android:layout_width="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/user_item"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/loading_state"
+            app:resource="@{userResource}"
+            app:callback="@{() -> retryCallback.retry()}"/>
+
+    </LinearLayout>
+</layout>

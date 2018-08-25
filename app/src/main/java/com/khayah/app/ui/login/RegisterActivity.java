@@ -1,4 +1,4 @@
-package com.khayah.app;
+package com.khayah.app.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
-import com.facebook.Profile;
 import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
@@ -20,6 +19,9 @@ import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 import com.hbb20.CountryCodePicker;
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.KhayahApp;
+import com.khayah.app.R;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.rengwuxian.materialedittext.MaterialEditText;
 

@@ -71,17 +71,17 @@
         <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
             android:value="false"/>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".EditAccountActivity" />
-        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".ui.login.RegisterActivity" />
+        <activity android:name=".ui.login.ProfileActivity" />
+        <activity android:name=".ui.login.EditAccountActivity" />
+        <activity android:name=".ui.login.ChangePasswordActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
     </application>
 

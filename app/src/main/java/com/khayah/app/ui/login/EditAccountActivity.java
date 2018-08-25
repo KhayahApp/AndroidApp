@@ -1,4 +1,4 @@
-package com.khayah.app;
+package com.khayah.app.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,9 @@ import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 import com.hbb20.CountryCodePicker;
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.KhayahApp;
+import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.User;
 import com.khayah.app.util.CustomDialog;

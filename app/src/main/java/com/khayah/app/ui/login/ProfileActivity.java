@@ -1,4 +1,4 @@
-package com.khayah.app;
+package com.khayah.app.ui.login;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.khayah.app.APIToolz;
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.KhayahApp;
+import com.khayah.app.R;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;

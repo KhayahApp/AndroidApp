@@ -1,4 +1,4 @@
-package com.khayah.app;
+package com.khayah.app.ui.login;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -30,6 +30,9 @@ import com.facebook.accountkit.ui.LoginType;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.KhayahApp;
+import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.User;
 import com.khayah.app.util.CustomDialog;

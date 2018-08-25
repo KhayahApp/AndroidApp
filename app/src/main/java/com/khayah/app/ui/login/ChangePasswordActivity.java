@@ -1,4 +1,4 @@
-package com.khayah.app;
+package com.khayah.app.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.KhayahApp;
+import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.User;
 import com.khayah.app.util.CustomDialog;

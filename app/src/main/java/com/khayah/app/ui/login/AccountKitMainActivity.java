@@ -41,6 +41,7 @@ import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.khayah.app.LoginActivity;
 import com.khayah.app.R;
 
 
@@ -61,7 +62,6 @@ public class AccountKitMainActivity extends Activity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accountkit_activity_main);
-
 
         if (AccountKit.getCurrentAccessToken() != null && savedInstanceState == null) {
             startActivity(new Intent(this, TokenActivity.class));

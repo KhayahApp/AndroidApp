@@ -31,6 +31,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        tools:replace="android:supportsRtl"
         android:supportsRtl="false"
         android:theme="@style/Khayah">
         <activity android:name=".ui.userlist.UserListActivity">
@@ -46,11 +47,11 @@
             android:name=".ui.login.AccountKitMainActivity"
             android:label="@string/app_name"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".ui.login.TokenActivity"></activity>
         <activity android:name=".ui.login.ErrorActivity"></activity>
@@ -69,8 +70,19 @@
 
         <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
             android:value="false"/>
-        <!--Account Kit  -->
 
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".EditAccountActivity" />
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
     </application>
 
 </manifest>

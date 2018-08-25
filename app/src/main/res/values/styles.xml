@@ -23,4 +23,19 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Button</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- Facebook Account Kit Theme -->
+    <style name="AppLoginTheme" parent="Theme.AccountKit">
+        <item name="com_accountkit_primary_color">@color/theme_primary</item><!--ef0414 -->
+        <item name="com_accountkit_primary_text_color">@android:color/white</item><!--#white -->
+        <item name="com_accountkit_secondary_text_color">@color/app_secondary_text
+        </item><!--#f10910 -->
+        <item name="com_accountkit_status_bar_color">@color/theme_primary_dark</item><!--#e40416 -->
+
+        <item name="com_accountkit_input_accent_color">?attr/com_accountkit_primary_color</item>
+        <item name="com_accountkit_input_border_color">?attr/com_accountkit_primary_color</item>
+    </style>
+
+
 </resources>

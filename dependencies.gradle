@@ -4,7 +4,7 @@
 **/
 ext.deps = [:]
 def versions = [:]
-versions.android_gradle_plugin = "3.0.1"
+versions.android_gradle_plugin = "3.1.4"
 versions.apache_commons = "2.5"
 //versions.arch = hasProperty("ARCH_VERSION") ? getProperty("ARCH_VERSION") : "1.0.0-rc1"
 versions.arch = "1.1.1"

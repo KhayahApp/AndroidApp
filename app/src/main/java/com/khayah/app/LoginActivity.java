@@ -1,9 +1,13 @@
 package com.khayah.app;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +39,8 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -111,6 +117,27 @@ public class LoginActivity extends BaseAppCompatActivity {
                         // App code
                     }
                 });
+
+        printHashKey();
+    }
+
+    // To get SHA1 Hash key for Facebook App ID
+    public void printHashKey() {
+        try {
+            // See SHA1 Hash Key in Log
+            PackageInfo info = getPackageManager().getPackageInfo("com.khayah.app", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.i("FB KEY:","FB HashKey : "+ Base64.encodeToString(md.digest(), Base64.DEFAULT));
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+
+        }
     }
 
     private View.OnClickListener onclick = new View.OnClickListener() {

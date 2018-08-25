@@ -82,6 +82,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EditAccountActivity" />
         <activity android:name=".ChangePasswordActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
     </application>
 
 </manifest>

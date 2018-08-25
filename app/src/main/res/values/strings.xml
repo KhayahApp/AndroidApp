@@ -71,4 +71,12 @@
     <string name="profile">Profile</string>
     <string name="gender">Gender</string>
     <string name="points">Points</string>
+
+
+
+   <string name="lbl_head_1">Khayah lets your friends virtually walk your home.</string>
+  <string name="lbl_head_2">keep an eye on you and senses</string>
+  <string name="lbl_head_3">if something is wrong</string>
+
+
 </resources>

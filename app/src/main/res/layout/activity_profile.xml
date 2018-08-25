@@ -11,7 +11,7 @@
         android:id="@+id/app_view"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/bg_shwe"
+        android:src="@drawable/splash_bg"
         android:scaleType="centerCrop"
         app:diagonalColor="#FFFFFF"
         app:backgroundColor="#00F44336"

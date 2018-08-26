@@ -62,7 +62,6 @@ public class AccountKitMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accountkit_activity_main);
 
-
         if (AccountKit.getCurrentAccessToken() != null && savedInstanceState == null) {
             startActivity(new Intent(this, TokenActivity.class));
         }

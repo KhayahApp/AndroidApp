@@ -36,4 +36,47 @@
   <string name="phone_number_label">Phone Number</string>
   <string name="email_label">Email</string>
   <string name="na">NA</string>
+
+    <string name="login">Login</string>
+    <string name="or">OR</string>
+    <string name="continue_facebook">Continue with Facebook</string>
+    <string name="user_name">Username</string>
+    <string name="phone_no">Phone number</string>
+    <string name="create_account">Create new account</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="name">Name</string>
+    <string name="pls_enter_name">Please enter name</string>
+    <string name="pls_enter_email">Please enter email</string>
+    <string name="pls_enter_password">Please enter password</string>
+    <string name="pls_enter_phone">Please enter phone</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="pls_enter_fname">Please enter first name</string>
+    <string name="pls_enter_lname">Please enter last name</string>
+    <string name="invalid_authenticate">Invalid Authentication</string>
+    <string name="try_again">Try Again</string>
+    <string name="invalid_value">Invalid Value</string>
+    <string name="email_phone">Email (or) Phone number</string>
+    <string name="change_password">Change Password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="pls_enter_new_password">Please enter new password</string>
+    <string name="pls_enter_confirm_password">Please enter confirm password</string>
+    <string name="pls_match_confirm_password">Don\'t match two passwords</string>
+    <string name="profile">Profile</string>
+    <string name="gender">Gender</string>
+    <string name="points">Points</string>
+
+
+
+   <string name="lbl_head_1">Khayah lets your friends virtually walk your home.</string>
+  <string name="lbl_head_2">keep an eye on you and senses</string>
+  <string name="lbl_head_3">if something is wrong</string>
+
+
 </resources>

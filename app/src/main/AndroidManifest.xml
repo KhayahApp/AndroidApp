@@ -35,10 +35,10 @@
         android:supportsRtl="false"
         android:theme="@style/Khayah">
         <activity android:name=".ui.home.SplashActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".ui.userprofile.UserProfileActivity">
         </activity>
@@ -79,6 +79,13 @@
         <activity android:name=".ui.login.EditAccountActivity" />
         <activity android:name=".ui.login.ChangePasswordActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".ui.home.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

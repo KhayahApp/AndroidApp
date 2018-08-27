@@ -39,4 +39,8 @@
     <color name="app_active_icon_inverse">#ffffffff</color> <!-- white 100% -->
     <color name="app_inactive_icon_inverse">#80ffffff</color> <!-- white 50% -->
 
+    <color name="line_color">#c3c3c3</color>
+    <color name="appWhite">#ffffff</color>
+
+
 </resources>

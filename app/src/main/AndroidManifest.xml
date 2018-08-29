@@ -26,6 +26,21 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+
+    <!--
+   The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+        Google Maps Android API v2, but are recommended.
+   -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <permission
+        android:name="com.khayah.app.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.khayah.app.permission.MAPS_RECEIVE" />
+
     <application
         android:name=".KhayahApp"
         android:allowBackup="true"
@@ -34,6 +49,12 @@
         tools:replace="android:supportsRtl"
         android:supportsRtl="false"
         android:theme="@style/Khayah">
+
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDszc5F50iCN7TrxP2jn8KHC6E7_tGo8ok" />
         <activity android:name=".ui.home.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,6 +100,23 @@
         <activity android:name=".ui.login.EditAccountActivity" />
         <activity android:name=".ui.login.ChangePasswordActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
+        <activity android:name=".ui.home.MainActivity">
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
+        <!--<activity android:name=".ui.login.DrawerMainActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+
+        AIzaSyDszc5F50iCN7TrxP2jn8KHC6E7_tGo8ok
+        </activity>-->
+
     </application>
 
 </manifest>

@@ -86,4 +86,9 @@
   <string name="nav_header_desc">Navigation header</string>
 
 
+  <string name="search">Search %1$s</string>
+  <string name="menu_1">Nearby Map</string>
+  <string name="menu_2">Lawer List</string>
+
+
 </resources>

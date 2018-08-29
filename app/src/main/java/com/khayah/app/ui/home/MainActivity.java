@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.khayah.app.R;
 import com.khayah.app.ui.alarm.AlarmMainfragment;
+import com.khayah.app.ui.map.NearbyMapFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //add this line to display menu1 when the activity is loaded
-        displaySelectedScreen(R.id.nav_camera);
+        displaySelectedScreen(R.id.nav_1);
     }
 
     @Override
@@ -123,12 +124,12 @@ public class MainActivity extends AppCompatActivity
 
         //initializing the fragment object which is selected
         switch (itemId) {
-            case R.id.nav_camera:
+            case R.id.nav_1:
                 fragment = new AlarmMainfragment();
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_2:
                 //fragment = new Menu2();
-                //fragment = new NearbyMapFragment();
+                fragment = new NearbyMapFragment();
                 break;
 
         }

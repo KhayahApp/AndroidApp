@@ -32,6 +32,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+
+
 public class AlarmMainfragment extends Fragment implements EasyPermissions.PermissionCallbacks {
     private View view;
     private Context mContext;

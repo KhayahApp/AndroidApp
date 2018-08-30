@@ -16,6 +16,7 @@
 
 package com.khayah.app.di;
 
+import com.khayah.app.ui.home.MainActivity;
 import com.khayah.app.ui.userlist.UserListActivity;
 import com.khayah.app.ui.userprofile.UserProfileActivity;
 
@@ -29,4 +30,7 @@ public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
     abstract UserListActivity contributeUserListActivity();
+
+    @ContributesAndroidInjector
+    abstract MainActivity contributeMainActivity();
 }

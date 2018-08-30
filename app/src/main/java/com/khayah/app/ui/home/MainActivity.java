@@ -15,10 +15,24 @@ import android.view.MenuItem;
 import com.khayah.app.R;
 import com.khayah.app.ui.alarm.AlarmMainfragment;
 import com.khayah.app.ui.map.NearbyMapFragment;
+import com.khayah.app.ui.userlist.UserListFragment;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,HasSupportFragmentInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+
+    @Override
+    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +145,10 @@ public class MainActivity extends AppCompatActivity
                 //fragment = new Menu2();
                 fragment = new NearbyMapFragment();
                 break;
+            case R.id.nav_3:
+                //fragment = new Menu2();
+                fragment =  UserListFragment.newInstance();
+                break;
 
         }
 
@@ -144,4 +162,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+    /*@Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return null;
+    }*/
 }

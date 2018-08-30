@@ -230,9 +230,12 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
     }
     private void gotoCurrentLocation() {
         MarkerOptions options = new MarkerOptions();
-        options.icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_nearby_maps_maker));
+        options.icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_user_icon));
         options.position(currentLatLng);
+
+
         mMap.addMarker(new MarkerOptions().position(currentLatLng).title("You Are Here!"));
+        mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
 
         CameraPosition cameraPosition = CameraPosition.builder()
@@ -299,7 +302,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                         gotoCurrentLocation();
                         mMap.addMarker(new MarkerOptions()
                                 .position(routeTo) //new LatLng(building.getLat(), building.getLng())
-                                .icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_nearby_maps_maker)));
+                                .icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_vector_lawyer_icon)));
 
                         //.icon(bitmapDescriptorFromVector(getActivity(), getMaker(building.getType())))).setTag(building);
                         /*for(Building building: buildings) {

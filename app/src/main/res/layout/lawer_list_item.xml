@@ -73,9 +73,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@android:drawable/star_off"
-                        android:drawablePaddingTop="3dp"
-
-
                         android:paddingBottom="@dimen/spacing_normal"
                         android:text="TextView" />
 

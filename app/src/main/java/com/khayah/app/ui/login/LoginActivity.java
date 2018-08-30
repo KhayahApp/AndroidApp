@@ -35,6 +35,7 @@ import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.User;
+import com.khayah.app.ui.home.MainActivity;
 import com.khayah.app.util.CustomDialog;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -211,7 +212,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                                     }else{
                                         KhayahApp.login(response.body().get(0));
                                         //updateGcmDevice(response.body().get(0));
-                                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                         finish();
                                     }
                                 }
@@ -295,7 +296,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                 if(response.isSuccessful()) {
                     //updateGcmDevice(response.body());
                     KhayahApp.login(response.body());
-                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }else{
                     switch (response.code()) {

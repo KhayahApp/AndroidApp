@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.khayah.app.util.StorageDriver;
+import com.khayah.app.vo.Settings;
 import com.mikepenz.iconics.IconicsDrawable;
 
 
@@ -93,7 +95,7 @@ public class BaseAppCompatActivity extends AppCompatActivity {
         //getResources().updateConfiguration(config, null);
     }
 
-    /*public Settings getSettings(){
+    public Settings getSettings(){
         Settings settings = StorageDriver.getInstance().selectFrom(Constant.settings);
         if(settings != null){
             return settings;
@@ -101,7 +103,7 @@ public class BaseAppCompatActivity extends AppCompatActivity {
         Settings setting = new Settings();
         setting.save();
         return setting;
-    }*/
+    }
 
     public boolean isNetworkAvailable(){
         boolean status = false;

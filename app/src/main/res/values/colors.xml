@@ -6,6 +6,9 @@
     <color name="theme_accent">#9D45D6</color>
     <color name="theme_accent_dark">#C13091</color>
 
+    <color name="theme_primary_light">#80E633A2</color>
+
+
     <!-- App Color Palette -->
     <color name="app_blue">#3f51b5</color>
     <color name="app_dark_blue">#303f9f</color>
@@ -38,5 +41,11 @@
     <!-- App Icon Colors (Light icons) -->
     <color name="app_active_icon_inverse">#ffffffff</color> <!-- white 100% -->
     <color name="app_inactive_icon_inverse">#80ffffff</color> <!-- white 50% -->
+
+    <color name="line_color">#c3c3c3</color>
+    <color name="appWhite">#ffffff</color>
+
+    <color name="list_bg">#E8E8E8</color>
+
 
 </resources>

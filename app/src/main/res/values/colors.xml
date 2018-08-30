@@ -45,5 +45,7 @@
     <color name="line_color">#c3c3c3</color>
     <color name="appWhite">#ffffff</color>
 
+    <color name="list_bg">#E8E8E8</color>
+
 
 </resources>

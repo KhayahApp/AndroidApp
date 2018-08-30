@@ -142,7 +142,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setZoomControlsEnabled(true);
             if (mMap != null) {
-                Toast.makeText(getActivity(), "Map not null case", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Map not null case", Toast.LENGTH_LONG).show();
 
 
             }

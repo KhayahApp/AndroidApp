@@ -113,6 +113,9 @@ public class DrawerMainActivity extends BaseAppCompatActivity
         TextView accountName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_name);
         TextView accountEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_email);
 
+
+
+
         // Check already login
         /*if (BaseApplication.isLogin()) {
             User user = (User) BaseApplication.getUser();

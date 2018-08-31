@@ -128,6 +128,7 @@ dependencies {
     implementation deps.glide
     implementation deps.timber
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor deps.dagger.android_support_compiler
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.room.compiler
@@ -156,7 +157,7 @@ dependencies {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
 
-    implementation ('com.facebook.android:audience-network-sdk:4.28.0',{
+    implementation('com.facebook.android:audience-network-sdk:4.28.0', {
         exclude group: 'com.google.android.gms'
     })
 
@@ -180,7 +181,6 @@ dependencies {
     //Material Search View
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
-
     //Google Map
     implementation deps.google_play_map_service
     implementation 'com.google.firebase:firebase-core:16.0.3'//For google map
@@ -192,14 +192,14 @@ dependencies {
     implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     implementation 'com.squareup.okhttp:okhttp:2.4.0'
 
+    //Firebase Messaging
+    implementation 'com.google.firebase:firebase-iid:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.0'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    implementation 'com.google.firebase:firebase-analytics:16.0.3'
 
 
 }
 
 apply plugin: 'com.google.gms.google-services'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
-
-
-
-
-

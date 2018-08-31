@@ -10,7 +10,6 @@
   <string name="client_token">01cd96b7acb13d2c175fb0d3c4550ea9</string>
 
 
-
   <string name="FACEBOOK_APP_ID">1898543293538419</string>
   <string name="ACCOUNT_KIT_CLIENT_TOKEN">01cd96b7acb13d2c175fb0d3c4550ea9</string>
 
@@ -73,8 +72,7 @@
     <string name="points">Points</string>
 
 
-
-   <string name="lbl_head_1">Khayah lets your friends virtually walk your home.</string>
+  <string name="lbl_head_1">Khayah lets your friends virtually walk your home.</string>
   <string name="lbl_head_2">keep an eye on you and senses</string>
   <string name="lbl_head_3">if something is wrong</string>
   <string name="rationale_all_permissions">We would like to request your permission for our app function .</string>
@@ -89,6 +87,13 @@
   <string name="search">Search %1$s</string>
   <string name="menu_1">Nearby Map</string>
   <string name="menu_2">Lawer List</string>
+
+  <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+  <string name="default_notification_channel_name" translatable="true">News</string>
+  <string name="notifications_admin_channel_name">Global channel</string>
+  <string name="notifications_admin_channel_description">Notifications sent from the app admin</string>
+  <string name="noti_title">Khayah</string>
+  <string name="noti_text">Khayah</string>
 
 
 </resources>

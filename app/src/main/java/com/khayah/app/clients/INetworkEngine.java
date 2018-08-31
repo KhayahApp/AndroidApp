@@ -1,6 +1,7 @@
 package com.khayah.app.clients;
 
 
+import com.khayah.app.models.Lawer;
 import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
 import com.khayah.app.models.User;
@@ -46,5 +47,8 @@ public interface INetworkEngine {
 
     @GET("/api/{model}/total")
     Call<Integer> getTotal(@Path("model") String model, @Query("search") String search);
+
+    @GET("/api/lawer")
+    Call<List<Lawer>> getLawers(@Query("page") Integer page, @Query("rows") Integer rows);
 
 }

@@ -1,5 +1,6 @@
 package com.khayah.app.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.khayah.app.Constant;
 import com.khayah.app.R;
 import com.khayah.app.ui.alarm.AlarmMainfragment;
+import com.khayah.app.ui.lawer.LawerActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
 import com.khayah.app.ui.userlist.UserListFragment;
 
@@ -28,6 +33,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+
+    /**
+     * The {@code FirebaseAnalytics} used to record screen views.
+     */
+    // [START declare_analytics]
+    private FirebaseAnalytics mFirebaseAnalytics;
+    // [END declare_analytics]
 
     @Override
     public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
@@ -49,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setAction("Action", null).show();
             }
         });*/
+
+        // [START subscribe_topics]
+        FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_ALL);
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -147,7 +164,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_3:
                 //fragment = new Menu2();
-                fragment =  UserListFragment.newInstance();
+                //fragment =  UserListFragment.newInstance();
+                startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
 
         }

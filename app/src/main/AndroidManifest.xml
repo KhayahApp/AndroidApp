@@ -12,9 +12,9 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <!--Permission: Writing to SDCard-->
+    <!-- Permission: Writing to SDCard -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--Permission: Read to SDCard-->
+    <!-- Permission: Read to SDCard -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -25,11 +25,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-
     <!--
    The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
         Google Maps Android API v2, but are recommended.
-   -->
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -45,10 +44,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        tools:replace="android:supportsRtl"
         android:supportsRtl="false"
-        android:theme="@style/Khayah">
-
+        android:theme="@style/Khayah"
+        tools:replace="android:supportsRtl">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_icon" />
@@ -89,45 +87,47 @@
             android:value="@string/default_notification_channel_id" />
         <!-- [END fcm_default_channel] -->
 
-        <!--Permission: For Google Map-->
+
+        <!-- Permission: For Google Map -->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDszc5F50iCN7TrxP2jn8KHC6E7_tGo8ok" />
+
         <activity android:name=".ui.home.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.userprofile.UserProfileActivity"></activity>
+        <activity
+            android:name=".ui.userlist.UserListActivity"
+            android:label="@string/app_name">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
-        <activity android:name=".ui.userprofile.UserProfileActivity">
-        </activity>
-
-        <activity
-            android:name=".ui.userlist.UserListActivity"
-            android:label="@string/app_name"
-
-            >
-          <!--  <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-        <!--Account Kit  -->
+        <!-- Account Kit -->
         <activity
             android:name=".ui.login.AccountKitMainActivity"
-            android:label="@string/app_name"
-            >
+            android:label="@string/app_name"></activity>
+        <activity android:name=".ui.login.TokenActivity" />
+        <activity android:name=".ui.login.ErrorActivity" />
 
-        </activity>
-        <activity android:name=".ui.login.TokenActivity"></activity>
-        <activity android:name=".ui.login.ErrorActivity"></activity>
-
-        <meta-data android:name="com.facebook.accountkit.ApplicationName"
+        <meta-data
+            android:name="com.facebook.accountkit.ApplicationName"
             android:value="@string/app_name" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/FACEBOOK_APP_ID" />
-        <meta-data android:name="com.facebook.accountkit.ClientToken"
+        <meta-data
+            android:name="com.facebook.accountkit.ClientToken"
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
         <activity
@@ -135,31 +135,37 @@
             android:theme="@style/AppLoginTheme"
             tools:replace="android:theme" />
 
-        <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
-            android:value="false"/>
+        <meta-data
+            android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
+            android:value="false" />
 
-        <activity android:name=".ui.login.LoginActivity">
-        </activity>
+        <activity android:name=".ui.login.LoginActivity"></activity>
         <activity android:name=".ui.login.RegisterActivity" />
         <activity android:name=".ui.login.ProfileActivity" />
         <activity android:name=".ui.login.EditAccountActivity" />
         <activity android:name=".ui.login.ChangePasswordActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".ui.home.MainActivity">
-           <!-- <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
         </activity>
-        <!--<activity android:name=".ui.login.DrawerMainActivity">
+        <!--
+        <activity android:name=".ui.login.DrawerMainActivity">
              <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
 
         AIzaSyDszc5F50iCN7TrxP2jn8KHC6E7_tGo8ok
-        </activity>-->
+        </activity>
+        -->
+        <activity android:name=".ui.lawer.LawerActivity"></activity>
     </application>
 
 </manifest>

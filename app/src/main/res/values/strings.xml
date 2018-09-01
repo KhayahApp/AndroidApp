@@ -79,8 +79,8 @@
 
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
-  <string name="nav_header_title">Khin Sandar</string>
-  <string name="nav_header_subtitle">Myanmar</string>
+  <string name="nav_header_title">Hello, Guest</string>
+  <string name="nav_header_subtitle">Please login your account</string>
   <string name="nav_header_desc">Navigation header</string>
 
 
@@ -94,6 +94,7 @@
   <string name="notifications_admin_channel_description">Notifications sent from the app admin</string>
   <string name="noti_title">Khayah</string>
   <string name="noti_text">Khayah</string>
+  <string name="action_logout">Logout</string>
 
 
 </resources>

@@ -188,11 +188,12 @@ dependencies {
     //Google Map route
     implementation 'com.github.jd-alexander:library:1.1.0'
     implementation 'com.squareup.retrofit:retrofit:2.0.0-beta2'
-    implementation 'com.google.code.gson:gson:1.7.2'
+    implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     implementation 'com.squareup.okhttp:okhttp:2.4.0'
 
     //Firebase Messaging
+    implementation 'com.google.android.gms:play-services:11.6.2'
     implementation 'com.google.firebase:firebase-iid:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
@@ -201,5 +202,5 @@ dependencies {
 
 }
 
-apply plugin: 'com.google.gms.google-services'
-com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
+//apply plugin: 'com.google.gms.google-services'
+//com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

@@ -6,15 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.accountkit.AccountKit;
+import com.facebook.login.LoginManager;
 import com.khayah.app.APIToolz;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.ui.home.MainActivity;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
@@ -170,6 +175,38 @@ public class ProfileActivity extends BaseAppCompatActivity {
             }
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            if (KhayahApp.isLogin()) {
+                LoginManager.getInstance().logOut();
+                AccountKit.logOut();
+                KhayahApp.logout();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                closeAllActivities();
+            } else {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Nullable
     @Override

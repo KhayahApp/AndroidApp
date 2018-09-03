@@ -12,15 +12,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.khayah.app.APIToolz;
 import com.khayah.app.Constant;
+import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.ui.add_user.TruestedUserListDialogFragment;
 import com.khayah.app.ui.alarm.AlarmMainfragment;
 import com.khayah.app.ui.lawer.LawerActivity;
+import com.khayah.app.ui.login.LoginActivity;
+import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
 import com.khayah.app.ui.userlist.UserListFragment;
+import com.khayah.app.util.CircleTransform;
+import com.khayah.app.vo.User;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -75,6 +87,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        LinearLayout accountHeader = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.layout_header);
+        ImageView accountImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.img_user);
+        TextView accountName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_name);
+        TextView accountEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_email);
+        // Check already login
+        if (KhayahApp.isLogin()) {
+            com.khayah.app.models.User user = (com.khayah.app.models.User) KhayahApp.getUser();
+            Picasso.with(this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
+                    +"/uploads/users/"+user.getAvatar()
+                    : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
+                    .transform(new CircleTransform()).into(accountImage);
+            accountName.setText(user.getFirstName() + " " + user.getLastName());
+            accountEmail.setText(user.getEmail());
+            accountHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+
+                }
+            });
+
+        } else {
+            Picasso.with(this).load(R.drawable.boy).transform(new CircleTransform()).into(accountImage);
+            accountHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
+            });
+        }
+
 
         //add this line to display menu1 when the activity is loaded
         displaySelectedScreen(R.id.nav_1);
@@ -166,6 +211,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
+                break;
+            case R.id.nav_6:
+                fragment = new AlarmMainfragment();
                 break;
 
         }

@@ -45,7 +45,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService  {
 
     @Override
     public void onCreate() {
-        AndroidInjection.inject(this);
+        //AndroidInjection.inject(this);
         super.onCreate();
     }
 

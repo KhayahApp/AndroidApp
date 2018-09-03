@@ -54,6 +54,8 @@
     <item name="aspect_3_2" format="float" type="dimen">1.5</item>
     <item name="aspect_2_3" format="float" type="dimen">0.6667</item>
     <item name="aspect_1_1" format="float" type="dimen">1</item>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 
 
 </resources>

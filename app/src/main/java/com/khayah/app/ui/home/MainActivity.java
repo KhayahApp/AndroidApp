@@ -23,7 +23,9 @@ import com.khayah.app.APIToolz;
 import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.ui.add_user.CircleListActivity;
 import com.khayah.app.ui.add_user.TruestedUserListDialogFragment;
+import com.khayah.app.ui.add_user.TrustedUserFragment;
 import com.khayah.app.ui.alarm.AlarmMainfragment;
 import com.khayah.app.ui.lawer.LawerActivity;
 import com.khayah.app.ui.login.LoginActivity;
@@ -201,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_1:
-                fragment = new AlarmMainfragment();
+                fragment = new TrustedUserFragment();
                 break;
             case R.id.nav_2:
                 //fragment = new Menu2();
@@ -211,6 +213,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
+                break;
+            case R.id.nav_4:
+                //fragment = new Menu2();
+                //fragment =  UserListFragment.newInstance();
+                startActivity(new Intent(getApplicationContext(), CircleListActivity.class));
                 break;
             case R.id.nav_6:
                 fragment = new AlarmMainfragment();

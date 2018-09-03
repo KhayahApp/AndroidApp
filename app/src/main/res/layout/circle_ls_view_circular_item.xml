@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/item_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_oval_white"
+        android:padding="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_double"
+        android:src="@drawable/boy" />
+
+    <TextView
+        android:id="@+id/bt_item"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/circle_ls_ripple_circle_bg"
+        android:text="Name"
+        android:layout_gravity="center_horizontal"
+        android:gravity="bottom" />
+
+    <!--<Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:text="Button" />-->
+
+</FrameLayout>

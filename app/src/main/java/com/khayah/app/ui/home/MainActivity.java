@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         } else {
-            Picasso.with(this).load(R.drawable.boy).transform(new CircleTransform()).into(accountImage);
+            Picasso.with(this).load(R.drawable.girl).transform(new CircleTransform()).into(accountImage);
             accountHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

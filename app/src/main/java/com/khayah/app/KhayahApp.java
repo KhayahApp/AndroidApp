@@ -3,6 +3,7 @@ package com.khayah.app;
 import android.app.Activity;
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
 import com.khayah.app.di.AppInjector;
 import com.khayah.app.util.StorageDriver;
 
@@ -23,6 +24,7 @@ public class KhayahApp extends Application implements HasActivityInjector {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
+
         AppInjector.init(this);
         APIToolz apiToolz = APIToolz.getInstance();
         apiToolz.setClientId(3);

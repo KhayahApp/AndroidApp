@@ -185,6 +185,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         user.setPassword(edtPassword.getText().toString());
         user.setPasswordConfirmation(edtPassword.getText().toString());
         user.setPhone(verifyPhoneNumber);
+        user.setAvatar("girl.png");
         user.setGender(rdoGender.getCheckedRadioButtonId() == R.id.rdo_male ? "male" : "female");
 
         NetworkEngine.getInstance().register(user).enqueue(new Callback<String>() {
@@ -285,6 +286,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
                 if(response.isSuccessful()) {
                     updateGcmDevice(response.body());
                     KhayahApp.login(response.body());
+                    closeAllActivities();
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 }else{
                     switch (response.code()) {

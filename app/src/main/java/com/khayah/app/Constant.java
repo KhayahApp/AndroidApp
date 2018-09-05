@@ -16,4 +16,12 @@ public class Constant {
     public static String FCM_COMMOM_TOPIC_FOR_MEN = "Khayah_men";
     public static String FCM_COMMOM_TOPIC_FOR_LGBT = "Khayah_lgbt";
     public static String FCM_COMMOM_TOPIC_FOR_ = "Khayah";
+
+
+    // Activity Request Codes
+    public static final int RC_NEW_THREAD = 1;
+    public static final int RC_NEW_THREAD_CAPTURE_IMAGE = 2;
+    public static final int RC_NEW_THREAD_PICK_IMAGE = 3;
+    public static final int RC_THREAD_COMMENT_CAPTURE_IMAGE = 4;
+    public static final int RC_THREAD_COMMENT_PICK_IMAGE = 5;
 }

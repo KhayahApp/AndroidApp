@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:orientation="vertical"
+    >
 
-    <com.mikepenz.iconics.view.IconicsImageView
+    <!--<com.mikepenz.iconics.view.IconicsImageView
         android:id="@+id/item_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -16,18 +17,63 @@
 
     <TextView
         android:id="@+id/bt_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_label_bg"
+        android:text="Name"
+        android:gravity="bottom" />-->
+
+        <!--<com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/item_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/boy"
+            android:visibility="visible"
+            app:riv_border_color="#333333"
+            app:riv_border_width="0dip"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"></com.makeramen.roundedimageview.RoundedImageView>
+
+        <TextView
+            android:id="@+id/bt_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:gravity="center"
+            android:text="20"
+            android:background="@drawable/rounded_textview"
+            android:textColor="@color/white" />-->
+    <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/circle_ls_ripple_circle_bg"
-        android:text="Name"
-        android:layout_gravity="center_horizontal"
-        android:gravity="bottom" />
-
-    <!--<Button
-        android:id="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/boy"
+        android:visibility="visible"
+        app:riv_border_color="#333333"
+        app:riv_border_width="0dip"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"/>
+    <TextView
+        android:id="@+id/bt_item"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom"
-        android:text="Button" />-->
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:gravity="bottom"
+        android:text="20"
+        android:layout_marginTop="2dp"
+        android:padding="3dp"
+        android:background="@drawable/rounded_textview"
+        android:textColor="@color/white" />
 
-</FrameLayout>
+
+</LinearLayout>

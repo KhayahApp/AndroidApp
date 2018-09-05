@@ -203,6 +203,16 @@ dependencies {
 
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
+    //Photo and Video Upload
+    implementation 'com.zhihu.android:matisse:0.4.3'
+    //Horizontal recyclerView
+    implementation 'com.github.takusemba:multisnaprecyclerview:1.2.0'
+    //Rounded ImageView
+    compile 'com.makeramen:roundedimageview:2.3.0'
+
+
+
+
 
 
 }

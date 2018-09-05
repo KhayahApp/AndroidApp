@@ -14,6 +14,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.jh.circularlist.CircularAdapter;
 import com.khayah.app.R;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -85,7 +86,7 @@ public class TrustedUserFragment extends Fragment {
         // simple text item with numbers 0 ~ 9
         ArrayList<String> itemTitles = new ArrayList<>();
         for(int i = 0 ; i < 6 ; i ++){
-            itemTitles.add(String.valueOf(i));
+            itemTitles.add(String.valueOf(i)+"khin_sandar");
         }
 
 
@@ -189,7 +190,7 @@ public class TrustedUserFragment extends Fragment {
             for(final String s : mItems){
                 View view = mInflater.inflate(R.layout.circle_ls_view_circular_item, null);
                 TextView itemView = (TextView) view.findViewById(R.id.bt_item);
-                IconicsImageView imgView = (IconicsImageView) view.findViewById(R.id.item_icon);
+                RoundedImageView imgView = (RoundedImageView) view.findViewById(R.id.item_icon);
 
                 itemView.setText(s);
                 //imgView.setImageDrawable(R.drawable.ic_vector_lawyer_icon);
@@ -197,7 +198,7 @@ public class TrustedUserFragment extends Fragment {
 
                 Picasso.Builder builder = new Picasso.Builder(mContext);
                 builder.downloader(new OkHttpDownloader(mContext));
-                builder.build().load("https://greenwaymyanmar.com/uploads/avatars/1526990999_5b040897e3804.png")//dataList.get(position).getThumbnailUrl()
+                builder.build().load("https://img1.ak.crunchyroll.com/i/spire2/3aa39968e298c5c67151f526752194391524767340_large.jpg")//dataList.get(position).getThumbnailUrl()
                         .placeholder((R.drawable.boy))
                         .error(R.drawable.ic_vector_lawyer_icon)
                         .into(imgView);

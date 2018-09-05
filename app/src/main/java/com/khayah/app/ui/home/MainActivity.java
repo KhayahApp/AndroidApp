@@ -31,6 +31,7 @@ import com.khayah.app.ui.lawer.LawerActivity;
 import com.khayah.app.ui.login.LoginActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
+import com.khayah.app.ui.menu_record.RecordFragment;
 import com.khayah.app.ui.userlist.UserListFragment;
 import com.khayah.app.util.CircleTransform;
 import com.khayah.app.vo.User;
@@ -218,6 +219,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
                 startActivity(new Intent(getApplicationContext(), CircleListActivity.class));
+                break;
+            case R.id.nav_5:
+                //fragment = new Menu2();
+                //fragment =  UserListFragment.newInstance();
+                fragment = new RecordFragment();
                 break;
             case R.id.nav_6:
                 fragment = new AlarmMainfragment();

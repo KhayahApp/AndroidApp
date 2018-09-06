@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -288,6 +289,11 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                     public void onRoutingFailure(RouteException e) {
                         //showLoading(false);
                         Toast.makeText(mContext, "This routing is not available.", Toast.LENGTH_LONG).show();
+                        Log.e("Routing error0","0===>" +e.getMessage());
+                        Log.e("Routing error1","1===>" +e.getStatusCode());
+                        Log.e("Routing error2","2===>" +e.toString());
+
+
                     }
 
                     @Override

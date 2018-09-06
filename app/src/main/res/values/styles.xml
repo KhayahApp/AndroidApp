@@ -37,5 +37,9 @@
         <item name="com_accountkit_input_border_color">?attr/com_accountkit_primary_color</item>
     </style>
 
+    <style name="fa_menu_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 </resources>

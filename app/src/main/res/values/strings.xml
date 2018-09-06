@@ -100,17 +100,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
     <string name="menu_circle_trust">Circle of Trust</string>
     <string name="menu_map">Map</string>
     <string name="menu_record">Record</string>
     <string name="menu_directory">Directory</string>
     <string name="menu_fake_call">Fake Call</string>
     <string name="menu_setting">Setting</string>
-
-
-
-
 
 
 </resources>

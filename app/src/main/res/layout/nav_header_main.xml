@@ -14,6 +14,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.makeramen.roundedimageview.RoundedImageView
+
         android:id="@+id/img_user"
         android:layout_width="72dp"
         android:layout_height="72dp"

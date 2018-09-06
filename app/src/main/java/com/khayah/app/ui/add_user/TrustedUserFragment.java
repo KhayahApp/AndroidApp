@@ -114,7 +114,7 @@ public class TrustedUserFragment extends Fragment {
 
                 View view_b = getLayoutInflater().inflate(R.layout.circle_ls_view_circular_item, null);
                 TextView itemView = (TextView) view_b.findViewById(R.id.bt_item);
-                itemView.setText(String.valueOf(adapter.getCount() + 1));
+                itemView.setText(String.valueOf(adapter.getCount() + 1 ) + "new_user");
                 adapter.addItem(view_b);
             }
         });

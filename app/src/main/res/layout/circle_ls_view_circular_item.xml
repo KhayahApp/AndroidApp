@@ -56,7 +56,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@drawable/boy"
+        android:src="@drawable/girl"
         android:visibility="visible"
         app:riv_border_color="#333333"
         app:riv_border_width="0dip"

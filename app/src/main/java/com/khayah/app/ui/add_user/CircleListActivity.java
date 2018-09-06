@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.jh.circularlist.CircularAdapter;
 import com.jh.circularlist.CircularListView;
 import com.khayah.app.R;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -117,7 +118,7 @@ public class CircleListActivity extends AppCompatActivity {
             for(final String s : mItems){
                 View view = mInflater.inflate(R.layout.circle_ls_view_circular_item, null);
                 TextView itemView = (TextView) view.findViewById(R.id.bt_item);
-                IconicsImageView imgView = (IconicsImageView) view.findViewById(R.id.item_icon);
+                RoundedImageView imgView = (RoundedImageView) view.findViewById(R.id.item_icon);
 
                 itemView.setText(s);
                 //imgView.setImageDrawable(R.drawable.ic_vector_lawyer_icon);

@@ -35,6 +35,7 @@ import com.khayah.app.ui.menu_record.RecordFragment;
 import com.khayah.app.ui.userlist.UserListFragment;
 import com.khayah.app.util.CircleTransform;
 import com.khayah.app.vo.User;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         LinearLayout accountHeader = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.layout_header);
-        ImageView accountImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.img_user);
+        RoundedImageView accountImage = (RoundedImageView) navigationView.getHeaderView(0).findViewById(R.id.img_user);
         TextView accountName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_name);
         TextView accountEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_email);
         // Check already login
@@ -213,17 +214,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_3:
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
-                startActivity(new Intent(getApplicationContext(), LawerActivity.class));
+                fragment = new RecordFragment();
                 break;
             case R.id.nav_4:
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
-                startActivity(new Intent(getApplicationContext(), CircleListActivity.class));
+                startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
             case R.id.nav_5:
                 //fragment = new Menu2();
-                //fragment =  UserListFragment.newInstance();
-                fragment = new RecordFragment();
+                //fragment =  UserListFragment.newInstance(); Fake call
+
                 break;
             case R.id.nav_6:
                 fragment = new AlarmMainfragment();

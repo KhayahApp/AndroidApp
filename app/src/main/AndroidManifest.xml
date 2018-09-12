@@ -44,9 +44,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="false"
         android:theme="@style/Khayah"
-        tools:replace="android:supportsRtl">
+        tools:replace="android:icon,android:label">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_icon" />

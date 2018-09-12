@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -85,8 +86,8 @@ public class TrustedUserFragment extends Fragment {
 
         // simple text item with numbers 0 ~ 9
         ArrayList<String> itemTitles = new ArrayList<>();
-        for(int i = 0 ; i < 6 ; i ++){
-            itemTitles.add(String.valueOf(i)+"khin_sandar");
+        for (int i = 0; i < 6; i++) {
+            itemTitles.add(String.valueOf(i) + "khin_sandar");
         }
 
 
@@ -101,6 +102,11 @@ public class TrustedUserFragment extends Fragment {
                 Toast.makeText(mContext,
                         "view at index " + i + " is clicked!",
                         Toast.LENGTH_SHORT).show();
+
+                if (i == 1) {
+
+
+                }
             }
         });
 
@@ -114,7 +120,7 @@ public class TrustedUserFragment extends Fragment {
 
                 View view_b = getLayoutInflater().inflate(R.layout.circle_ls_view_circular_item, null);
                 TextView itemView = (TextView) view_b.findViewById(R.id.bt_item);
-                itemView.setText(String.valueOf(adapter.getCount() + 1 ) + "new_user");
+                itemView.setText(String.valueOf(adapter.getCount() + 1) + "new_user");
                 adapter.addItem(view_b);
             }
         });
@@ -182,12 +188,12 @@ public class TrustedUserFragment extends Fragment {
         private LayoutInflater mInflater;
         private ArrayList<View> mItemViews;
 
-        public CircularItemAdapter(LayoutInflater inflater, ArrayList<String> items){
+        public CircularItemAdapter(LayoutInflater inflater, ArrayList<String> items) {
             this.mItemViews = new ArrayList<>();
             this.mItems = items;
             this.mInflater = inflater;
 
-            for(final String s : mItems){
+            for (final String s : mItems) {
                 View view = mInflater.inflate(R.layout.circle_ls_view_circular_item, null);
                 TextView itemView = (TextView) view.findViewById(R.id.bt_item);
                 RoundedImageView imgView = (RoundedImageView) view.findViewById(R.id.item_icon);
@@ -223,7 +229,7 @@ public class TrustedUserFragment extends Fragment {
 
         @Override
         public void removeItemAt(int i) {
-            if(mItemViews.size() > 0) {
+            if (mItemViews.size() > 0) {
                 mItemViews.remove(i);
                 notifyItemChange();
             }

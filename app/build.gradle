@@ -214,7 +214,7 @@ dependencies {
     implementation 'com.github.takusemba:multisnaprecyclerview:1.2.0'
     //Rounded ImageView
     compile 'com.makeramen:roundedimageview:2.3.0'
-
+    //https://github.com/afollestad/material-dialogs
 
 
 }

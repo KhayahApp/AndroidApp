@@ -29,6 +29,7 @@ import com.khayah.app.ui.add_user.TrustedUserFragment;
 import com.khayah.app.models.User;
 import com.khayah.app.ui.alarm.AlarmMainfragment;
 import com.khayah.app.ui.lawer.LawerActivity;
+import com.khayah.app.ui.lawer.LawerListFragment;
 import com.khayah.app.ui.login.LoginActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
@@ -225,7 +226,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_4:
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
-                startActivity(new Intent(getApplicationContext(), LawerActivity.class));
+                fragment = new LawerListFragment();
+                //startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
             case R.id.nav_5:
                 //fragment = new Menu2();

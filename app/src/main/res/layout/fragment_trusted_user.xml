@@ -6,61 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".ui.add_user.TrustedUserFragment">
 
-    <RelativeLayout
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.MultiplePulse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        app:SpinKit_Color="@color/theme_primary" />
+    <com.jh.circularlist.CircularListView
+        android:layout_centerInParent="true"
+
+        android:id="@+id/my_circular_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|center"
+        android:background="@drawable/circle_of_trust_bg"
+        />
+
+    <!--<RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <com.jh.circularlist.CircularListView
-            android:layout_centerInParent="true"
-            android:id="@+id/my_circular_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:background="@drawable/circle_of_trust_bg"
-            />
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/multiple_actions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            fab:fab_expandDirection="down"
-            fab:fab_addButtonColorNormal="@color/theme_accent"
-            fab:fab_addButtonColorPressed="@color/pink_pressed"
-            fab:fab_addButtonPlusIconColor="@color/colorPrimary"
-            fab:fab_labelStyle="@style/fa_menu_labels_style"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp">
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_a"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_title="Add User"
-                fab:fab_icon="@drawable/ic_vector_lawyer_icon"
-                fab:fab_colorPressed="@color/pink_pressed"/>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_b"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_icon="@drawable/ic_vector_police"
-                fab:fab_title="Remove User"
-                fab:fab_colorPressed="@color/pink_pressed"/>
-
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
-        <!--<com.getbase.floatingactionbutton.FloatingActionButton
+        &lt;!&ndash;<com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/setter_drawable"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"/>-->
-    </RelativeLayout>
+            android:layout_centerHorizontal="true"/>&ndash;&gt;
+    </RelativeLayout>-->
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_addButtonColorNormal="@color/theme_accent"
+            fab:fab_addButtonColorPressed="@color/theme_primary"
+            fab:fab_addButtonPlusIconColor="@color/white"
+            fab:fab_expandDirection="right"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            >
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/theme_primary"
+                fab:fab_colorPressed="@color/pink_pressed"
+                fab:fab_icon="@drawable/ic_remove_user"
+                fab:fab_size="mini"
+
+                fab:fab_title="Remove User" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/theme_primary"
+                fab:fab_colorPressed="@color/theme_primary"
+                fab:fab_icon="@drawable/ic_add_user"
+
+                fab:fab_title="Add User" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </LinearLayout>
 
 
 </FrameLayout>

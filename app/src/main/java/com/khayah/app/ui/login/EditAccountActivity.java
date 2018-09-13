@@ -112,10 +112,10 @@ public class EditAccountActivity extends BaseAppCompatActivity {
             edtLName.setError(getResources().getString(R.string.pls_enter_lname));
             return false;
         }
-        if(edtEmail.getText().length() == 0) {
+        /*if(edtEmail.getText().length() == 0) {
             edtEmail.setError(getResources().getString(R.string.pls_enter_email));
             return false;
-        }
+        }*/
         if(edtPhoneNumber.getText().length() == 0) {
             edtPhoneNumber.setError(getResources().getString(R.string.pls_enter_phone));
             return false;
@@ -172,7 +172,7 @@ public class EditAccountActivity extends BaseAppCompatActivity {
         user.setFirstName(edtFName.getText().toString());
         user.setLastName(edtLName.getText().toString());
         user.setUsername(edtFName.getText().toString().toLowerCase()+edtLName.getText().toString().toLowerCase());
-        user.setEmail(edtEmail.getText().toString());
+        user.setEmail("default@gmail.com");//edtEmail.getText().toString()
         user.setPhone(verifyPhoneNumber);
         user.setGender(rdoGender.getCheckedRadioButtonId() == R.id.rdo_male ? "male" : "female");
 

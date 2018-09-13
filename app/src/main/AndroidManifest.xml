@@ -33,6 +33,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+
     <permission
         android:name="com.khayah.app.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -144,16 +147,12 @@
         <activity android:name=".ui.login.EditAccountActivity" />
         <activity android:name=".ui.login.ChangePasswordActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-        <activity android:name=".ui.home.MainActivity">
+        <activity android:name=".ui.home.MainActivity" />
+        <activity android:name=".ui.settings.SettingsActivity"
+            />
+        <activity android:name=".ui.settings.LanguageActivity" />
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
 
-        </activity>
         <!--
         <activity android:name=".ui.login.DrawerMainActivity">
              <intent-filter>

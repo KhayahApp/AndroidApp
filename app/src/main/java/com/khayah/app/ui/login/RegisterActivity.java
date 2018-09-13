@@ -99,10 +99,10 @@ public class RegisterActivity extends BaseAppCompatActivity {
             edtLName.setError(getResources().getString(R.string.pls_enter_lname));
             return false;
         }
-        if(edtEmail.getText().length() == 0) {
+        /*if(edtEmail.getText().length() == 0) {
             edtEmail.setError(getResources().getString(R.string.pls_enter_email));
             return false;
-        }
+        }*/
         if(edtPassword.getText().length() == 0) {
             edtPassword.setError(getResources().getString(R.string.pls_enter_password));
             return false;
@@ -181,7 +181,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         user.setFirstName(edtFName.getText().toString());
         user.setLastName(edtLName.getText().toString());
         user.setUsername(edtFName.getText().toString().toLowerCase()+edtLName.getText().toString().toLowerCase());
-        user.setEmail(edtEmail.getText().toString());
+        user.setEmail("default@gmail.com");//edtEmail.getText().toString()
         user.setPassword(edtPassword.getText().toString());
         user.setPasswordConfirmation(edtPassword.getText().toString());
         user.setPhone(verifyPhoneNumber);

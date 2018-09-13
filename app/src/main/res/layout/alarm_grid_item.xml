@@ -43,7 +43,7 @@
                 android:visibility="gone" />
 
 
-            <TextView
+            <com.khayah.app.ui.widget.CustomTextView
                 android:id="@+id/txt_cate_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:id="@+id/uri"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         tools:text="content://media/external/images/media/12345"
         tools:textColor="@android:color/black" />
 
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:id="@+id/path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

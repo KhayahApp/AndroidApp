@@ -57,10 +57,10 @@ public class CircularListView extends RelativeLayout implements CircularAdapter.
             public void run() {
                 Log.e("CircularListView", "get layout width and height");
                 layoutWidth = getWidth();
-                layoutHeight = getHeight();
-                layoutCenter_x = layoutWidth / 2;
-                layoutCenter_y = layoutHeight / 2;
-                radius = layoutWidth / 3;
+                layoutHeight = 500;// getHeight();
+                layoutCenter_x = layoutWidth / 2;//2
+                layoutCenter_y = layoutHeight / 2;//2
+                radius = layoutWidth / 3;//3
             }
         });
 

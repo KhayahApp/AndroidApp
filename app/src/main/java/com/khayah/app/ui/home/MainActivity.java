@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.khayah.app.APIToolz;
+import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
@@ -34,6 +35,7 @@ import com.khayah.app.ui.login.LoginActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
 import com.khayah.app.ui.menu_record.RecordFragment;
+import com.khayah.app.ui.settings.SettingsActivity;
 import com.khayah.app.ui.userlist.UserListFragment;
 import com.khayah.app.util.CircleTransform;
 //import com.khayah.app.vo.User;
@@ -47,7 +49,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
+public class MainActivity extends BaseAppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
@@ -130,11 +132,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
         }
 
-
+        changeFontStyle(navigationView.getMenu());
         //add this line to display menu1 when the activity is loaded
         displaySelectedScreen(R.id.nav_1);
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -235,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.nav_6:
-                fragment = new AlarmMainfragment();
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 break;
 
         }

@@ -215,6 +215,10 @@ dependencies {
     //Rounded ImageView
     compile 'com.makeramen:roundedimageview:2.3.0'
     //https://github.com/afollestad/material-dialogs
+    //SpinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+
 
 
 }

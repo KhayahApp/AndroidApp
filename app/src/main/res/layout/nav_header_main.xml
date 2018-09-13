@@ -32,7 +32,7 @@
         app:riv_mutate_background="true"
         app:riv_oval="true"/>
 
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:id="@+id/txt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:orientation="horizontal">
-        <TextView
+        <com.khayah.app.ui.widget.CustomTextView
             android:id="@+id/txt_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

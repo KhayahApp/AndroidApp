@@ -31,6 +31,7 @@ versions.support = "27.0.2"
 versions.timber = "4.5.1"
 versions.google_play_service = "4.0.1"
 versions.google_play_map_service = "15.0.1"
+versions.google_play_auth_service = "15.0.1"
 versions.easypermissions = "1.1.3"
 
 
@@ -137,6 +138,7 @@ deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_g
 deps.google_play_service = "com.google.gms:google-services:$versions.google_play_service"
 deps.easypermissions = "pub.devrel:easypermissions:$versions.easypermissions"
 deps.google_play_map_service = "com.google.android.gms:play-services-maps:$versions.google_play_map_service"
+deps.google_play_auth_service = "com.google.android.gms:play-services-auth:$versions.google_play_auth_service"
 
 
 ext.deps = deps

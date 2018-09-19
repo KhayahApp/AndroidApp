@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/layout_save"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:layout_width="32dp"
+        android:layout_height="match_parent"
+        app:iiv_color="@android:color/white"
+        app:iiv_icon="cmd_content_save"
+        app:iiv_padding="5dp" />
+
+    <com.khayah.app.ui.widget.CustomTextView
+        android:text="@string/save"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_marginRight="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_height="match_parent" />
+</LinearLayout>

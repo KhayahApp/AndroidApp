@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.khayah.app.util.CustomTypefaceSpan;
+import com.khayah.app.util.FontConverter;
 import com.khayah.app.util.StorageDriver;
 import com.khayah.app.vo.Settings;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -88,11 +90,11 @@ public class BaseAppCompatActivity extends AppCompatActivity {
         registerBaseActivityReceiver();
 
         //To change language settings
-        //Locale locale = new Locale(getSettings().getLocale());
-        //Locale.setDefault(locale);
-        //Configuration config = new Configuration();
-        //config.locale = locale;
-        //getResources().updateConfiguration(config, null);
+        Locale locale = new Locale(getSettings().getLocale());
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, null);
     }
 
     public Settings getSettings(){
@@ -156,7 +158,7 @@ public class BaseAppCompatActivity extends AppCompatActivity {
 
     public void applyFontToMenuItem(MenuItem mItem) {
         Typeface font = null;
-        /*String selected_font = getSettings().getFontStyle();
+        String selected_font = getSettings().getFontStyle();
         if (selected_font != null) {
             if (selected_font.equals("zawgyi")) {
                 font = Typeface.createFromAsset(getAssets(), "fonts/zawgyi.ttf");
@@ -170,7 +172,7 @@ public class BaseAppCompatActivity extends AppCompatActivity {
                 mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 mItem.setTitle(mNewTitle);
             }
-        }*/
+        }
     }
 
     public IconicsDrawable getIconicDrawable(String icon, int color, int size){

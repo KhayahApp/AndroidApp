@@ -53,7 +53,7 @@
                     android:paddingTop="@dimen/spacing_double"
                     android:src="@drawable/boy" />
 
-                <TextView
+                <com.khayah.app.ui.widget.CustomTextView
                     android:id="@+id/bt_item"
                     android:layout_width="80dp"
                     android:layout_height="80dp"

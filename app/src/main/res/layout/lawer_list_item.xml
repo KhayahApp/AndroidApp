@@ -42,20 +42,20 @@
 
                     android:padding="@dimen/spacing_normal">
 
-                    <TextView
+                    <com.khayah.app.ui.widget.CustomTextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="com.khayah.app.ui.widget.CustomTextView" />
 
-                    <TextView
+                    <com.khayah.app.ui.widget.CustomTextView
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="TextView" />
+                        android:text="com.khayah.app.ui.widget.CustomTextView" />
 
                 </LinearLayout>
 
@@ -68,19 +68,19 @@
                     android:padding="@dimen/spacing_normal">
 
 
-                    <TextView
+                    <com.khayah.app.ui.widget.CustomTextView
                         android:id="@+id/textView7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@android:drawable/star_off"
                         android:paddingBottom="@dimen/spacing_normal"
-                        android:text="TextView" />
+                        android:text="com.khayah.app.ui.widget.CustomTextView" />
 
-                    <TextView
+                    <com.khayah.app.ui.widget.CustomTextView
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="com.khayah.app.ui.widget.CustomTextView" />
                 </LinearLayout>
 
             </LinearLayout>

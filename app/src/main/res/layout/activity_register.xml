@@ -15,7 +15,7 @@
             android:paddingRight="16dp"
             android:paddingTop="16dp">
 
-            <TextView
+            <com.khayah.app.ui.widget.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -62,6 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
+                    android:visibility="gone"
                     android:inputType="textEmailAddress"
                     app:met_floatingLabel="highlight" />
 
@@ -96,7 +97,7 @@
                         android:inputType="phone" />
                 </LinearLayout>
 
-                <TextView
+                <com.khayah.app.ui.widget.CustomTextView
                     android:textSize="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/gender"

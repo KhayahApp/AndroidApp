@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_language"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.khayah.app.ui.widget.CustomTextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.khayah.app.ui.widget.CustomTextView
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/myanmar"
+                    android:textSize="16sp"
+                    android:id="@+id/txt_language"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"/>
+            <com.khayah.app.ui.widget.CustomTextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/fonts"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioGroup
+                android:id="@+id/rdo_fonts"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <com.khayah.app.ui.widget.CustomRadioButton
+                    android:id="@+id/rdo_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/defaults" />
+
+                <com.khayah.app.ui.widget.CustomRadioButton
+                    android:id="@+id/rdo_zawgyi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/zawgyi" />
+
+                <com.khayah.app.ui.widget.CustomRadioButton
+                    android:id="@+id/rdo_unicode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/unicode" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"/>
+
+            <com.khayah.app.ui.widget.CustomTextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/version"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.khayah.app.ui.widget.CustomTextView
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="v 0.1"
+                android:id="@+id/txt_version"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

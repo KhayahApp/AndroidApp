@@ -22,6 +22,7 @@ import com.khayah.app.R;
 import com.khayah.app.ui.home.MainActivity;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.soundcloud.android.crop.Crop;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import com.khayah.app.clients.NetworkEngine;
@@ -77,13 +78,19 @@ public class ProfileActivity extends BaseAppCompatActivity {
         if(user.getPoints() != null && user.getPoints() > 0) {
             txt_points.setText(user.getPoints().toString());
         }
-        Picasso.with(ProfileActivity.this).load(R.drawable.boy).transform(new CircleTransform()).into(img_user);
+        Picasso.with(ProfileActivity.this).load(R.drawable.girl).transform(new CircleTransform()).into(img_user);
         if(user.getAvatar() != null){
             Picasso.with(ProfileActivity.this).load(APIToolz.getInstance().getHostAddress()+
                     "/uploads/users/"+user.getAvatar()).transform(new CircleTransform()).into(img_user);
+        //}else {
+            //Picasso.with(ProfileActivity.this).load("https://graph.facebook.com/" + user.getFacebookId() +"/picture?type=large").transform(new CircleTransform()).into(img_user);
         }else{
-            Picasso.with(ProfileActivity.this).load("https://graph.facebook.com/" + user.getFacebookId() +
-                    "/picture?type=large").transform(new CircleTransform()).into(img_user);
+            Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
+            builder.downloader(new OkHttpDownloader(getApplicationContext()));
+            builder.build().load("https://img1.ak.crunchyroll.com/i/spire2/3aa39968e298c5c67151f526752194391524767340_large.jpg")//dataList.get(position).getThumbnailUrl()
+                    .placeholder((R.drawable.boy))
+                    .error(R.drawable.ic_vector_lawyer_icon)
+                    .into(img_user);
         }
 
         if(isNetworkAvailable()) {
@@ -183,12 +190,14 @@ public class ProfileActivity extends BaseAppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             if (KhayahApp.isLogin()) {
@@ -202,6 +211,7 @@ public class ProfileActivity extends BaseAppCompatActivity {
             }
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

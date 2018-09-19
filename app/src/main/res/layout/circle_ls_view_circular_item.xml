@@ -15,7 +15,7 @@
         android:paddingTop="@dimen/spacing_double"
         android:src="@drawable/boy" />
 
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:id="@+id/bt_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             app:riv_mutate_background="true"
             app:riv_oval="true"></com.makeramen.roundedimageview.RoundedImageView>
 
-        <TextView
+        <com.khayah.app.ui.widget.CustomTextView
             android:id="@+id/bt_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,14 +56,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@drawable/boy"
+        android:src="@drawable/girl"
         android:visibility="visible"
         app:riv_border_color="#333333"
         app:riv_border_width="0dip"
         app:riv_corner_radius="30dip"
         app:riv_mutate_background="true"
         app:riv_oval="true"/>
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:id="@+id/bt_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

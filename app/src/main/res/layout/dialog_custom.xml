@@ -25,7 +25,7 @@
         android:layout_width="72dp"
         android:layout_height="72dp" />
 
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:padding="10dp"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:text="Dialog Title"
         android:id="@+id/dialog_title" />
 
-    <TextView
+    <com.khayah.app.ui.widget.CustomTextView
         android:padding="10dp"
         android:gravity="center"
         android:layout_width="match_parent"

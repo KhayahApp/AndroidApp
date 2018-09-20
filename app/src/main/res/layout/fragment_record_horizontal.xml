@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/theme_primary"
+
+            android:orientation="vertical">
+
+            <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+                android:id="@+id/first_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:msrv_gravity="start"
+                app:msrv_milliseconds_per_inch="@dimen/normal_speed"
+                app:msrv_snap_count="2">
+
+
+            </com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_double">
+            <FrameLayout
+                android:id="@+id/fy_aduio_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:padding="10dp">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/item_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/bg_oval_white"
+                    android:padding="@dimen/spacing_normal"
+                    android:paddingTop="@dimen/spacing_double"
+                    android:src="@drawable/boy" />
+
+                <com.khayah.app.ui.widget.CustomTextView
+                    android:id="@+id/bt_item"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circle_ls_ripple_circle_bg"
+                    android:text="Name"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="bottom" />
+
+            </FrameLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/img_display_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/list_bg"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:padding="@dimen/spacing_double"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

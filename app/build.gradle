@@ -202,6 +202,25 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.3.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.google.firebase:firebase-analytics:16.0.3'
+
+    //CircleListView
+    implementation 'com.github.JungHsuan:CircularList:1.2.3'
+
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
+    //Photo and Video Upload
+    implementation 'com.zhihu.android:matisse:0.4.3'
+    //Horizontal recyclerView
+    implementation 'com.github.takusemba:multisnaprecyclerview:1.2.0'
+    //Rounded ImageView
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    //https://github.com/afollestad/material-dialogs
+    //SpinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

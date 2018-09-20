@@ -88,7 +88,7 @@ public class LoginActivity extends BaseAppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
         btnFacebook.setReadPermissions(Arrays.asList("public_profile,email"));
-        btnFacebook.registerCallback(callbackManager,
+        /*btnFacebook.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -120,7 +120,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                     public void onError(FacebookException exception) {
                         // App code
                     }
-                });
+                });*/
 
         printHashKey();
     }
@@ -157,7 +157,8 @@ public class LoginActivity extends BaseAppCompatActivity {
                 }
             }
             if(view == btnLoginFacebook){
-                btnFacebook.performClick();
+                //btnFacebook.performClick();
+                verifyPhoneNumber();
             }
         }
     };

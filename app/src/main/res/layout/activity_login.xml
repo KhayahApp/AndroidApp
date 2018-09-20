@@ -20,7 +20,7 @@
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
-        <TextView
+        <com.khayah.app.ui.widget.CustomTextView
             android:padding="10dp"
             android:gravity="center"
             android:textSize="32sp"
@@ -80,7 +80,7 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray"
                     android:layout_weight="40"/>
-                <TextView
+                <com.khayah.app.ui.widget.CustomTextView
                     android:layout_weight="10"
                     android:text="@string/or"
                     android:layout_width="100dp"
@@ -106,7 +106,7 @@
                     android:layout_centerVertical="true"
                     app:iiv_color="@android:color/white"
                     app:iiv_icon="cmd_facebook"/>
-                <TextView
+                <com.khayah.app.ui.widget.CustomTextView
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

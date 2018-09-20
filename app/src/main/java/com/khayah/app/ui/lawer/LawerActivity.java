@@ -39,5 +39,20 @@ public class LawerActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
+        NetworkEngine.getInstance().getLawers(1,10).enqueue(new Callback<List<Lawer>>() {
+            @Override
+            public void onResponse(Call<List<Lawer>> call, Response<List<Lawer>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Lawer>> call, Throwable t) {
+
+            }
+        });
     }
 }

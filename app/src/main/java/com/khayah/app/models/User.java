@@ -46,6 +46,17 @@ public class User implements Serializable {
     private String gender;
 
     private Integer points;
+    public User (){
+
+    }
+
+    public User (int id, String name, String ph, String avatar){
+        this.id = id;
+        this.username = name;
+        this.phone  = ph;
+        this.avatar = avatar;
+
+    }
 
     public Integer getId() {
         return id;

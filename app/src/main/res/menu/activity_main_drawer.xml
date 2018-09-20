@@ -6,28 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_1"
-            android:icon="@android:drawable/star_off"
-            android:title="Circle of Trust" />
+            android:icon="@drawable/ic_menu_trust"
+            android:title="@string/menu_circle_trust" />
         <item
             android:id="@+id/nav_2"
-            android:icon="@android:drawable/ic_menu_mylocation"
-            android:title="Map" />
+            android:icon="@drawable/ic_menu_map"
+            android:title="@string/menu_map" />
         <item
             android:id="@+id/nav_3"
-            android:icon="@android:drawable/ic_btn_speak_now"
-            android:title="Record" />
+            android:icon="@drawable/ic_menu_record"
+            android:title="@string/menu_record" />
         <item
             android:id="@+id/nav_4"
-            android:icon="@android:drawable/ic_menu_call"
-            android:title="Fake Call" />
+            android:icon="@drawable/ic_menu_directory"
+            android:title="@string/menu_directory" />
         <item
             android:id="@+id/nav_5"
-            android:icon="@android:drawable/ic_menu_directions"
-            android:title="Directory" />
+            android:icon="@drawable/ic_menu_fake_call"
+            android:title="@string/menu_fake_call" />
         <item
             android:id="@+id/nav_6"
-            android:icon="@android:drawable/ic_menu_info_details"
-            android:title="Setting" />
+            android:icon="@drawable/ic_menu_setting"
+            android:title="@string/menu_setting" />
 
     </group>
 

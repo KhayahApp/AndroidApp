@@ -208,7 +208,9 @@ dependencies {
     //Horizontal recyclerView
     implementation 'com.github.takusemba:multisnaprecyclerview:1.2.0'
     //Rounded ImageView
-    compile 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.astuetz:pagerslidingtabstrip:1.0.1'
+
 
 
 

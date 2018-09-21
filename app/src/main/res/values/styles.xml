@@ -25,6 +25,7 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+
     <!-- Facebook Account Kit Theme -->
     <style name="AppLoginTheme" parent="Theme.AccountKit">
         <item name="com_accountkit_primary_color">@color/theme_primary</item><!--ef0414 -->

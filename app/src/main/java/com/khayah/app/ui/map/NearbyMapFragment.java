@@ -34,20 +34,30 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.Dot;
+import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.khayah.app.R;
+import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.Station;
 import com.khayah.app.util.GPSTracker;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NearbyMapFragment extends Fragment implements EasyPermissions.PermissionCallbacks, OnMapReadyCallback,GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener {
@@ -62,6 +72,10 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
             Manifest.permission.CAMERA,
             Manifest.permission.READ_SMS,
             Manifest.permission.READ_EXTERNAL_STORAGE,*/
+    // Create a stroke pattern of a gap followed by a dash.
+    private static final PatternItem DOT = new Dot();
+    private static final PatternItem GAP = new Gap(20);
+    private static final List<PatternItem> PATTERN_POLYGON_ALPHA = Arrays.asList(GAP, DOT);
     private Context mContext;
     private View view;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -73,6 +87,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
     private ArrayList<Object> polylines;
     private Routing.TravelMode[] routeTypes= new Routing.TravelMode[4];
     private int currentRouteType = 0;
+    private List<Station> stations = new ArrayList<>();
 
 
     @Override
@@ -125,14 +140,6 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
             mapFragment.getMapAsync(this);
         } else {
             if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
                 EasyPermissions.requestPermissions(
                         this,
                         getString(R.string.rationale_all_permissions),
@@ -143,16 +150,66 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setZoomControlsEnabled(true);
             if (mMap != null) {
-                //Toast.makeText(getActivity(), "Map not null case", Toast.LENGTH_LONG).show();
-
-
+                getNearbyStation();
             }
-
-
-
-
         }
     }
+
+    private void getNearbyStation() {
+        NetworkEngine.getInstance().getStation("",1, 999).enqueue(new Callback<List<Station>>() {
+            @Override
+            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
+                if(response.isSuccessful() && mMap != null) {
+                    stations.clear();
+                    stations.addAll(response.body());
+                    if(stations.size() > 0) {
+
+                        for(Station station: stations) {
+                            if(station.getLatitude() != null && station.getLongitude() != null) {
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(station.getLatitude(), station.getLongitude()))
+                                        .icon(bitmapDescriptorFromVector(getActivity(),
+                                                getMaker(station.getType())))).setTag(station);
+                            }
+                        }
+
+                        mMap.setOnMarkerClickListener(onClickMarker);
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Station>> call, Throwable t) {
+            }
+        });
+    }
+
+    private int getMaker(String type) {
+        if(type != null) {
+            switch (type) {
+                case "hospital":
+                    return R.drawable.ic_vector_hospital;
+                case "police":
+                    return R.drawable.ic_vector_police;
+                case "courthouse":
+                    return R.drawable.ic_vector_court;
+            }
+        }
+        return R.drawable.ic_vector_court;
+    }
+
+    private GoogleMap.OnMarkerClickListener onClickMarker = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            if(marker.getTag() != null && marker.getTag() instanceof Station){
+                Station station = (Station) marker.getTag();
+                Toast.makeText(getActivity(), "Clicked: "+ station.getName(), Toast.LENGTH_LONG).show();
+            }
+            return false;
+        }
+    };
 
 
     @Override
@@ -191,9 +248,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         enableMyLocation();
-
-
-
+        getNearbyStation();
     }
     /**
      * Enables the My Location layer if the fine location permission has been granted.
@@ -210,11 +265,12 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
             //mMap.setMyLocationEnabled(true);
+            getNearbyStation();
             gpsTracker = new GPSTracker(mContext);
             if(gpsTracker.canGetLocation() && gpsTracker.getLongitude() > 0 && gpsTracker.getLongitude() > 0) {
                 currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
-                Toast.makeText(mContext, "Current Lat Lng" + currentLatLng, Toast.LENGTH_SHORT).show();
-                //gotoCurrentLocation();
+                //Toast.makeText(mContext, "Current Lat Lng" + currentLatLng, Toast.LENGTH_SHORT).show();
+                goToCurrentLocation();
 
                 routeTypes[0] = Routing.TravelMode.DRIVING;
                 routeTypes[1] = Routing.TravelMode.TRANSIT;
@@ -224,14 +280,12 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                 routeTo = new LatLng(16.849610, 96.117740);
                 getRoute(routeTypes[currentRouteType], routeTo);
             }
-
-
-
         }
     }
-    private void gotoCurrentLocation() {
+
+    private void goToCurrentLocation() {
         MarkerOptions options = new MarkerOptions();
-        options.icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_user_icon));
+        options.icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_vector_user));
         options.position(currentLatLng);
 
 
@@ -241,7 +295,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(currentLatLng)
-                .zoom(15)
+                .zoom(13)
                 .build();
 
         // Animate the change in camera view over 2 seconds
@@ -252,7 +306,8 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
         Circle circle = mMap.addCircle(new CircleOptions()
                 .center(currentLatLng)
                 .radius(5000)
-                .strokeColor(Color.RED)
+                .strokeWidth(4)
+                .strokeColor(getResources().getColor(R.color.theme_primary))
                 .fillColor(getResources().getColor(R.color.theme_primary_light)));
 
     }
@@ -292,8 +347,6 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                         Log.e("Routing error0","0===>" +e.getMessage());
                         Log.e("Routing error1","1===>" +e.getStatusCode());
                         Log.e("Routing error2","2===>" +e.toString());
-
-
                     }
 
                     @Override
@@ -305,13 +358,13 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                     public void onRoutingSuccess(ArrayList<Route> routes, int shortestRouteIndex) {
                         //showLoading(false);
                         mMap.clear();
-                        gotoCurrentLocation();
+                        goToCurrentLocation();
                         mMap.addMarker(new MarkerOptions()
                                 .position(routeTo) //new LatLng(building.getLat(), building.getLng())
-                                .icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_vector_lawyer_icon)));
+                                .icon(bitmapDescriptorFromVector(mContext, R.drawable.ic_vector_lawyer)));
 
                         //.icon(bitmapDescriptorFromVector(getActivity(), getMaker(building.getType())))).setTag(building);
-                        /*for(Building building: buildings) {
+                        /*for(Building building: stations) {
 
                         }
                         if(slidingPanel.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
@@ -325,8 +378,9 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                         double distance = 0.0;
                         for (int i = 0; i < routes.size(); i++) {
                             PolylineOptions polyOptions = new PolylineOptions();
-                            polyOptions.color(getResources().getColor(R.color.colorAccent));
-                            polyOptions.width(16);
+                            polyOptions.pattern(PATTERN_POLYGON_ALPHA);
+                            polyOptions.color(getResources().getColor(R.color.theme_primary));
+                            polyOptions.width(20);
                             polyOptions.addAll(routes.get(i).getPoints());
                             Polyline polyline = mMap.addPolyline(polyOptions);
                             polylines.add(polyline);

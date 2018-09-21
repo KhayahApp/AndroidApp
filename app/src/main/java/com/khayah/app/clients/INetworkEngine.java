@@ -4,6 +4,7 @@ package com.khayah.app.clients;
 import com.khayah.app.models.Lawer;
 import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
+import com.khayah.app.models.Station;
 import com.khayah.app.models.User;
 
 import java.util.List;
@@ -50,5 +51,8 @@ public interface INetworkEngine {
 
     @GET("/api/lawer")
     Call<List<Lawer>> getLawers(@Query("page") Integer page, @Query("rows") Integer rows);
+
+    @GET("/api/station")
+    Call<List<Station>> getStation(@Query("search") String search, @Query("page") Integer page, @Query("rows") Integer rows);
 
 }

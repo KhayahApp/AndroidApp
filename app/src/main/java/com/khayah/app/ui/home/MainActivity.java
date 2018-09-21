@@ -230,8 +230,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             case R.id.nav_4:
                 //fragment = new Menu2();
                 //fragment =  UserListFragment.newInstance();
-                fragment = new LawerListFragment();
-                //startActivity(new Intent(getApplicationContext(), LawerActivity.class));
+                //fragment = new LawerListFragment();
+                startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
             case R.id.nav_5:
                 //fragment = new Menu2();

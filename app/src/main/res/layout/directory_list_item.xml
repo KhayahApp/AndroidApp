@@ -33,7 +33,7 @@
                 android:orientation="horizontal">
 
                 <com.khayah.app.ui.widget.CustomTextView
-                    android:id="@+id/pNametxt"
+                    android:id="@+id/txt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -46,6 +46,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -59,8 +60,6 @@
                         android:id="@+id/id_rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/pNametxt"
-                        android:layout_alignStart="@+id/pNametxt"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:maxLines="1"
@@ -85,12 +84,9 @@
                     android:src="@drawable/ic_action_local_phone" />
 
                 <com.khayah.app.ui.widget.CustomTextView
-                    android:id="@+id/pJobProfiletxt"
+                    android:id="@+id/txt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/pNametxt"
-                    android:layout_alignStart="@+id/pNametxt"
-                    android:layout_below="@+id/pNametxt"
                     android:maxLines="1"
                     android:text="Job Profile"
                     android:textSize="14sp" />
@@ -110,13 +106,11 @@
                     android:src="@drawable/ic_action_location_on" />
 
                 <com.khayah.app.ui.widget.CustomTextView
-                    android:id="@+id/third"
+                    android:id="@+id/txt_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/pNametxt"
-                    android:layout_alignStart="@+id/pNametxt"
                     android:maxLines="1"
-                    android:text="Job Profile"
+                    android:text="Location Address"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>

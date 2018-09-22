@@ -125,6 +125,13 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="60dp" />
+            <com.khayah.app.ui.widget.CustomTextView
+                android:layout_width="match_parent"
+                android:padding="@dimen/spacing_double"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/remind_forgot_pwd"
+                android:textColor="@color/theme_primary" />
 
         </LinearLayout>
     </LinearLayout>

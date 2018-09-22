@@ -172,9 +172,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                                                 getMaker(station.getType())))).setTag(station);
                             }
                         }
-
                         mMap.setOnMarkerClickListener(onClickMarker);
-
                     }
 
                 }

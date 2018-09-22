@@ -72,7 +72,8 @@ public class LawerActivity extends BaseAppCompatActivity {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
+                Station station = (Station)  directories.get(position);
+                startActivity(new Intent(getApplicationContext(), DetailActivity.class).putExtra("id", station.getId()));
             }
         });
 

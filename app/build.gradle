@@ -179,7 +179,6 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.4'
 
-
     //Google Sample Permission
     implementation deps.easypermissions
     //Material Search View
@@ -220,7 +219,8 @@ dependencies {
     //SpinKit
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
-
+    //DetailActivity Scaling Layout
+    implementation 'com.github.iammert:ScalingLayout:1.2.1'
 
 
 }

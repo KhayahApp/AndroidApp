@@ -52,7 +52,7 @@
     <string name="invalid_authenticate">Invalid Authentication</string>
     <string name="try_again">Try Again</string>
     <string name="invalid_value">Invalid Value</string>
-    <string name="email_phone">Email (or) Phone number</string>
+    <string name="email_phone">Phone number 959xxxxxxx</string>
     <string name="change_password">Change Password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
@@ -116,4 +116,9 @@
 
     <string name="action_call">ဖုန္းေခၚမည္</string>
     <string name="action_sms">စာတိုပို႔မည္ </string>
+
+
+    <string name="remind_forgot_pwd"> လ်ိဳ ့ဝွက္ကုတ္ေမ့ခဲ ့လွ်င္ register လုပ္ခဲ့ေသာဖုန္းနံပါတ္ျဖင့္ ျပန္လည္ဝင္ေရာက္ အသံုးျပဳႏိ္ုင္ပါသည္။</string>
+    <string name="add_user">Add User</string>
+
 </resources>

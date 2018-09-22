@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.ui.login.LoginActivity;
 
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseAppCompatActivity {
 
     private static final int SPLASH_TIME_OUT = 1000;
 
@@ -28,8 +30,14 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+                if(KhayahApp.isLogin()) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                }else{
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
+                }
+
             }
         }, SPLASH_TIME_OUT);
     }

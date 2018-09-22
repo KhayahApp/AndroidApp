@@ -73,6 +73,10 @@ public class LawerActivity extends BaseAppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
+                Intent i = new Intent(LawerActivity.this, DetailActivity.class);
+                i.putExtra("PersonID", "id");
+                startActivity(i);
+
             }
         });
 

@@ -172,7 +172,7 @@ public class EditAccountActivity extends BaseAppCompatActivity {
         user.setFirstName(edtFName.getText().toString());
         user.setLastName(edtLName.getText().toString());
         user.setUsername(edtFName.getText().toString().toLowerCase()+edtLName.getText().toString().toLowerCase());
-        user.setEmail("default@gmail.com");//edtEmail.getText().toString()
+        //user.setEmail("default@gmail.com");//edtEmail.getText().toString()
         user.setPhone(verifyPhoneNumber);
         user.setGender(rdoGender.getCheckedRadioButtonId() == R.id.rdo_male ? "male" : "female");
 

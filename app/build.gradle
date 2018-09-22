@@ -177,6 +177,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.hbb20:ccp:2.0.3'
 
+    implementation 'org.apache.commons:commons-lang3:3.4'
+
 
     //Google Sample Permission
     implementation deps.easypermissions

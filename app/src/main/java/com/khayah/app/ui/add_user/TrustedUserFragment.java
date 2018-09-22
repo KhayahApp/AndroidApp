@@ -17,12 +17,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +71,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private CircularItemAdapter adapter;
     private Menu menu;
     private SpinKitView spnkitView;
+    private FrameLayout fyBell;
+    private Button btnAlarm;
     private boolean bellFlag;
     private ArrayList<User> userList;
 
@@ -134,7 +139,10 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
         //SpinkitViewMultiPulse
         spnkitView = (SpinKitView) view.findViewById(R.id.spin_kit);
+        btnAlarm = (Button)view.findViewById(R.id.alarm_btn);
+        fyBell = (FrameLayout)view.findViewById(R.id.fy_bell);
         spnkitView.setVisibility(View.INVISIBLE);
+        fyBell.setVisibility(View.INVISIBLE);
 
 
         // simple text item with numbers 0 ~ 9
@@ -179,6 +187,35 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             }
         });
 
+        /*btnAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!bellFlag) {
+                    bellFlag = true;
+                    spnkitView.setVisibility(View.VISIBLE);
+                    sendnotificationtoUsers();
+                    if (isFirstAlarmOpen) {
+                        firstpermissionSound("Alarm");
+                    } else {
+                        if (m.isPlaying()) {
+                            m.stop();
+                            m.release();
+                            m = new MediaPlayer();
+                        }
+                        isFirstAlarmOpen = true;
+                    }
+                } else {
+                    spnkitView.setVisibility(View.INVISIBLE);
+                    bellFlag = false;
+                    if (m.isPlaying()) {
+                        m.stop();
+                        m.release();
+                        m = new MediaPlayer();
+                    }
+                    //StopNotificationSend
+                }
+            }
+        });*/
 
         final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
         final FloatingActionButton actionA = (FloatingActionButton) view.findViewById(R.id.action_a);
@@ -193,7 +230,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 adapter.addItem(view_b);
             }
         });
-
         final FloatingActionButton actionB = (FloatingActionButton) view.findViewById(R.id.action_b);
         actionB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +240,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
             }
         });
-
         return view;
 
     }
@@ -251,15 +286,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
     }
 
-    /*@Override
-    public void onPrepareOptionsMenu(Menu menu) {
 
-        MenuItem settingsItem = menu.findItem(R.id.action_settings);
-        // set your desired icon here based on a flag if you like
-        settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_launcher));
-
-        return super.onPrepareOptionsMenu(menu);
-    }*/
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         if (Build.VERSION.SDK_INT > 11) {
@@ -267,13 +294,11 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
             MenuItem bellItem = menu.findItem(R.id.action_bell);
 
-            if (!bellFlag) {
+            /*if (!bellFlag) {
                 bellItem.setIcon(getResources().getDrawable(R.drawable.ic_bell_icon));
             } else {
                 bellItem.setIcon(getResources().getDrawable(R.drawable.ic_check_white_18dp));
-
-            }
-
+            }*/
 
         }
         //return super.onPrepareOptionsMenu(menu);
@@ -288,28 +313,35 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             case R.id.action_bell:
 
                 if (!bellFlag) {
+                    //menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.crop__ic_cancel));
+                    menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.crop__ic_cancel));
+
                     bellFlag = true;
                     spnkitView.setVisibility(View.VISIBLE);
+                    fyBell.setVisibility(View.VISIBLE);
                     sendnotificationtoUsers();
 
                     if (isFirstAlarmOpen) {
-                        firstpermissionSound("Alarm");
+                        firstpermissionSound();
                         //tv.setText("Stop Alarm");
                     } else {
                         //tv.setText("Emergency Alarm");
                         //tv.setBackgroundColor(getResources().getColor(R.color.appWhite));
                         //tv.setTextColor(Color.BLACK);
-                        if (m.isPlaying()) {
+                        /*if (m.isPlaying()) {
                             m.stop();
                             m.release();
                             m = new MediaPlayer();
-                        }
-                        isFirstAlarmOpen = true;
+                        }*/
+                        playBeep();
+                        isFirstAlarmOpen = false;
 
                     }
 
                 } else {
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_bell_icon));
                     spnkitView.setVisibility(View.INVISIBLE);
+                    fyBell.setVisibility(View.INVISIBLE);
                     bellFlag = false;
                     if (m.isPlaying()) {
                         m.stop();
@@ -376,7 +408,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                         .into(imgView);
                 mItemViews.add(view);
             }
-
             /*for (final String s : mItems) {
                 View view = mInflater.inflate(R.layout.circle_ls_view_circular_item, null);
                 TextView itemView = (TextView) view.findViewById(R.id.bt_item);
@@ -385,7 +416,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 itemView.setText(s);
                 itemView.setBackgroundColor(colors[mItems.indexOf(s)]);
                 //imgView.setImageDrawable(R.drawable.ic_vector_lawyer_icon);
-
 
                 Picasso.Builder builder = new Picasso.Builder(mContext);
                 builder.downloader(new OkHttpDownloader(mContext));
@@ -457,14 +487,15 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     @AfterPermissionGranted(RC_ALL_PERMISSIONS)
-    private void firstpermissionSound(String task) {
+    private void firstpermissionSound() {
         if (hasAllPermissions()) { // For one permission EasyPermissions.hasPermissions(getContext(), Manifest.permission.READ_SMS)
             // Have permission, do the thing!
             //Toast.makeText(getActivity(), "TODO: MAP and GPS things", Toast.LENGTH_LONG).show();
             //TODO your job
-            if (task.equalsIgnoreCase("Alarm")) {
+            playBeep();
+           /* if (task.equalsIgnoreCase("Alarm")) {
                 playBeep();
-            }
+            }*/
 
         } else {
             // Request one permission

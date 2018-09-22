@@ -204,7 +204,7 @@ public class ProfileActivity extends BaseAppCompatActivity {
                 LoginManager.getInstance().logOut();
                 AccountKit.logOut();
                 KhayahApp.logout();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 closeAllActivities();
             } else {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -226,5 +226,11 @@ public class ProfileActivity extends BaseAppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return true;
     }
 }

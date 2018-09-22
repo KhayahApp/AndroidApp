@@ -322,7 +322,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                     sendnotificationtoUsers();
 
                     if (isFirstAlarmOpen) {
-                        firstpermissionSound("Alarm");
+                        firstpermissionSound();
                         //tv.setText("Stop Alarm");
                     } else {
                         //tv.setText("Emergency Alarm");
@@ -487,14 +487,15 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     @AfterPermissionGranted(RC_ALL_PERMISSIONS)
-    private void firstpermissionSound(String task) {
+    private void firstpermissionSound() {
         if (hasAllPermissions()) { // For one permission EasyPermissions.hasPermissions(getContext(), Manifest.permission.READ_SMS)
             // Have permission, do the thing!
             //Toast.makeText(getActivity(), "TODO: MAP and GPS things", Toast.LENGTH_LONG).show();
             //TODO your job
-            if (task.equalsIgnoreCase("Alarm")) {
+            playBeep();
+           /* if (task.equalsIgnoreCase("Alarm")) {
                 playBeep();
-            }
+            }*/
 
         } else {
             // Request one permission

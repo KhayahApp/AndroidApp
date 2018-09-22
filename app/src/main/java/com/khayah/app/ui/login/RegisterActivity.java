@@ -22,6 +22,7 @@ import com.hbb20.CountryCodePicker;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.ui.home.MainActivity;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -181,7 +182,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         user.setFirstName(edtFName.getText().toString());
         user.setLastName(edtLName.getText().toString());
         user.setUsername(edtFName.getText().toString().toLowerCase()+edtLName.getText().toString().toLowerCase());
-        user.setEmail("default@gmail.com");//edtEmail.getText().toString()
+        //user.setEmail("default@gmail.com");//edtEmail.getText().toString()
         user.setPassword(edtPassword.getText().toString());
         user.setPasswordConfirmation(edtPassword.getText().toString());
         user.setPhone(verifyPhoneNumber);
@@ -192,7 +193,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
-                    authenticate(user.getEmail(), user.getPassword());
+                    authenticate(user.getPhone(), user.getPassword());//TODO change phone instead of email
                 } else {
                     switch (response.code()) {
                         case 400:
@@ -232,7 +233,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         user.setFirstName(edtFName.getText().toString());
         user.setLastName(edtLName.getText().toString());
         user.setUsername(edtFName.getText().toString().toLowerCase()+edtLName.getText().toString().toLowerCase());
-        user.setEmail(edtEmail.getText().toString());
+        //user.setEmail(edtEmail.getText().toString());
         user.setPassword(edtPassword.getText().toString());
         user.setPasswordConfirmation(edtPassword.getText().toString());
         user.setPhone(verifyPhoneNumber);
@@ -242,7 +243,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
-                    authenticate(user.getEmail(), user.getPassword());
+                    authenticate(user.getPhone(), user.getPassword());//TODO substitue smk get_email
                 } else {
                     showLoading(false);
                     switch (response.code()) {
@@ -287,7 +288,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
                     updateGcmDevice(response.body());
                     KhayahApp.login(response.body());
                     closeAllActivities();
-                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }else{
                     switch (response.code()) {
                         case 400:
@@ -341,5 +342,11 @@ public class RegisterActivity extends BaseAppCompatActivity {
     public Intent getSupportParentActivityIntent() {
         finish();
         return super.getSupportParentActivityIntent();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return true;
     }
 }

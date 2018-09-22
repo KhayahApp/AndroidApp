@@ -59,7 +59,7 @@
     <string name="invalid_authenticate">Invalid Authentication</string>
     <string name="try_again">Try Again</string>
     <string name="invalid_value">Invalid Value</string>
-    <string name="email_phone">Email (or) Phone number</string>
+    <string name="email_phone">Phone number 959xxxxx</string>
     <string name="change_password">Change Password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
@@ -123,6 +123,9 @@
 
     <string name="action_call">Call Phone</string>
     <string name="action_sms">Send Sms</string>
+
+    <string name="remind_forgot_pwd">If you forgot your password, you can login with your phone number which used in Facebook</string>
+
 
 
 </resources>

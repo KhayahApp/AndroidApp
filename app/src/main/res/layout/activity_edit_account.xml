@@ -72,6 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
+                    android:visibility="gone"
                     android:inputType="textEmailAddress"
                     app:met_floatingLabel="highlight" />
 

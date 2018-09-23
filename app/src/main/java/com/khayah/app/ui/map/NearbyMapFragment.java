@@ -3,6 +3,7 @@ package com.khayah.app.ui.map;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -42,9 +43,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.khayah.app.Constant;
 import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.Station;
+import com.khayah.app.ui.lawer.DetailActivity;
+import com.khayah.app.ui.lawer.LawerActivity;
 import com.khayah.app.util.GPSTracker;
 
 
@@ -206,6 +210,9 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
             if(marker.getTag() != null && marker.getTag() instanceof Station){
                 Station station = (Station) marker.getTag();
                 Toast.makeText(getActivity(), "Clicked: "+ station.getName(), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(mContext, DetailActivity.class);
+                i.putExtra(Constant.POST_DETAIL_ID,station.getId());
+                startActivity(i);
             }
             return false;
         }

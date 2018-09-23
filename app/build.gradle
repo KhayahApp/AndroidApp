@@ -18,10 +18,10 @@ android {
             keyPassword "android"*/
         }
         release {
-            keyAlias 'AppKhayah'
-            storeFile file('REPLACE_FILE_PATH/keystore_littdroidtemplate.jks')
-            storePassword System.getenv("KSTOREPWD_LITTDROID")
-            keyPassword System.getenv("KEYPWD_LITTDROID")
+            keyAlias 'Khayahkey'
+            storeFile file('/Users/khinsandar/Documents/Khayah Project Final/KeyStoreFile/khayah.jks')
+            storePassword System.getenv("WeCanDo")
+            keyPassword System.getenv("WeCanDo")
         }
     }
 

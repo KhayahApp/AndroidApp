@@ -8,6 +8,7 @@ public class Constant {
     public static String settingsKey = "settings";
     public static String nearbyHeritage = "nearbyHeritage";
     public static String heritageType = "heritageType";
+    public static String POST_DETAIL_ID = "post_id";
 
 
     //Firebase Message Type

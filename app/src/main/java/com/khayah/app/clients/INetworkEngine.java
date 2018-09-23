@@ -56,6 +56,6 @@ public interface INetworkEngine {
     Call<List<Station>> getStation(@Query("search") String search, @Query("page") Integer page, @Query("rows") Integer rows);
 
     @GET("/api/station/{id}")
-    Call<User> getstationDetail(@Path("id") Integer id);
+    Call<Station> getstationDetail(@Path("id") Integer id);
 
 }

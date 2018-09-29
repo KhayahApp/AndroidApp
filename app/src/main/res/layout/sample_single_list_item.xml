@@ -11,7 +11,7 @@
         android:padding="@dimen/spacing_double">
 
         <com.mikepenz.iconics.view.IconicsImageView
-            android:id="@+id/userImg"
+            android:id="@+id/rv_user_img"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:padding="20dp"
@@ -37,8 +37,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/userImg"
-                    android:layout_toRightOf="@+id/userImg"
+                    android:layout_toEndOf="@+id/rv_user_img"
+                    android:layout_toRightOf="@+id/rv_user_img"
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:text="User Name"

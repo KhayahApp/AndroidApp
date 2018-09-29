@@ -37,12 +37,14 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.bumptech.glide.Glide;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.khayah.app.Constant;
 import com.khayah.app.R;
 import com.khayah.app.ui.home.MainActivity;
 import com.khayah.app.ui.home.SplashActivity;
@@ -53,9 +55,12 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 
 import timber.log.Timber;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -65,6 +70,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private SharedPreferences mSharedPreferencesUserInfo;
 
     private String mStrOpen, mStrClose;
+    private Bitmap personImg;
+    private String mStrTitle, mStrText;
+
 
     /**
      * Called when message is received.
@@ -207,59 +215,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         //Here messageBody means Message text from Firebase Dashboard
         if (remoteMessage.getData() != null && remoteMessage.getData().size() > 0) {
+            mStrTitle = remoteMessage.getData().get(Constant.FCM_TITLE);
+            mStrText = remoteMessage.getData().get(Constant.FCM_MESSAGE_TEXT);
+
+            String type = remoteMessage.getData().get(Constant.FCM_MESSAGE_TYPE);
+
+            if (type.equalsIgnoreCase(Constant.FCM_COMMOM_TOPIC_FOR_ALL)) {
 
 
+                Intent post_detail_intent = new Intent(this, SplashActivity.class);
+                    /*post_detail_intent.putExtra(EXTRA_POST_ID, fcmMessage.getPostId());
+                    post_detail_intent.putExtra(EXTRA_CATEGORY_ID, fcmMessage.getCategoryParentId());*/
+                post_detail_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                PendingIntent post_pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, post_detail_intent, PendingIntent.FLAG_ONE_SHOT);
+                if (remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL) != null) {
+                    personImg = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL));
+                } else {
+                    personImg = getBitmapFromURL(this, Constant.FCM_POST_PERSON_IMG_URL);
+                }
+                Bitmap bitmap_post_img = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_IMAGE_URL));
 
-                /*if (type.equalsIgnoreCase(CommonConstants.FCM_MESSAGE_TYPE_SURVEY)) {
+                //Button
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_bell_icon, mStrOpen, post_pendingIntent).build();
+                NotificationCompat.Builder notificationBuilder =
+                        new NotificationCompat.Builder(this, channelId)
+                                .setSmallIcon(R.drawable.ic_notification_icon)
+                                .setAutoCancel(true)
+                                .setContentTitle(mStrTitle)
+                                .setContentText(mStrText)
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)//heads up notifications can only be shown in the default style)
+                                .setLargeIcon(personImg)
+                                .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(mStrTitle))
+                                .addAction(action)
+                                .setSound(defaultSoundUri)
+                                .setContentIntent(post_pendingIntent);
+                Notification notification = notificationBuilder.build();
+                notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                notification.defaults |= Notification.DEFAULT_SOUND;
+                notification.defaults |= Notification.DEFAULT_VIBRATE;
+                notificationManager.notify(notificationId /* ID of notification */, notification);
+                return;
 
-
-                    // adding action to left button
-                    Intent leftIntent = new Intent(this, NotificationIntentService.class);
-                    leftIntent.setAction("survey_left");
-
-                    leftIntent.putExtra(NotificationIntentService.KEY_MSG_TO_SERVICE_SURVEY_ID, Integer.parseInt(remoteMessage.getData().get(CommonConstants.FCM_SURVEY_ID)));
-                    leftIntent.putExtra(NotificationIntentService.KEY_MSG_NOTIFICATION_ID, notificationId);
-                    sendBroadcast(leftIntent);
-
-                    notificationLayoutExpanded.setOnClickPendingIntent(R.id.noti_open_button, PendingIntent.getService(this, 0, leftIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-                    // adding action to right button
-                    Intent rightIntent = new Intent(this, NotificationIntentService.class);
-                    rightIntent.setAction("survey_right");
-                    rightIntent.putExtra(NotificationIntentService.KEY_MSG_NOTIFICATION_ID, notificationId);
-                    sendBroadcast(rightIntent);
-
-                    notificationLayoutExpanded.setOnClickPendingIntent(R.id.noti_close_button, PendingIntent.getService(this, 1, rightIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-
-                    //TODO to open Survey by survey Id  from direct notibar
-                    Intent survey_intent = new Intent(this, SurveyMainActivity.class);
-                    survey_intent.putExtra("extra.SURVEY_ID", Integer.parseInt(remoteMessage.getData().get(CommonConstants.FCM_SURVEY_ID)));
-                    survey_intent.putExtra(SurveyMainActivity.EXTRA_NOTIFICATION_ID, notificationId);
-
-                    PendingIntent survey_pendingIntent = PendingIntent.getActivity(this, 0 *//* Request code *//*, survey_intent, PendingIntent.FLAG_ONE_SHOT);
-
-                    //Button
-                    NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_notification_reply, mStrOpen, survey_pendingIntent).build();
-                    NotificationCompat.Builder notificationBuilder =
-                            new NotificationCompat.Builder(this, channelId)
-                                    .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                                    .setAutoCancel(true)
-                                    .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                                    .setCustomContentView(customview)
-                                    .setContent(customview)
-                                    .addAction(action)
-                                    .setCustomBigContentView(notificationLayoutExpanded)
-                                    .setSound(defaultSoundUri)
-                                    .setContentIntent(survey_pendingIntent);
-                    Notification notification = notificationBuilder.build();
-                    notification.flags |= Notification.FLAG_AUTO_CANCEL;
-                    notification.defaults |= Notification.DEFAULT_SOUND;
-                    notification.defaults |= Notification.DEFAULT_VIBRATE;
-                    notificationManager.notify(notificationId *//* ID of notification *//*, notification);
-
-
-                    return;
-
-                } else if (type.equalsIgnoreCase(CommonConstants.FCM_MESSAGE_TYPE_PUSH)) {//Direct Push Message Type push_message
+            } /*else if (type.equalsIgnoreCase(CommonConstants.FCM_MESSAGE_TYPE_PUSH)) {//Direct Push Message Type push_message
 
                     Intent homeIntent = new Intent(this, NotificationReceivedActivity.class);
                     //No error when there is no data or null in remoteMessage.getData().get(CommonConstants.FCM_TITLE)
@@ -276,7 +273,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     startActivity(homeIntent);
                     return;
                 }*/
-            }
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             setupChannels();
@@ -285,32 +282,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-   /* private void sendNotificationByPostType(PendingIntent pintent) {
-        Random random = new Random();
-        int notificationId = random.nextInt(9999 - 1000) + 1000;
-        String channelId = getString(R.string.default_notification_channel_id);
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        RemoteViews customview = new RemoteViews(getPackageName(), R.layout.custom_notifiction_collasped_view);
-        RemoteViews notificationLayoutExpanded = new RemoteViews(getPackageName(), R.layout.greenway_notification_large);
-
-
-    }
-
-    public Bitmap getBitmapfromUrl(String imageUrl) {
-        try {
-            URL url = new URL(imageUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            return BitmapFactory.decodeStream(input);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setupChannels() {
@@ -330,46 +301,33 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     /*
      *
-     *  Code for converting message to image
-     *
-     */
-    /*public static Bitmap textAsBitmap(Context context, String messageText, float textSize, int textColor) {
-        String fontName = context.getString(R.string.noti_font_mymm);
-        Typeface font = Typeface.createFromAsset(context.getAssets(), String.format("fonts/%s.ttf", fontName));
-        Paint paint = new Paint();
-        paint.setTextSize(textSize);
-        paint.setTypeface(font);
-        paint.setColor(textColor);
-        paint.setTextAlign(Paint.Align.LEFT);
-        float baseline = -paint.ascent(); // ascent() is negative
-        int width = (int) (paint.measureText(messageText) + 0.5f); // round
-        int height = (int) (baseline + paint.descent() + 0.5f);
-        Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(image);
-        canvas.drawText(messageText, 0, baseline, paint);
-        return image;
-    }*/
-
-
-    /*
-     *
      *  Code for converting url to image
      *
      */
-    /*public static Bitmap getBitmapFromURL(String src) {
+    public static Bitmap getBitmapFromURL(Context ctx, String src) {
         try {
-            URL url = new URL(src);
+            /*URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            // Log exception
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);*/
+            Bitmap theBitmap = Glide.
+                    with(ctx).
+                    load(src).
+                    asBitmap().
+                    into(200, 200). // Width and height
+                    get();
+            return theBitmap;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
-        }
-    }*/
 
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
 
 }

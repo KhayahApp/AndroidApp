@@ -36,6 +36,7 @@ import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.User;
 import com.khayah.app.ui.home.MainActivity;
+import com.khayah.app.ui.home.SplashActivity;
 import com.khayah.app.util.CustomDialog;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -121,8 +122,11 @@ public class LoginActivity extends BaseAppCompatActivity {
                         // App code
                     }
                 });*/
-
-        printHashKey();
+        //printHashKey();
+        if(KhayahApp.isLogin()) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     // To get SHA1 Hash key for Facebook App ID

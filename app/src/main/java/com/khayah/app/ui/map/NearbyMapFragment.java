@@ -159,6 +159,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
         }
     }
 
+
     private void getNearbyStation() {
         NetworkEngine.getInstance().getStation("",1, 999).enqueue(new Callback<List<Station>>() {
             @Override
@@ -176,9 +177,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                                                 getMaker(station.getType())))).setTag(station);
                             }
                         }
-
                         mMap.setOnMarkerClickListener(onClickMarker);
-
                     }
 
                 }

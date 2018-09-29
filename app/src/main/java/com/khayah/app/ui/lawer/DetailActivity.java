@@ -21,6 +21,8 @@ import org.w3c.dom.Text;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.R;
 
 
 public class DetailActivity extends BaseAppCompatActivity {
@@ -39,6 +41,7 @@ public class DetailActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.menu_directory));
@@ -74,6 +77,8 @@ public class DetailActivity extends BaseAppCompatActivity {
                 txtPhone.setText(mStation.getHotlineNumbers());
                 txtAddress.setText(mStation.getAddress());
                 txtType.setText(mStation.getType());
+                txtDesc.setText(mStation.getDescription());
+
 
 
             }
@@ -84,10 +89,12 @@ public class DetailActivity extends BaseAppCompatActivity {
             }
         });
 
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         return true;
     }
 

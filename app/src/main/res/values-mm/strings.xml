@@ -129,5 +129,12 @@
     <string name="detais_similar_place_lbl">Similar places</string>
     <string name="coming_soon">မၾကာမွီ တင္ေပးပါမည္</string>
 
+    <string name="send_a_message">Send a message</string>
+    <string name="enter_message_here">Enter message here</string>
+    <string name="enter_phone">Enter a phone number</string>
+    <string name="permission_not_granted">PERMISSION NOT GRANTED!</string>
+    <string name="failure_permission">Failure to obtain permission!</string>
+    <string name="sms_disabled">SMS usage disabled</string>
+
 
 </resources>

@@ -41,6 +41,7 @@ import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.User;
 import com.khayah.app.models.UserGroup;
+import com.khayah.app.ui.add_user.sms.SmsActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.login.RegisterActivity;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -517,6 +518,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                     Toast.makeText(mContext,
                                             "Sms Ph" + phone,
                                             Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(mContext, SmsActivity.class));
 
                                 }
                             }

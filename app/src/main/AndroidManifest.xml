@@ -35,6 +35,10 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
+    <!--SMS Permssion-->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+
     <permission
         android:name="com.khayah.app.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -170,6 +174,17 @@
                 android:value=".ui.home.MainActivity" />
         </activity>
         <activity android:name=".ui.add_user.AddActivity"></activity>
+        <activity android:name=".ui.add_user.sms.SmsActivity"></activity>
+
+        <!--SMS Receiver-->
+        <receiver
+            android:name=".ui.add_user.sms.MySmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

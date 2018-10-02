@@ -3,6 +3,7 @@ package com.khayah.app.ui.add_user;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,16 +11,25 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,18 +37,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.gson.Gson;
 import com.jh.circularlist.CircularAdapter;
+import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.User;
 import com.khayah.app.models.UserGroup;
 import com.khayah.app.ui.add_user.sms.SmsActivity;
@@ -91,6 +109,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
     private static final int CALLPHONE = 0;
     private static final int SENDSMS = 1;
+    private static final int CUSTOMSENDSMS = 2;
 
     private static final int RC_ALL_PERMISSIONS = 2;
     private static final String[] REQUIRED_PERMISSIONS = {
@@ -107,8 +126,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     //Try request code between 1 to 255
     private static final int INITIAL_REQUEST = 1;
     private static final int CALL_REQUEST = INITIAL_REQUEST + 4;
-
-
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
     public TrustedUserFragment() {
         // Required empty public constructor
@@ -143,6 +161,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -150,10 +169,15 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         mContext = getActivity().getApplicationContext();
         view = inflater.inflate(R.layout.fragment_trusted_user, container, false);
 
+        //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+        tagTargetExplain(view);
+
+
         //SpinkitViewMultiPulse
         spnkitView = (SpinKitView) view.findViewById(R.id.spin_kit);
-        btnAlarm = (Button)view.findViewById(R.id.alarm_btn);
-        fyBell = (FrameLayout)view.findViewById(R.id.fy_bell);
+        btnAlarm = (Button) view.findViewById(R.id.alarm_btn);
+        fyBell = (FrameLayout) view.findViewById(R.id.fy_bell);
         spnkitView.setVisibility(View.INVISIBLE);
         fyBell.setVisibility(View.INVISIBLE);
 
@@ -175,12 +199,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         circularListView.setOnItemClickListener(new com.jh.circularlist.CircularTouchListener.CircularItemClickListener() {
             @Override
             public void onItemClick(View view, int i) {
-                /*Toast.makeText(mContext,
-                        "view at index " + i + " is clicked!",
-                        Toast.LENGTH_SHORT).show();
-                */
-
-                if (i <= 5) {
+                if (i >= 0) {
                     userActionChoice(userList.get(i).getPhone());
                     userPhone = userList.get(i).getPhone();
                 } else {
@@ -189,35 +208,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             }
         });
 
-        /*btnAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!bellFlag) {
-                    bellFlag = true;
-                    spnkitView.setVisibility(View.VISIBLE);
-                    sendnotificationtoUsers();
-                    if (isFirstAlarmOpen) {
-                        firstpermissionSound("Alarm");
-                    } else {
-                        if (m.isPlaying()) {
-                            m.stop();
-                            m.release();
-                            m = new MediaPlayer();
-                        }
-                        isFirstAlarmOpen = true;
-                    }
-                } else {
-                    spnkitView.setVisibility(View.INVISIBLE);
-                    bellFlag = false;
-                    if (m.isPlaying()) {
-                        m.stop();
-                        m.release();
-                        m = new MediaPlayer();
-                    }
-                    //StopNotificationSend
-                }
-            }
-        });*/
 
         final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
         final FloatingActionButton actionA = (FloatingActionButton) view.findViewById(R.id.action_a);
@@ -226,18 +216,18 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), v, "profile");
-                startActivityForResult(intent, ADD_USER_RESULT,options.toBundle());
+                startActivityForResult(intent, ADD_USER_RESULT, options.toBundle());
             }
         });
         final FloatingActionButton actionB = (FloatingActionButton) view.findViewById(R.id.action_b);
         actionB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userList.size() == 0) return;
+                if (userList.size() == 0) return;
                 NetworkEngine.getInstance().deleteGroupUser(userList.get(0).getId()).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        if(response.isSuccessful()) {
+                        if (response.isSuccessful()) {
                             userList.remove(0);
                             adapter.removeItemAt(0);
                             adapter.notifyItemChange();
@@ -259,11 +249,11 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
     private void getUserGroup() {
         User user = (User) KhayahApp.getUser();
-        NetworkEngine.getInstance().getUserGroups("user_id:equal:"+user.getId(),1, 9).enqueue(new Callback<List<UserGroup>>() {
+        NetworkEngine.getInstance().getUserGroups("user_id:equal:" + user.getId(), 1, 9).enqueue(new Callback<List<UserGroup>>() {
             @Override
             public void onResponse(Call<List<UserGroup>> call, Response<List<UserGroup>> response) {
-                if(response.isSuccessful()) {
-                    for(UserGroup group: response.body()) {
+                if (response.isSuccessful()) {
+                    for (UserGroup group : response.body()) {
                         userList.add(group);
                         View view_b = getLayoutInflater().inflate(R.layout.circle_ls_view_circular_item, null);
                         TextView itemView = (TextView) view_b.findViewById(R.id.bt_item);
@@ -282,7 +272,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
 
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -293,12 +282,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-       /* if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*///     Caused by: java.lang.RuntimeException: com.khayah.app.ui.home.MainActivity@b1ac501 must implement OnFragmentInteractionListener
 
     }
 
@@ -315,30 +298,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         inflater.inflate(R.menu.menu_bell, menu);
         this.menu = menu;
         this.menu.findItem(R.id.action_settings).setVisible(false);
-        if (!bellFlag) {
-            this.menu.findItem(R.id.action_bell).setIcon(getResources().getDrawable(R.drawable.ic_bell_icon));
-        } else {
-            this.menu.findItem(R.id.action_bell).setIcon(getResources().getDrawable(R.drawable.ic_check_white_18dp));
-
-        }
-
-
     }
-
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         if (Build.VERSION.SDK_INT > 11) {
             menu.findItem(R.id.action_settings).setVisible(false);
-
             MenuItem bellItem = menu.findItem(R.id.action_bell);
-
-            /*if (!bellFlag) {
-                bellItem.setIcon(getResources().getDrawable(R.drawable.ic_bell_icon));
-            } else {
-                bellItem.setIcon(getResources().getDrawable(R.drawable.ic_check_white_18dp));
-            }*/
-
         }
         //return super.onPrepareOptionsMenu(menu);
     }
@@ -348,7 +314,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
         int id = item.getItemId();
         switch (id) {
-
             case R.id.action_bell:
 
                 if (!bellFlag) {
@@ -359,7 +324,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                     spnkitView.setVisibility(View.VISIBLE);
                     fyBell.setVisibility(View.VISIBLE);
                     sendnotificationtoUsers();
-
                     if (isFirstAlarmOpen) {
                         firstpermissionSound();
                         //tv.setText("Stop Alarm");
@@ -378,7 +342,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                     }
 
                 } else {
-                    menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_bell_icon));
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_close_bell));
                     spnkitView.setVisibility(View.INVISIBLE);
                     fyBell.setVisibility(View.INVISIBLE);
                     bellFlag = false;
@@ -398,6 +362,36 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     private void sendnotificationtoUsers() {
+
+        User user = (User) KhayahApp.getUser();
+        final FcmMessage fcmMessage = new FcmMessage();
+        fcmMessage.setTopicId("1");
+        fcmMessage.setTitle("Khayah");
+        fcmMessage.setMessage("I am in trouble."+ user.getUsername());
+        fcmMessage.setAvatar(user.getAvatar());
+        fcmMessage.setImage("");
+        fcmMessage.setType("Khayah_all");
+        fcmMessage.setFcmServerId("1");
+
+        NetworkEngine.getInstance().sendNotification(fcmMessage).enqueue(new Callback<FcmMessage>() {
+            @Override
+            public void onResponse(Call<FcmMessage> call, Response<FcmMessage> response) {
+                Toast.makeText(mContext,
+                        "Sending...." + response.message(),
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<FcmMessage> call, Throwable t) {
+
+                Toast.makeText(mContext,
+                        "Fail noti...." + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
     }
 
@@ -501,11 +495,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence callPhone;
         CharSequence sendSms;
+        CharSequence customSms;
         callPhone = getResources().getString(R.string.action_call);
         sendSms = getResources().getString(R.string.action_sms);
+        customSms = getResources().getString(R.string.action_sms_custon);
 
         builder.setCancelable(true).
-                setItems(new CharSequence[]{callPhone, sendSms},
+                setItems(new CharSequence[]{callPhone, sendSms, customSms},
                         new DialogInterface.OnClickListener() {
                             @TargetApi(Build.VERSION_CODES.M)
                             @Override
@@ -514,11 +510,25 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                     userPhone = phone;
                                     callPhone(phone);
 
-                                    } else if (i == SENDSMS) {
-                                    Toast.makeText(mContext,
+                                } else if (i == SENDSMS) {
+                                    /*Toast.makeText(mContext,
                                             "Sms Ph" + phone,
+                                            Toast.LENGTH_SHORT).show();*/
+                                    if (checkForSmsPermission()) {
+                                        Toast.makeText(mContext,
+                                                "Sending...." + phone,
+                                                Toast.LENGTH_SHORT).show();
+                                        smsSendMessage(phone, "Help! I am in trouble!");
+                                    }
+
+                                } else if (i == CUSTOMSENDSMS) {
+                                    Toast.makeText(mContext,
+                                            "Ph " + phone,
                                             Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(mContext, SmsActivity.class));
+                                    //startActivity(new Intent(mContext, SmsActivity.class));
+                                    Intent intent = new Intent(mContext, SmsActivity.class);
+                                    intent.putExtra(Constant.PHONE, phone);
+                                    startActivity(intent);
 
                                 }
                             }
@@ -593,6 +603,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         }*/
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -605,7 +616,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 itemView.setText(addUser.getName());
                 adapter.addItem(view_b);
             }
-        }else{
+        } else {
             if ((resultCode == getActivity().RESULT_OK)) {
                 // When we are done cropping, display it in the ImageView.
                 // For API >= 23 we need to check specifically that we have permissions to read external storage,
@@ -674,15 +685,166 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     private boolean hasPermission(String permission) {
-
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             return (getActivity().checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
         } else {
             return true;
         }
-
-
     }
 
+    /*SMS permission and code*/
+
+    /**
+     * Checks whether the app has SMS permission.
+     */
+    private boolean checkForSmsPermission() {
+        if (ActivityCompat.checkSelfPermission(mContext,
+                Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            // Permission not yet granted. Use requestPermissions().
+            // MY_PERMISSIONS_REQUEST_SEND_SMS is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.SEND_SMS},
+                    MY_PERMISSIONS_REQUEST_SEND_SMS);
+            return false;
+        } else {
+            // Permission already granted. Enable the SMS button.
+            //enableSmsButton();
+            return true;
+        }
+    }
+
+    public void smsSendMessage(String phone, String sms) {
+        // Set the destination phone number to the string in editText.
+        String destinationAddress = phone;
+        // Find the sms_message view.
+        // Get the text of the sms message.
+        String smsMessage = sms;
+        // Set the service center address if needed, otherwise null.
+        String scAddress = null;
+        // Set pending intents to broadcast
+        // when message sent and when delivered, or set to null.
+        PendingIntent sentIntent = null, deliveryIntent = null;
+        // Check for permission first.
+        checkForSmsPermission();
+        // Use SmsManager.
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(destinationAddress, scAddress, smsMessage,
+                sentIntent, deliveryIntent);
+    }
+
+    /*
+    * Tag Target Explaination*/
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void tagTargetExplain( View view){
+
+
+        /*//final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_bell);
+
+        // We load a drawable and create a location to show a tap target here
+        // We need the display to get the width and height at this point in time
+        final Display display = getActivity().getWindowManager().getDefaultDisplay();
+        // Load our little droid guy
+        final Drawable droid = ContextCompat.getDrawable(mContext, R.drawable.ic_bell_icon);
+        // Tell our droid buddy where we want him to appear
+        final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
+        // Using deprecated methods makes you look way cool
+        //droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);*/
+
+       /* final SpannableString sassyDesc = new SpannableString("It allows you to go back, sometimes");
+        sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "sometimes".length(), sassyDesc.length(), 0);
+
+*/
+        // We have a sequence of targets, so lets build it!
+        /*final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                .targets(
+                        // This tap target will target the back button, we just need to pass its containing toolbar
+                        TapTarget.forToolbarNavigationIcon(toolbar,"This is the back button", sassyDesc).id(1),
+                        // Likewise, this tap target will target the search button
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.action_bell, "This is a search icon", "As you can see, it has gotten pretty dark around here...")
+                                .dimColor(android.R.color.black)
+                                .outerCircleColor(R.color.theme_accent)
+                                .targetCircleColor(android.R.color.black)
+                                .transparentTarget(true)
+                                .textColor(android.R.color.black)
+                                .id(2)
+                       // TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3)
+
+                       *//* // You can also target the overflow button in your toolbar
+                        TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3),
+                        // This tap target will target our droid buddy at the given target rect
+                        TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
+                                .cancelable(false)
+                                .icon(droid)
+                                .id(4)*//*
+                )
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        //((TextView) findViewById(R.id.educated)).setText("Congratulations! You're educated now!");
+
+                        Toast.makeText(mContext, "Congratulations! You're educated now!",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        final android.support.v7.app.AlertDialog dialog = new android.support.v7.app.AlertDialog.Builder(mContext)
+                                .setTitle("Uh oh")
+                                .setMessage("You canceled the sequence")
+                                .setPositiveButton("Oops", null).show();
+                        TapTargetView.showFor(dialog,
+                                TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE), "Uh oh!", "You canceled the sequence at step " + lastTarget.id())
+                                        .cancelable(false)
+                                        .tintTarget(false), new TapTargetView.Listener() {
+                                    @Override
+                                    public void onTargetClick(TapTargetView view) {
+                                        super.onTargetClick(view);
+                                        dialog.dismiss();
+                                    }
+                                });
+                    }
+                });
+*/
+
+
+
+
+        // You don't always need a sequence, and for that there's a single time tap target
+        final SpannableString spannedDesc = new SpannableString("You can add your trusted contacts for your safety connection!");
+        spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "TapTargetView".length(), spannedDesc.length(), 0);
+        TapTargetView.showFor(getActivity(), TapTarget.forView(view.findViewById(R.id.multiple_actions), "Hello, Khayah is with you!", spannedDesc)
+                .cancelable(false)
+                .drawShadow(true)
+                .titleTextDimen(R.dimen.title_text_size)
+                .tintTarget(false), new TapTargetView.Listener() {
+            @Override
+            public void onTargetClick(TapTargetView view) {
+                super.onTargetClick(view);
+                // .. which evidently starts the sequence we defined earlier
+                //sequence.start();
+            }
+
+            @Override
+            public void onOuterCircleClick(TapTargetView view) {
+                super.onOuterCircleClick(view);
+                Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                Log.d("TapTargetViewSample", "You dismissed me :(");
+            }
+        });
+    }
 
 }

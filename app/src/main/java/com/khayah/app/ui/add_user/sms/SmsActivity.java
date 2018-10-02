@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.khayah.app.Constant;
 import com.khayah.app.R;
 
 /**
@@ -28,6 +29,9 @@ public class SmsActivity extends AppCompatActivity {
     private static final String TAG = SmsActivity.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
+    private String mphone;
+    private EditText editText;
+
     /**
      * Creates the activity, sets the view, and checks for SMS permission.
      *
@@ -38,6 +42,14 @@ public class SmsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
         // Check to see if SMS is enabled.
+        editText = (EditText) findViewById(R.id.editText_main);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            mphone = bundle.getString(Constant.PHONE);
+        }
+
+        editText.setText(mphone);
         checkForSmsPermission();
     }
 
@@ -100,8 +112,8 @@ public class SmsActivity extends AppCompatActivity {
      * @param view View (message_icon) that was clicked.
      */
     public void smsSendMessage(View view) {
-        EditText editText = (EditText) findViewById(R.id.editText_main);
         // Set the destination phone number to the string in editText.
+
         String destinationAddress = editText.getText().toString();
         // Find the sms_message view.
         EditText smsEditText = (EditText) findViewById(R.id.sms_message);

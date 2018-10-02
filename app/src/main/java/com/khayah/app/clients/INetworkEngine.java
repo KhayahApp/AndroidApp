@@ -1,6 +1,7 @@
 package com.khayah.app.clients;
 
 
+import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.Lawer;
 import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
@@ -30,6 +31,9 @@ public interface INetworkEngine {
 
     @POST("/api/user")
     Call<String> register(@Body User user);
+
+    @POST("/api/notification")
+    Call<FcmMessage> sendNotification(@Body FcmMessage fcmMessage);
 
     @FormUrlEncoded
     @POST("/api/login")

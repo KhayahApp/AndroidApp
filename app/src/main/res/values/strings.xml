@@ -122,7 +122,8 @@
     <string name="unicode">Unicode</string>
 
     <string name="action_call">Call Phone</string>
-    <string name="action_sms">Send Sms</string>
+    <string name="action_sms">Emergnency Sms</string>
+    <string name="action_sms_custon">Custom Sms</string>
 
     <string name="remind_forgot_pwd">If you forgot your password, you can login with your phone number which used in Facebook</string>
 

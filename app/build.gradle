@@ -1,7 +1,7 @@
 // Manifest version information!
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 1
+def versionPatch = 3
 def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 apply plugin: 'com.android.application'
@@ -193,13 +193,15 @@ dependencies {
     //Horizontal recyclerView
     implementation 'com.github.takusemba:multisnaprecyclerview:1.2.0'
     //Rounded ImageView
-    compile 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     //https://github.com/afollestad/material-dialogs
     //SpinKit
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     //DetailActivity Scaling Layout
     implementation 'com.github.iammert:ScalingLayout:1.2.1'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

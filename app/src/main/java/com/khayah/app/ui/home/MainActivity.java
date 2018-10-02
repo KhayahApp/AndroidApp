@@ -1,22 +1,39 @@
 package com.khayah.app.ui.home;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.khayah.app.APIToolz;
@@ -59,6 +76,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
      */
     // [START declare_analytics]
     private FirebaseAnalytics mFirebaseAnalytics;
+    private View view;
+
     // [END declare_analytics]
 
     @Override
@@ -66,12 +85,15 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         return dispatchingAndroidInjector;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //tagTargetExplain(toolbar);
 
         // [START subscribe_topics]
         FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_ALL);
@@ -137,7 +159,6 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         displaySelectedScreen(R.id.nav_1);
 
     }
-
 
 
     @Override
@@ -219,13 +240,11 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 fragment = new TrustedUserFragment();
                 break;
             case R.id.nav_2:
-                //fragment = new Menu2();
                 fragment = new NearbyMapFragment();
                 break;
             case R.id.nav_3:
-                //fragment = new Menu2();
-                //fragment =  UserListFragment.newInstance();
-                fragment = new RecordFragment();
+                //fragment = new RecordFragment();
+                fragment= new ComingSoonFragment();
                 break;
             case R.id.nav_4:
                 //fragment = new Menu2();
@@ -234,9 +253,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
             case R.id.nav_5:
-                //fragment = new Menu2();
-                //fragment =  UserListFragment.newInstance(); Fake call
-
+                fragment= new ComingSoonFragment();
                 break;
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
@@ -259,4 +276,42 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return null;
     }*/
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void tagTargetExplain(Toolbar toolbar) {
+
+        //toolbar.inflateMenu(R.menu.menu_test);
+        final SpannableString sassyDesc = new SpannableString("It allows you to show more menu, you can choose!");
+        sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "choose".length(), sassyDesc.length(), 0);
+
+        TapTargetView.showFor(this,
+
+                TapTarget.forView(findViewById(R.id.nav_view), "Hello, Khayah is with you!", sassyDesc)
+                .cancelable(false)
+                .drawShadow(true)
+                .titleTextDimen(R.dimen.title_text_size)
+                .tintTarget(false), new TapTargetView.Listener() {
+            @Override
+            public void onTargetClick(TapTargetView view) {
+                super.onTargetClick(view);
+                // .. which evidently starts the sequence we defined earlier
+                //sequence.start();
+            }
+
+            @Override
+            public void onOuterCircleClick(TapTargetView view) {
+                super.onOuterCircleClick(view);
+                Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                Log.d("TapTargetViewSample", "You dismissed me :(");
+            }
+        });
+
+
+
+    }
+
 }

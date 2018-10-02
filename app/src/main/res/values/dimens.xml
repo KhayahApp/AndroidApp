@@ -67,5 +67,7 @@
     <dimen name="border_width">2dp</dimen>
     <dimen name="button_margin">32dp</dimen>
     <dimen name="edittext_width">200dp</dimen>
+    <dimen name="title_text_size">20dp</dimen>
+
 
 </resources>

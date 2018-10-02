@@ -117,7 +117,8 @@
     <string name="unicode">ယူနီကုတ္ေဖာင့္</string>
 
     <string name="action_call">ဖုန္းေခၚမည္</string>
-    <string name="action_sms">စာတိုပို႔မည္ </string>
+    <string name="action_sms">အေရးေပၚစာတိုပို႔မည္ </string>
+    <string name="action_sms_custon"> စာတိုေသခ်ာေရးပို႔မည္</string>
 
 
     <string name="remind_forgot_pwd"> လ်ိဳ ့ဝွက္ကုတ္ေမ့ခဲ ့လွ်င္ register လုပ္ခဲ့ေသာဖုန္းနံပါတ္ျဖင့္ ျပန္လည္ဝင္ေရာက္ အသံုးျပဳႏိ္ုင္ပါသည္။</string>

@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.Constant;
 import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
 import com.khayah.app.models.Station;
@@ -72,6 +73,11 @@ public class LawerActivity extends BaseAppCompatActivity {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                /*Intent i = new Intent(LawerActivity.this, DetailActivity.class);
+                i.putExtra(Constant.POST_DETAIL_ID, "");
+                startActivity(i);*/
+                Station station = (Station)  directories.get(position);
+                startActivity(new Intent(getApplicationContext(), DetailActivity.class).putExtra(Constant.POST_DETAIL_ID, station.getId()));
 
             }
         });
@@ -93,6 +99,7 @@ public class LawerActivity extends BaseAppCompatActivity {
         }
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

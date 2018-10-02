@@ -1,17 +1,20 @@
 package com.khayah.app.clients;
 
 
+import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.Lawer;
 import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
 import com.khayah.app.models.Station;
 import com.khayah.app.models.User;
+import com.khayah.app.models.UserGroup;
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -28,6 +31,9 @@ public interface INetworkEngine {
 
     @POST("/api/user")
     Call<String> register(@Body User user);
+
+    @POST("/api/notification")
+    Call<FcmMessage> sendNotification(@Body FcmMessage fcmMessage);
 
     @FormUrlEncoded
     @POST("/api/login")
@@ -49,6 +55,15 @@ public interface INetworkEngine {
     @GET("/api/{model}/total")
     Call<Integer> getTotal(@Path("model") String model, @Query("search") String search);
 
+    @POST("/api/usergroup")
+    Call<UserGroup> addUser(@Body UserGroup user);
+
+    @GET("/api/usergroup")
+    Call<List<UserGroup>> getUserGroups(@Query("search") String search, @Query("page") Integer page, @Query("rows") Integer rows);
+
+    @DELETE("/api/usergroup/{id}")
+    Call<String> deleteGroupUser(@Path("id") Integer id);
+
     @GET("/api/lawer")
     Call<List<Lawer>> getLawers(@Query("page") Integer page, @Query("rows") Integer rows);
 
@@ -56,6 +71,6 @@ public interface INetworkEngine {
     Call<List<Station>> getStation(@Query("search") String search, @Query("page") Integer page, @Query("rows") Integer rows);
 
     @GET("/api/station/{id}")
-    Call<User> getstationDetail(@Path("id") Integer id);
+    Call<Station> getstationDetail(@Path("id") Integer id);
 
 }

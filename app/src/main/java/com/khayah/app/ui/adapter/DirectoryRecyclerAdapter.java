@@ -71,7 +71,6 @@ public class DirectoryRecyclerAdapter extends RecyclerView.Adapter<DirectoryRecy
                 public void onClick(View view) {
 
                     PersonUtils cpu = (PersonUtils) view.getTag();
-
                     Toast.makeText(view.getContext(), cpu.getPersonName()+" is "+ cpu.getJobProfile(), Toast.LENGTH_SHORT).show();
 
                 }

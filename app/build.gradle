@@ -1,7 +1,7 @@
 // Manifest version information!
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 0
+def versionPatch = 3
 def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 apply plugin: 'com.android.application'
@@ -18,10 +18,10 @@ android {
             keyPassword "android"*/
         }
         release {
-            keyAlias 'AppKhayah'
-            storeFile file('REPLACE_FILE_PATH/keystore_littdroidtemplate.jks')
-            storePassword System.getenv("KSTOREPWD_LITTDROID")
-            keyPassword System.getenv("KEYPWD_LITTDROID")
+            keyAlias 'Khayahkey'
+            storeFile file('/Users/khinsandar/Documents/KhayahProjectFinal/KeyStoreFile/khayah.jks')
+            storePassword 'WeCanDo'
+            keyPassword 'WeCanDo'
         }
     }
 
@@ -90,8 +90,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Android Support Libraries
     implementation deps.support.annotations
     implementation deps.support.app_compat
@@ -109,31 +108,24 @@ dependencies {
     implementation deps.support.support_compat_v4
     implementation deps.support.support_compat_v7
     implementation deps.support.constraint_layout
-
     implementation deps.room.runtime
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.java8
-
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
-
     implementation deps.okhttp.logger
-
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.android_support
     implementation deps.constraint_layout
-
     implementation deps.glide
     implementation deps.timber
-
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor deps.dagger.android_support_compiler
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.room.compiler
     annotationProcessor deps.lifecycle.compiler
-
     testImplementation deps.junit
     testImplementation deps.mock_web_server
     testImplementation(deps.arch_core.testing, {
@@ -142,12 +134,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
     testImplementation deps.mockito.core
-
     androidTestImplementation deps.support.app_compat
     androidTestImplementation deps.support.recyclerview
     androidTestImplementation deps.support.cardview
     androidTestImplementation deps.support.design
-
     androidTestImplementation(deps.espresso.core, {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
@@ -156,14 +146,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
-
     /*implementation('com.facebook.android:audience-network-sdk:4.28.0', {
-        exclude group: 'com.google.android.gms'
-    })*/
-
+            exclude group: 'com.google.android.gms'
+        })*/
     androidTestImplementation(deps.arch_core.testing, {
     })
-
     //Facebook Account Kit
     implementation 'com.facebook.android:account-kit-sdk:4.36.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
@@ -176,55 +163,44 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.hbb20:ccp:2.0.3'
-
     implementation 'org.apache.commons:commons-lang3:3.4'
-
-
     //Google Sample Permission
     implementation deps.easypermissions
     //Material Search View
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
-
     //Google Map
     implementation deps.google_play_map_service
     implementation deps.google_play_auth_service
     //implementation 'com.google.android.gms:play-services:12.0.1'
-    implementation 'com.google.firebase:firebase-core:16.0.3'//For google map
-
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+    //For google map
     //Google Map route
     implementation 'com.github.jd-alexander:library:1.1.0'
     implementation 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     implementation 'com.squareup.okhttp:okhttp:2.5.0'
-
     //Firebase Messaging
-
     implementation 'com.google.firebase:firebase-iid:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.google.firebase:firebase-analytics:16.0.3'
-
     //CircleListView
     implementation 'com.github.JungHsuan:CircularList:1.2.3'
-
     implementation 'com.getbase:floatingactionbutton:1.10.1'
-
     //Photo and Video Upload
     implementation 'com.zhihu.android:matisse:0.4.3'
     //Horizontal recyclerView
     implementation 'com.github.takusemba:multisnaprecyclerview:1.2.0'
     //Rounded ImageView
-    compile 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     //https://github.com/afollestad/material-dialogs
     //SpinKit
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     //DetailActivity Scaling Layout
     implementation 'com.github.iammert:ScalingLayout:1.2.1'
-
-
-
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0'
 
 }
 

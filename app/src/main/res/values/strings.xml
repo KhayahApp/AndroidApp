@@ -89,7 +89,7 @@
     <string name="menu_2">Lawer List</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="default_notification_channel_name" translatable="true">News</string>
+    <string name="default_notification_channel_name" >News</string>
     <string name="notifications_admin_channel_name">Global channel</string>
     <string name="notifications_admin_channel_description">Notifications sent from the app admin</string>
     <string name="noti_title">Khayah</string>
@@ -122,10 +122,27 @@
     <string name="unicode">Unicode</string>
 
     <string name="action_call">Call Phone</string>
-    <string name="action_sms">Send Sms</string>
+    <string name="action_sms">Emergnency Sms</string>
+    <string name="action_sms_custon">Custom Sms</string>
 
     <string name="remind_forgot_pwd">If you forgot your password, you can login with your phone number which used in Facebook</string>
 
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, an sit fugit officiis deserunt, audiam disputando at sit. Eu mel expetenda voluptatibus. Ius no accusam scripserit.\n\n Sea error iracundia ne, duo ne dicat partem sententiae. Nibh admodum facilisi ius in. Ius legere intellegam ei, in zril deserunt qui.At alii audire scripta mea, errem disputando quo
+    </string>
+
+    <string name="detail_desc_lbl">Description</string>
+    <string name="add_user">Add User</string>
+
+    <string name="detais_similar_place_lbl">Similar places</string>
+    <string name="coming_soon">COMING SOON</string>
+
+
+    <string name="send_a_message">Send a message</string>
+    <string name="enter_message_here">Enter message here</string>
+    <string name="enter_phone">Enter a phone number</string>
+    <string name="permission_not_granted">PERMISSION NOT GRANTED!</string>
+    <string name="failure_permission">Failure to obtain permission!</string>
+    <string name="sms_disabled">SMS usage disabled</string>
 
 
 </resources>

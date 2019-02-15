@@ -34,13 +34,18 @@ import android.widget.Toast;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.khayah.app.APIToolz;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.UserGroup;
 import com.khayah.app.ui.add_user.CircleListActivity;
 import com.khayah.app.ui.add_user.TruestedUserListDialogFragment;
 import com.khayah.app.ui.add_user.TrustedUserFragment;
@@ -56,6 +61,7 @@ import com.khayah.app.ui.settings.SettingsActivity;
 import com.khayah.app.ui.userlist.UserListFragment;
 import com.khayah.app.util.CircleTransform;
 //import com.khayah.app.vo.User;
+import com.khayah.app.util.DeviceUtil;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -64,6 +70,9 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends BaseAppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
@@ -77,6 +86,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
     // [START declare_analytics]
     private FirebaseAnalytics mFirebaseAnalytics;
     private View view;
+    String mToken;
 
     // [END declare_analytics]
 
@@ -121,10 +131,24 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         TextView accountEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_email);
         if (KhayahApp.isLogin()) {
 
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+                @Override
+                public void onSuccess(InstanceIdResult instanceIdResult) {
+                     mToken = instanceIdResult.getToken();
+                    //Log.e("Token",mToken);
+                }
+            });
+
 
             // Check already login
             if (KhayahApp.isLogin()) {
                 User user = (User) KhayahApp.getUser();
+                if (mToken != null) {
+                    sendUserIDandfcmToken(user.getId(), DeviceUtil.getInstance(MainActivity.this).getID(), mToken);
+                }
+
+                //
+
                 Picasso.with(this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
                         + "/uploads/users/" + user.getAvatar()
                         : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
@@ -244,7 +268,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_3:
                 //fragment = new RecordFragment();
-                fragment= new ComingSoonFragment();
+                fragment = new ComingSoonFragment();
                 break;
             case R.id.nav_4:
                 //fragment = new Menu2();
@@ -253,7 +277,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
             case R.id.nav_5:
-                fragment= new ComingSoonFragment();
+                fragment = new ComingSoonFragment();
                 break;
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
@@ -287,31 +311,46 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         TapTargetView.showFor(this,
 
                 TapTarget.forView(findViewById(R.id.nav_view), "Hello, Khayah is with you!", sassyDesc)
-                .cancelable(false)
-                .drawShadow(true)
-                .titleTextDimen(R.dimen.title_text_size)
-                .tintTarget(false), new TapTargetView.Listener() {
+                        .cancelable(false)
+                        .drawShadow(true)
+                        .titleTextDimen(R.dimen.title_text_size)
+                        .tintTarget(false), new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        // .. which evidently starts the sequence we defined earlier
+                        //sequence.start();
+                    }
+
+                    @Override
+                    public void onOuterCircleClick(TapTargetView view) {
+                        super.onOuterCircleClick(view);
+                        Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                        Log.d("TapTargetViewSample", "You dismissed me :(");
+                    }
+                });
+
+    }
+
+    private void sendUserIDandfcmToken(int userId, String deviceId, String token) {
+        NetworkEngine.getInstance().addUserFcmTokenandDeviceID(userId, deviceId, token).enqueue(new Callback<UserGroup>() {
             @Override
-            public void onTargetClick(TapTargetView view) {
-                super.onTargetClick(view);
-                // .. which evidently starts the sequence we defined earlier
-                //sequence.start();
+            public void onResponse(Call<UserGroup> call, Response<UserGroup> response) {
+                //Log.d("TapTargetViewSample", "You dismissed me :(");
+
             }
 
             @Override
-            public void onOuterCircleClick(TapTargetView view) {
-                super.onOuterCircleClick(view);
-                Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
-            }
+            public void onFailure(Call<UserGroup> call, Throwable t) {
+                //Log.d("TapTargetViewSample", "You dismissed me :(");
 
-            @Override
-            public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
-                Log.d("TapTargetViewSample", "You dismissed me :(");
+
             }
         });
-
-
-
     }
 
 }

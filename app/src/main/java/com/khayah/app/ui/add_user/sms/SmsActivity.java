@@ -93,7 +93,7 @@ public class SmsActivity extends AppCompatActivity {
                     enableSmsButton();
                 } else {
                     // Permission denied.
-                    Log.d(TAG, getString(R.string.failure_permission));
+                    //Log.d(TAG, getString(R.string.failure_permission));
                     Toast.makeText(this, getString(R.string.failure_permission),
                             Toast.LENGTH_LONG).show();
                     // Disable the sms button.

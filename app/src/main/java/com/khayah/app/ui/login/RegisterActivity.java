@@ -18,8 +18,11 @@ import com.facebook.accountkit.PhoneNumber;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.hbb20.CountryCodePicker;
 import com.khayah.app.BaseAppCompatActivity;
+import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.ui.home.MainActivity;
@@ -50,10 +53,14 @@ public class RegisterActivity extends BaseAppCompatActivity {
     private Button btnRegister;
     private String verifyPhoneNumber = null;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -188,6 +195,11 @@ public class RegisterActivity extends BaseAppCompatActivity {
         user.setPhone(verifyPhoneNumber);
         user.setAvatar("girl.png");
         user.setGender(rdoGender.getCheckedRadioButtonId() == R.id.rdo_male ? "male" : "female");
+
+        mFirebaseAnalytics.setUserProperty("user_type", user.getGender());
+        // [START subscribe_topics]
+        FirebaseMessaging.getInstance().subscribeToTopic(user.getGender());
+
 
         NetworkEngine.getInstance().register(user).enqueue(new Callback<String>() {
             @Override

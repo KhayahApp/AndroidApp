@@ -73,4 +73,7 @@ public interface INetworkEngine {
     @GET("/api/station/{id}")
     Call<Station> getstationDetail(@Path("id") Integer id);
 
+    @POST("/api/usergroup")
+    Call<UserGroup> addUserFcmTokenandDeviceID(@Field("user_id") int user_id,@Field("device_id") String device_id,@Field("token") String token);
+
 }

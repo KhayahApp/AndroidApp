@@ -71,16 +71,15 @@
 
     <RatingBar
         android:id="@+id/rating_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="13dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:numStars="5"
-
-        android:stepSize="@integer/cpv_default_anim_steps"
+        android:rating="3.5"
+        android:stepSize="0.1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/rv_user_img"
         app:layout_constraintTop_toBottomOf="@+id/txt_rv_user_name" />
@@ -92,7 +91,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/coming_soon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/rating_bar" />

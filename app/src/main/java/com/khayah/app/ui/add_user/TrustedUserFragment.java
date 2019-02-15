@@ -50,6 +50,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.ybq.android.spinkit.SpinKitView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.jh.circularlist.CircularAdapter;
 import com.khayah.app.Constant;
@@ -128,6 +129,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private static final int CALL_REQUEST = INITIAL_REQUEST + 4;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public TrustedUserFragment() {
         // Required empty public constructor
     }
@@ -158,6 +161,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
     }
 
@@ -316,6 +321,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         switch (id) {
             case R.id.action_bell:
 
+
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "action_bell");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "bell");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "noti_button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                 if (!bellFlag) {
                     //menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.crop__ic_cancel));
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.crop__ic_cancel));
@@ -367,7 +379,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         final FcmMessage fcmMessage = new FcmMessage();
         fcmMessage.setTopicId("1");
         fcmMessage.setTitle("Khayah");
-        fcmMessage.setMessage("I am in trouble."+ user.getUsername());
+        fcmMessage.setMessage("I am in Danger."+ user.getUsername());
         fcmMessage.setAvatar(user.getAvatar());
         fcmMessage.setImage("");
         fcmMessage.setType("Khayah_all");
@@ -518,7 +530,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                         Toast.makeText(mContext,
                                                 "Sending...." + phone,
                                                 Toast.LENGTH_SHORT).show();
-                                        smsSendMessage(phone, "Help! I am in trouble!");
+                                        smsSendMessage(phone, "Help! I am in Danger!");
                                     }
 
                                 } else if (i == CUSTOMSENDSMS) {

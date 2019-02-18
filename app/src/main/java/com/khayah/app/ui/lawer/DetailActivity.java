@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +27,7 @@ import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.R;
 
 
-public class DetailActivity extends BaseAppCompatActivity {
+public class DetailActivity extends BaseAppCompatActivity implements View.OnClickListener{
 
 
     private Integer mID;
@@ -35,6 +37,8 @@ public class DetailActivity extends BaseAppCompatActivity {
     private TextView txtAddress;
     private TextView txtDesc;
     private TextView txtType;
+    private RelativeLayout ryCallNow;
+    private RelativeLayout ryDirection;
 
 
     @Override
@@ -61,6 +65,12 @@ public class DetailActivity extends BaseAppCompatActivity {
         txtAddress = (TextView)findViewById(R.id.detail_txt_address);
         txtDesc = (TextView)findViewById(R.id.detail_txt_desc);
         txtType = (TextView)findViewById(R.id.detail_txt_type);
+        ryCallNow = (RelativeLayout)findViewById(R.id.ry_call_now);
+        ryDirection = (RelativeLayout) findViewById(R.id.ry_direction);
+
+        ryCallNow.setOnClickListener(this::onClick);
+        ryDirection.setOnClickListener(this::onClick);
+
         getDetailByID(mID);
 
     }
@@ -114,5 +124,11 @@ public class DetailActivity extends BaseAppCompatActivity {
     public boolean onSupportNavigateUp() {
         super.onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+
     }
 }

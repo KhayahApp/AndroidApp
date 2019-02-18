@@ -3,11 +3,13 @@ package com.khayah.app.ui.home;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -41,6 +43,8 @@ import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.service.PowerButtonReceiver;
+import com.khayah.app.service.SettingsContentObserver;
 import com.khayah.app.ui.add_user.CircleListActivity;
 import com.khayah.app.ui.add_user.TruestedUserListDialogFragment;
 import com.khayah.app.ui.add_user.TrustedUserFragment;
@@ -77,6 +81,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
     // [START declare_analytics]
     private FirebaseAnalytics mFirebaseAnalytics;
     private View view;
+    private boolean mAlert = false;
 
     // [END declare_analytics]
 
@@ -92,12 +97,14 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            mAlert = bundle.getBoolean("alert");
+        }
         //tagTargetExplain(toolbar);
 
         // [START subscribe_topics]
         FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_ALL);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -125,6 +132,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             // Check already login
             if (KhayahApp.isLogin()) {
                 User user = (User) KhayahApp.getUser();
+                Log.i("FCM User","FCM User: "+Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
+                FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
                 Picasso.with(this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
                         + "/uploads/users/" + user.getAvatar()
                         : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
@@ -158,6 +167,15 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         //add this line to display menu1 when the activity is loaded
         displaySelectedScreen(R.id.nav_1);
 
+        // add power button event
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        PowerButtonReceiver mPowerButtonReceiver = new PowerButtonReceiver(this);
+        registerReceiver(mPowerButtonReceiver, filter);
+
+        // add volume button event
+        SettingsContentObserver mSettingsContentObserver = new SettingsContentObserver(this, new Handler());
+        getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, mSettingsContentObserver );
     }
 
 
@@ -237,7 +255,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_1:
-                fragment = new TrustedUserFragment();
+                fragment = TrustedUserFragment.newInstance(mAlert, null);
                 break;
             case R.id.nav_2:
                 fragment = new NearbyMapFragment();

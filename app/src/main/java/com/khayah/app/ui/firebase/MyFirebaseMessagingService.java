@@ -220,7 +220,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             String type = remoteMessage.getData().get(Constant.FCM_MESSAGE_TYPE);
 
-            if (type.equalsIgnoreCase(Constant.FCM_COMMOM_TOPIC_FOR_ALL)) {
+            //if (type.equalsIgnoreCase(Constant.FCM_COMMOM_TOPIC_FOR_ALL)) {
 
 
                 Intent post_detail_intent = new Intent(this, SplashActivity.class);
@@ -228,12 +228,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     post_detail_intent.putExtra(EXTRA_CATEGORY_ID, fcmMessage.getCategoryParentId());*/
                 post_detail_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 PendingIntent post_pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, post_detail_intent, PendingIntent.FLAG_ONE_SHOT);
-                if (remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL) != null) {
+                /*if (remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL) != null) {
                     personImg = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL));
                 } else {
                     personImg = getBitmapFromURL(this, Constant.FCM_POST_PERSON_IMG_URL);
                 }
-                Bitmap bitmap_post_img = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_IMAGE_URL));
+                Bitmap bitmap_post_img = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_IMAGE_URL));*/
 
                 //Button
                 NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_bell_icon, mStrOpen, post_pendingIntent).build();
@@ -256,7 +256,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.notify(notificationId /* ID of notification */, notification);
                 return;
 
-            } /*else if (type.equalsIgnoreCase(CommonConstants.FCM_MESSAGE_TYPE_PUSH)) {//Direct Push Message Type push_message
+            //}
+            /*else if (type.equalsIgnoreCase(CommonConstants.FCM_MESSAGE_TYPE_PUSH)) {//Direct Push Message Type push_message
 
                     Intent homeIntent = new Intent(this, NotificationReceivedActivity.class);
                     //No error when there is no data or null in remoteMessage.getData().get(CommonConstants.FCM_TITLE)

@@ -52,16 +52,21 @@ import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.gson.Gson;
 import com.jh.circularlist.CircularAdapter;
+import com.khayah.app.APIToolz;
 import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.clients.FCMNetworkEngine;
 import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.Data;
+import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.User;
 import com.khayah.app.models.UserGroup;
 import com.khayah.app.ui.add_user.sms.SmsActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.login.RegisterActivity;
+import com.khayah.app.util.CircleTransform;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -93,7 +98,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private static final int ADD_USER_RESULT = 100;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private Boolean mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -127,6 +132,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private static final int INITIAL_REQUEST = 1;
     private static final int CALL_REQUEST = INITIAL_REQUEST + 4;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+    private RoundedImageView imgUser;
+    private FrameLayout layoutUser;
 
     public TrustedUserFragment() {
         // Required empty public constructor
@@ -141,10 +148,10 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
      * @return A new instance of fragment TrustedUserFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrustedUserFragment newInstance(String param1, String param2) {
+    public static TrustedUserFragment newInstance(Boolean param1, String param2) {
         TrustedUserFragment fragment = new TrustedUserFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putBoolean(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -154,7 +161,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getBoolean(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
@@ -171,23 +178,40 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
         //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
-        tagTargetExplain(view);
-
 
         //SpinkitViewMultiPulse
         spnkitView = (SpinKitView) view.findViewById(R.id.spin_kit);
         btnAlarm = (Button) view.findViewById(R.id.alarm_btn);
         fyBell = (FrameLayout) view.findViewById(R.id.fy_bell);
+        layoutUser = (FrameLayout) view.findViewById(R.id.layout_user);
+        imgUser = (RoundedImageView) view.findViewById(R.id.img_user);
         spnkitView.setVisibility(View.INVISIBLE);
         fyBell.setVisibility(View.INVISIBLE);
 
+        // Check already login
+        if (KhayahApp.isLogin()) {
+            User user = (User) KhayahApp.getUser();
+            Picasso.with(getActivity()).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
+                    + "/uploads/users/" + user.getAvatar()
+                    : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
+                    .transform(new CircleTransform()).into(imgUser);
+            imgUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), ProfileActivity.class));
 
-        // simple text item with numbers 0 ~ 9
-        ArrayList<String> itemTitles = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            itemTitles.add(String.valueOf(i) + "khin_sandar");
+                }
+            });
 
+        } else {
+            Picasso.with(getActivity()).load(R.drawable.girl).transform(new CircleTransform()).into(imgUser);
         }
+        
+        if(mParam1 == true) {
+            playAlert();
+        }
+
+        firstPermissionSound();
         userList = new ArrayList<>();
         getUserGroup();
 
@@ -250,9 +274,11 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private void getUserGroup() {
         User user = (User) KhayahApp.getUser();
         NetworkEngine.getInstance().getUserGroups("user_id:equal:" + user.getId(), 1, 9).enqueue(new Callback<List<UserGroup>>() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<List<UserGroup>> call, Response<List<UserGroup>> response) {
                 if (response.isSuccessful()) {
+                    if(response.body().size() == 0) tagTargetExplain(view);
                     for (UserGroup group : response.body()) {
                         userList.add(group);
                         View view_b = getLayoutInflater().inflate(R.layout.circle_ls_view_circular_item, null);
@@ -308,6 +334,28 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         }
         //return super.onPrepareOptionsMenu(menu);
     }
+    
+    private void playAlert() {
+
+        bellFlag = true;
+        spnkitView.setVisibility(View.VISIBLE);
+        fyBell.setVisibility(View.VISIBLE);
+        sendFCMNotification();
+        sendNotificationtoUsers();
+        playBeep();
+    }
+    
+    private void unPlayAlert() {
+        //StopNotificationSend
+        spnkitView.setVisibility(View.INVISIBLE);
+        fyBell.setVisibility(View.INVISIBLE);
+        bellFlag = false;
+        if (m.isPlaying()) {
+            m.stop();
+            m.release();
+            m = new MediaPlayer();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -317,41 +365,12 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             case R.id.action_bell:
 
                 if (!bellFlag) {
-                    //menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.crop__ic_cancel));
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.crop__ic_cancel));
-
-                    bellFlag = true;
-                    spnkitView.setVisibility(View.VISIBLE);
-                    fyBell.setVisibility(View.VISIBLE);
-                    sendnotificationtoUsers();
-                    if (isFirstAlarmOpen) {
-                        firstpermissionSound();
-                        //tv.setText("Stop Alarm");
-                    } else {
-                        //tv.setText("Emergency Alarm");
-                        //tv.setBackgroundColor(getResources().getColor(R.color.appWhite));
-                        //tv.setTextColor(Color.BLACK);
-                        /*if (m.isPlaying()) {
-                            m.stop();
-                            m.release();
-                            m = new MediaPlayer();
-                        }*/
-                        playBeep();
-                        isFirstAlarmOpen = false;
-
-                    }
+                    playAlert();
 
                 } else {
                     menu.getItem(0).setIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_close_bell));
-                    spnkitView.setVisibility(View.INVISIBLE);
-                    fyBell.setVisibility(View.INVISIBLE);
-                    bellFlag = false;
-                    if (m.isPlaying()) {
-                        m.stop();
-                        m.release();
-                        m = new MediaPlayer();
-                    }
-                    //StopNotificationSend
+                    unPlayAlert();
                 }
 
                 return true;
@@ -361,7 +380,35 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         }
     }
 
-    private void sendnotificationtoUsers() {
+    private void sendFCMNotification() {
+        if(userList.size() > 0) {
+            for (UserGroup group: userList) {
+                FCMRequest request = new FCMRequest();
+                Data data = new Data();
+                data.setTitle("Please help me, "+ group.getName());
+                data.setMessage("I have attached at somewhere.");
+                request.setTo("/topics/"+ Constant.FCM_COMMOM_TOPIC_FOR_USER+group.getPhone());
+                request.setData(data);
+                FCMNetworkEngine.getInstance().postFCMNotification(request).enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if(response.isSuccessful()) {
+                            Toast.makeText(mContext,
+                                    "Sending...." + response.message(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
+    }
+
+    private void sendNotificationtoUsers() {
 
         User user = (User) KhayahApp.getUser();
         final FcmMessage fcmMessage = new FcmMessage();
@@ -371,15 +418,16 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         fcmMessage.setAvatar(user.getAvatar());
         fcmMessage.setImage("");
         fcmMessage.setType("Khayah_all");
-        fcmMessage.setFcmServerId("1");
+        fcmMessage.setFcmServerId("2");
 
         NetworkEngine.getInstance().sendNotification(fcmMessage).enqueue(new Callback<FcmMessage>() {
             @Override
             public void onResponse(Call<FcmMessage> call, Response<FcmMessage> response) {
-                Toast.makeText(mContext,
-                        "Sending...." + response.message(),
-                        Toast.LENGTH_SHORT).show();
-
+                if(response.isSuccessful()) {
+                    Toast.makeText(mContext,
+                            "Sending...." + response.message(),
+                            Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -390,8 +438,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
     }
 
@@ -537,20 +583,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     @AfterPermissionGranted(RC_ALL_PERMISSIONS)
-    private void firstpermissionSound() {
-        if (hasAllPermissions()) { // For one permission EasyPermissions.hasPermissions(getContext(), Manifest.permission.READ_SMS)
-            // Have permission, do the thing!
-            //Toast.makeText(getActivity(), "TODO: MAP and GPS things", Toast.LENGTH_LONG).show();
-            //TODO your job
-            playBeep();
-           /* if (task.equalsIgnoreCase("Alarm")) {
-                playBeep();
-            }*/
-
-        } else {
-            // Request one permission
-            //EasyPermissions.requestPermissions(this, getString(R.string.rationale_sms), RC_SMS_PERM, Manifest.permission.READ_SMS);
-            // Ask for both permissions
+    private void firstPermissionSound() {
+        if (!hasAllPermissions()) {
             EasyPermissions.requestPermissions(
                     this,
                     getString(R.string.rationale_all_permissions),
@@ -737,7 +771,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     /*
     * Tag Target Explaination*/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void tagTargetExplain( View view){
+    public void tagTargetExplain( View view){
 
 
         /*//final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -756,7 +790,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
        /* final SpannableString sassyDesc = new SpannableString("It allows you to go back, sometimes");
         sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "sometimes".length(), sassyDesc.length(), 0);
 
-*/
+        */
         // We have a sequence of targets, so lets build it!
         /*final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                 .targets(

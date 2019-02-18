@@ -106,7 +106,7 @@ public class ProfileActivity extends BaseAppCompatActivity {
                 showLoading(false);
                 user = response.body();
                 KhayahApp.updateUser(user);
-                if(user.getPoints() != null && user.getPoints() > 0) {
+                if(user.getPoints() != null) {
                     txt_points.setText(user.getPoints().toString());
                 }
             }

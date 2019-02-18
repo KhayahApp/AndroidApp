@@ -30,6 +30,7 @@ import com.facebook.accountkit.ui.LoginType;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
+import com.khayah.app.APIToolz;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
@@ -89,7 +90,7 @@ public class LoginActivity extends BaseAppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
         btnFacebook.setReadPermissions(Arrays.asList("public_profile,email"));
-        /*btnFacebook.registerCallback(callbackManager,
+        btnFacebook.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -121,7 +122,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                     public void onError(FacebookException exception) {
                         // App code
                     }
-                });*/
+                });
         //printHashKey();
         if(KhayahApp.isLogin()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -161,8 +162,8 @@ public class LoginActivity extends BaseAppCompatActivity {
                 }
             }
             if(view == btnLoginFacebook){
-                //btnFacebook.performClick();
-                verifyPhoneNumber();
+                btnFacebook.performClick();
+                //verifyPhoneNumber();
             }
         }
     };
@@ -225,7 +226,7 @@ public class LoginActivity extends BaseAppCompatActivity {
 
                             @Override
                             public void onFailure(Call<List<User>> call, Throwable t) {
-
+                                Log.e("Login", "Login fail: "+ t.getMessage());
                             }
                         });
                     }

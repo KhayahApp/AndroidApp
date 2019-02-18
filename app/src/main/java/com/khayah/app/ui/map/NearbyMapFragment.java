@@ -106,12 +106,12 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
         mContext = getActivity().getApplicationContext();
         view = inflater.inflate(R.layout.fragment_maps, container, false);
         //firt time permission
-        firstpermissionRequestgoogleMap();
+        firstPermissionRequestgoogleMap();
         return view;
     }
 
     @AfterPermissionGranted(RC_ALL_PERMISSIONS)
-    private void firstpermissionRequestgoogleMap() {
+    private void firstPermissionRequestgoogleMap() {
         if (hasAllPermissions()) { // For one permission EasyPermissions.hasPermissions(getContext(), Manifest.permission.READ_SMS)
             // Have permission, do the thing!
             //Toast.makeText(getActivity(), "TODO: MAP and GPS things", Toast.LENGTH_LONG).show();
@@ -254,7 +254,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         enableMyLocation();
-        getNearbyStation();
+        //getNearbyStation();
     }
     /**
      * Enables the My Location layer if the fine location permission has been granted.
@@ -284,7 +284,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
                 routeTypes[3] = Routing.TravelMode.BIKING;
 
                 routeTo = new LatLng(16.849610, 96.117740);
-                getRoute(routeTypes[currentRouteType], routeTo);
+                //getRoute(routeTypes[currentRouteType], routeTo);
             }
         }
     }
@@ -337,8 +337,6 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
     @Override
     public void onMyLocationClick(@NonNull Location location) {
         Toast.makeText(mContext, "onMyLocationClick" + currentLatLng, Toast.LENGTH_SHORT).show();
-
-
     }
 
     //TODO Map Routing Method

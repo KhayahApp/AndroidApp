@@ -1,6 +1,7 @@
 package com.khayah.app.clients;
 
 
+import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.Lawer;
 import com.khayah.app.models.RequestToken;
@@ -26,6 +27,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface INetworkEngine {
+
+    @POST("/fcm/send")
+    Call<Object> postFCMNotification(@Body FCMRequest request);
+
     @POST("/oauth/token")
     Call<ResponseToken> getAccessToken(@Body RequestToken token);
 

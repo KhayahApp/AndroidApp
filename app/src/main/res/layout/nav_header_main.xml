@@ -12,51 +12,58 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <com.makeramen.roundedimageview.RoundedImageView
-
-        android:id="@+id/img_user"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:contentDescription="@string/nav_header_desc"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
-        android:visibility="visible"
-        app:riv_border_color="#333333"
-        app:riv_border_width="0dip"
-        app:riv_corner_radius="30dip"
-        app:riv_mutate_background="true"
-        app:riv_oval="true"/>
-
-    <com.khayah.app.ui.widget.CustomTextView
-        android:id="@+id/txt_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
     <LinearLayout
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_user"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:contentDescription="@string/nav_header_desc"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="visible"
+            app:riv_border_color="#333333"
+            app:riv_border_width="0dip"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"/>
+
         <com.khayah.app.ui.widget.CustomTextView
-            android:id="@+id/txt_email"
-            android:layout_width="wrap_content"
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/nav_header_subtitle" />
-        <ImageView
-            android:layout_width="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="@string/nav_header_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:visibility="gone"
-            android:src="@drawable/ic_log_out"/>
+            android:layout_weight="0"
+            android:orientation="horizontal">
+            <com.khayah.app.ui.widget.CustomTextView
+                android:id="@+id/txt_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nav_header_subtitle" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="right"
+                android:visibility="gone"
+                android:src="@drawable/ic_log_out"/>
+        </LinearLayout>
     </LinearLayout>
 
 

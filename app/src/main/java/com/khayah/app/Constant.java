@@ -1,6 +1,9 @@
 package com.khayah.app;
 
+import com.khayah.app.models.ResponseToken;
+
 public class Constant {
+    public static ResponseToken token = null;
     public static String AccessToken = null;
     public static String settings = "settings";
     public static String version = "version";
@@ -13,6 +16,7 @@ public class Constant {
 
     //Firebase Message Type
     public static String FCM_MESSAGE_TYPE ="type";
+    public static String FCM_COMMOM_TOPIC_FOR_USER = "Khayah_";
     public static String FCM_COMMOM_TOPIC_FOR_ALL = "Khayah_all";
     public static String FCM_COMMOM_TOPIC_FOR_WOMEN = "Khayah_women";
     public static String FCM_COMMOM_TOPIC_FOR_MEN = "Khayah_men";

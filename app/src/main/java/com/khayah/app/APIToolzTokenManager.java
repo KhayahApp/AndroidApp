@@ -34,7 +34,7 @@ public class APIToolzTokenManager {
     }
 
     public String getAccessToken() {
-        ResponseToken token = StorageDriver.getInstance().selectFrom(APIToolz.APIToolzToken);
+        ResponseToken token = Constant.token;
         if(token != null) {
             accessToken = token.getAccessToken();
         } else {
@@ -47,6 +47,7 @@ public class APIToolzTokenManager {
                     if(response.isSuccessful())
                     {
                         ResponseToken responseToken = response.body();
+                        Constant.token = responseToken;
                         if(tokenCallback != null) {
                             tokenCallback.onSuccess(responseToken.getAccessToken());
                         }

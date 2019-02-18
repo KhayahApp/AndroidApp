@@ -129,6 +129,7 @@ public class DetailActivity extends BaseAppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
 
+        //todo
 
     }
 }

@@ -835,7 +835,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         final SpannableString spannedDesc = new SpannableString("You can add your trusted contacts for your safety connection!");
         spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "TapTargetView".length(), spannedDesc.length(), 0);
         TapTargetView.showFor(getActivity(), TapTarget.forView(view.findViewById(R.id.multiple_actions), "Hello, Khayah is with you!", spannedDesc)
-                .cancelable(false)
+                .cancelable(true)
                 .drawShadow(true)
                 .titleTextDimen(R.dimen.title_text_size)
                 .tintTarget(false), new TapTargetView.Listener() {
@@ -849,7 +849,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             @Override
             public void onOuterCircleClick(TapTargetView view) {
                 super.onOuterCircleClick(view);
-                Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
             }
 
             @Override

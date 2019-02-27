@@ -39,6 +39,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/lbl_head_1"
         android:textColor="@color/app_white"
+        android:maxLines="5"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -58,7 +60,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
 
-    <com.khayah.app.ui.widget.CustomTextView
+   <!-- <com.khayah.app.ui.widget.CustomTextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,5 +91,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" />-->
 </android.support.constraint.ConstraintLayout>

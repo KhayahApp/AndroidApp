@@ -610,7 +610,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (i == CALLPHONE) {
                                     userPhone = userGroup.getPhone();
-                                    callPhone(userGroup.getPhone());
+                                    callPhone("+"+userGroup.getPhone());
 
                                 } else if (i == SENDSMS) {
                                     if (checkForSmsPermission()) {

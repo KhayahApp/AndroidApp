@@ -249,7 +249,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Toast.makeText(getActivity(), "onMapReady", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "onMapReady", Toast.LENGTH_LONG).show();
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -309,12 +309,12 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
 
 
         // Add a circle in Current Location
-        Circle circle = mMap.addCircle(new CircleOptions()
+        /*Circle circle = mMap.addCircle(new CircleOptions()
                 .center(currentLatLng)
                 .radius(5000)
                 .strokeWidth(4)
                 .strokeColor(getResources().getColor(R.color.theme_primary))
-                .fillColor(getResources().getColor(R.color.theme_primary_light)));
+                .fillColor(getResources().getColor(R.color.theme_primary_light)));*/
 
     }
 
@@ -336,7 +336,7 @@ public class NearbyMapFragment extends Fragment implements EasyPermissions.Permi
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(mContext, "onMyLocationClick" + currentLatLng, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, "onMyLocationClick" + currentLatLng, Toast.LENGTH_SHORT).show();
     }
 
     //TODO Map Routing Method

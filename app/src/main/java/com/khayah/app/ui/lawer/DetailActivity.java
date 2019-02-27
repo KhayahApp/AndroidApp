@@ -138,7 +138,7 @@ public class DetailActivity extends BaseAppCompatActivity implements View.OnClic
         //todo
         if (v == ryCallNow) {
             //Toast.makeText(this, "Onclick....", Toast.LENGTH_SHORT).show();
-            callPhone(txtPhone.getText().toString());
+            callPhone("+"+txtPhone.getText().toString());
         }
         if (v == ryDirection ) {
             String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", mStation.getLatitude(), mStation.getLongitude(), mStation.getAddress());

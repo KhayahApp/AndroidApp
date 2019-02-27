@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Khayah</string>
-    <string name="action_settings">Settings</string>
-    <string name="retry">Retry</string>
+    <string name="app_name">ခရာ</string>
+    <string name="action_settings">ျပင္ဆင္ရန္ </string>
+    <string name="retry">ျပန္လည္ႀကိဳးစားပါ</string>
     <string name="unknown_error">Unknown Error</string>
 
     <string name="action_bar_title_hello">Hello</string>
@@ -10,80 +10,84 @@
     <string name="permissions_get_accounts_message">
         Grant permission to read your email address from your device to pre-fill.
     </string>
-    <string name="permissions_get_accounts_title">Read Email Address</string>
+    <string name="permissions_get_accounts_title">သင့္ Email လိပ္စာယူမည္။</string>
     <string name="permissions_read_phone_state_message">
-        Grant permission to read your phone number from your device to pre-fill.
+        ဖုန္းနံပါတ္မ်ားယူမည္ကိုခြင့္ျပဳ႔ပါရန္.
     </string>
-    <string name="permissions_read_phone_state_title">Read Phone Number</string>
+    <string name="permissions_read_phone_state_title">သင့္ဖုန္းနံပါတ္ကို မွတ္မည္။</string>
     <string name="permissions_receive_sms_message">
         Grant permission to read your SMS code from your device to pre-fill.
     </string>
-    <string name="permissions_receive_sms_title">Read SMS Code</string>
-    <string name="log_in_email_button">Log In via Email</string>
-    <string name="log_in_phone_button">Log In via Phone</string>
-    <string name="log_out_button">Log Out</string>
+    <string name="permissions_receive_sms_title">သင့္ SMS စာတိုဖတ္မည္</string>
+    <string name="log_in_email_button">အီးေမးလ္ျဖင့္ ဝင္မည္။ </string>
+    <string name="log_in_phone_button">ဖုန္းနံပါတ္ျဖင့္ ဝင္မည္။ </string>
+    <string name="log_out_button">ထြက္မည္။ </string>
     <string name="error_label">Error</string>
-    <string name="loading_placeholder">Loading&#8230;</string>
-    <string name="user_id_label">Account ID</string>
-    <string name="phone_number_label">Phone Number</string>
-    <string name="email_label">Email</string>
+    <string name="loading_placeholder">ခဏေစာင့္ပါ ရန္ &#8230;</string>
+    <string name="user_id_label">သင့္အေကာင့္နံပါတ္ </string>
+    <string name="phone_number_label">ဖုန္းနံပါတ္ </string>
+    <string name="email_label">အီးေမးလ္လိပ္စာ</string>
     <string name="na">NA</string>
 
     <string name="login">Login</string>
     <string name="or">OR</string>
     <string name="continue_facebook">Continue with Facebook</string>
-    <string name="user_name">Username</string>
-    <string name="phone_no">Phone number</string>
-    <string name="create_account">Create new account</string>
-    <string name="register">Register</string>
+    <string name="user_name">အမည္</string>
+    <string name="phone_no"> ဖုန္းနံပါတ္ 959ျဖင့္စတင္ပါရန္။ </string>
+    <string name="create_account">အေကာင့္အသစ္ဖြင့္မည္။</string>
+    <string name="register">အေကာင့္အသစ္ စာရင္းသြင္းမည္။ </string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
+    <string name="password">လိ်ဳ ့ဝွက္စာလံုး </string>
+    <string name="male">အမ်ိဳးသား</string>
+    <string name="female">အမ်ိဳးသမီး</string>
     <string name="name">အမည္</string>
     <string name="pls_enter_name">အမည္႐ိုက္ထည့္ပါ</string>
-    <string name="pls_enter_email">Please enter email</string>
+    <string name="pls_enter_email">အီးေမးလ္႐ိုက္ထည့္ပါ</string>
     <string name="pls_enter_password">လ်ိဳ ့ဝွက္စာလံုး႐ိုက္ထည့္ပါ</string>
     <string name="pls_enter_phone">ဖုန္းနံပါတ္႐ိုက္ထည့္ပါ</string>
     <string name="first_name">အမည္</string>
     <string name="last_name">အဆံုးအမည္</string>
-    <string name="pls_enter_fname">Please enter first name</string>
-    <string name="pls_enter_lname">Please enter last name</string>
+    <string name="pls_enter_fname">အမည္ အစ စာလံုး႐ိုက္ထည့္ပါ။</string>
+    <string name="pls_enter_lname">အမည္ အဆံုး စာလံုး႐ိုက္ထည့္ပါ၊ </string>
     <string name="invalid_authenticate">Invalid Authentication</string>
-    <string name="try_again">Try Again</string>
-    <string name="invalid_value">Invalid Value</string>
-    <string name="email_phone">Phone number 959xxxxxxx</string>
-    <string name="change_password">Change Password</string>
-    <string name="new_password">New password</string>
-    <string name="confirm_password">Confirm password</string>
-    <string name="edit_account">Edit Account</string>
-    <string name="pls_enter_new_password">Please enter new password</string>
-    <string name="pls_enter_confirm_password">Please enter confirm password</string>
-    <string name="pls_match_confirm_password">Don\'t match two passwords</string>
-    <string name="profile">Profile</string>
-    <string name="gender">Gender</string>
-    <string name="points">Points</string>
+    <string name="try_again">ေနာက္တႀကိမ္ ႀကိဳးစားပါ </string>
+    <string name="invalid_value">႐ိုက္ထည့္ေသာစာလံုးမွားေနသည္။ </string>
+    <string name="email_phone">ဖုန္းနံပါတ္ကို ထိုသို႔ ေရးသြင္းပါ 959xxxxxxx</string>
+    <string name="change_password"> လိ်ဳ႕ဝွက္စာလံုးေျပာင္းရန္ </string>
+    <string name="new_password"> လိ်ဳ ့ဝွက္စာလံုးအသစ္ </string>
+    <string name="confirm_password">ေနာက္တႀကိမ္ ႐ိုက္ထည့္ပါ </string>
+    <string name="edit_account">မိမိအေကာင့္ကိုျပင္ဆင္မည္၊</string>
+    <string name="pls_enter_new_password"> လိ်ဳ႕ဝွက္စာလံုးအသစ္႐ိုက္ထည့္ပါ၊</string>
+    <string name="pls_enter_confirm_password">ေနာက္တႀကိမ္ ႐ိုက္ထည့္ပါ</string>
+    <string name="pls_match_confirm_password">သင္႐ိုက္ထည့္ေသာလိ်ဳ ့ဝွက္စာလံုး စာလံုးမ်ားမတူပါ။</string>
+    <string name="profile">သင့္အေၾကာင္း</string>
+    <string name="gender">က်ား ၊ မ </string>
+    <string name="points">သင့္ရမွတ္မ်ား</string>
 
 
-    <string name="lbl_head_1">Khayah lets your friends virtually walk your home.</string>
+    <string name="lbl_head_1">ခရာ နဲ႔ ဆို လံုျခံမႈ ပိုရွိေစမည္။ \n
+သင့္အနားမွာ ကူညီမဲ့အသိမိတ္ေဆြလို \n
+အိမ္ျပန္ခ်ိန္ေတြ \n
+သင့္အနီးနားေစာင့္ၾကည့္ျခင္းေတြနဲ႔ \n
+သင္ အႏၲရာယ္ၾကံဳတဲ့အခါကူညီေပးမည့္ ခရာ။ </string>
     <string name="lbl_head_2">keep an eye on you and senses</string>
     <string name="lbl_head_3">if something is wrong</string>
     <string name="rationale_all_permissions"> ဤ App အတြင္း လုပ္ေဆာင္ခ်က္မ်ားကိုသံုးရန္သင္၏ ခြင့္ျပဳခ်က္မ်ားကို ေတာင္းဆိုလိုပါသည္။  .</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open"> menu ဖြင့္မည္</string>
+    <string name="navigation_drawer_close"> menu ပိတ္မည္</string>
     <string name="nav_header_title">မဂၤလာပါ, မိတ္ေဆြ</string>
     <string name="nav_header_subtitle">အေကာင့္ဖြင့္ပါ</string>
     <string name="nav_header_desc">Navigation header</string>
 
 
-    <string name="search">Search %1$s</string>
-    <string name="menu_1">Nearby Map</string>
-    <string name="menu_2">Lawer List</string>
+    <string name="search">ရွာမည္ %1$s</string>
+    <string name="menu_1">အနီးအနားျပေျမပံု </string>
+    <string name="menu_2">ေရွ႕ေနစာရင္း </string>
 
 <!--    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="default_notification_channel_name" translatable="true">News</string>-->
-    <string name="default_notification_channel_name" >News</string>-->
+    <string name="default_notification_channel_name" >သတင္းမ်ား</string>-->
 
     <string name="notifications_admin_channel_name">Global channel</string>
     <string name="notifications_admin_channel_description">Notifications sent from the app admin</string>
@@ -100,15 +104,15 @@
     <string name="menu_record">အသံသြင္းရန္</string>
     <string name="menu_directory">လမ္းၫႊန္ရာ</string>
     <string name="menu_fake_call">အေယာင္ေဆာင္ေခၚဆိုမႈ</string>
-    <string name="menu_setting">Setting</string>
+    <string name="menu_setting">ျပင္ဆင္ရန္</string>
 
     <string name="menu_share">မွ်ေဝမည္</string>
     <string name="menu_feedback">အၾကံ ျပဳခ်က္</string>
 
-    <string name="menu_bell">Alarm System</string>
+    <string name="menu_bell">အသံျပဳအခ်က္ျပစနစ္ </string>
 
     <string name="Submit">ေပးပို႔ မည္</string>
-    <string name="settings">Settings</string>
+    <string name="settings">ျပင္ဆင္ရန္</string>
     <string name="save">သိမ္းမည္</string>
     <string name="version">ဗားရွင္း</string>
     <string name="language">ဘာသာစကား</string>
@@ -128,29 +132,29 @@
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, an sit fugit officiis deserunt, audiam disputando at sit. Eu mel expetenda voluptatibus. Ius no accusam scripserit.\n\n Sea error iracundia ne, duo ne dicat partem sententiae. Nibh admodum facilisi ius in. Ius legere intellegam ei, in zril deserunt qui.At alii audire scripta mea, errem disputando quo in.\n\n Elit vocent legimus cum ei. Eu nonumes eligendi pericula sit. Ceteros omnesque facilisis id vix, at dico choro perpetua est, et dolore oblique vituperata qui. \n\nLorem ipsum dolor sit amet, an sit fugit officiis deserunt, audiam disputando at sit. Eu mel expetenda voluptatibus. Ius no accusam scripserit.\n\n Sea error iracundia ne, duo ne dicat partem sententiae. Nibh admodum facilisi ius in. Ius legere intellegam ei, in zril deserunt qui.At alii audire scripta mea, errem disputando quo in.\n\n Elit vocent legimus cum ei. Eu nonumes eligendi pericula sit. Ceteros omnesque facilisis id vix, at dico choro perpetua est, et dolore oblique vituperata qui.\n\nLorem ipsum dolor sit amet, an sit fugit officiis deserunt, audiam disputando at sit. Eu mel expetenda voluptatibus. Ius no accusam scripserit.\n\n Sea error iracundia ne, duo ne dicat partem sententiae. Nibh admodum facilisi ius in. Ius legere intellegam ei, in zril deserunt qui.At alii audire scripta mea, errem disputando quo in.\n\n Elit vocent legimus cum ei. Eu nonumes eligendi pericula sit. Ceteros omnesque facilisis id vix, at dico choro perpetua est, et dolore oblique vituperata qui. \n\nLorem ipsum dolor sit amet, an sit fugit officiis deserunt, audiam disputando at sit. Eu mel expetenda voluptatibus. Ius no accusam scripserit.\n\n Sea error iracundia ne, duo ne dicat partem sententiae. Nibh admodum facilisi ius in. Ius legere intellegam ei, in zril deserunt qui.At alii audire scripta mea, errem disputando quo in.\n\n Elit vocent legimus cum ei. Eu nonumes eligendi pericula sit. Ceteros omnesque facilisis id vix, at dico choro perpetua est, et dolore oblique vituperata qui.</string>
 
-    <string name="detail_desc_lbl">Information</string>
-    <string name="add_user">Add Trusted Person</string>
-    <string name="detais_similar_place_lbl">Similar places</string>
+    <string name="detail_desc_lbl">သတင္းအခ်က္အလက္</string>
+    <string name="add_user">သင္ယံုၾကည္ရသူကို စာရင္းထည့္သြင္းရန္</string>
+    <string name="detais_similar_place_lbl">အနီးအနားရွိေနရာမ်ား </string>
     <string name="coming_soon">မၾကာမွီ တင္ေပးပါမည္</string>
 
-    <string name="send_a_message">Send a message</string>
-    <string name="enter_message_here">Enter message here</string>
-    <string name="enter_phone">Enter a phone number</string>
+    <string name="send_a_message">စာတိုပို႔မည္။</string>
+    <string name="enter_message_here">စာတို ႐ိုက္ထည့္ရန္ေနရာ</string>
+    <string name="enter_phone"> ဖုန္းနံပါတ္႐ိုက္ထည့္ပါရန္ 959ျဖင့္စတင္ရန္။</string>
     <string name="permission_not_granted">PERMISSION NOT GRANTED!</string>
     <string name="failure_permission">Failure to obtain permission!</string>
-    <string name="sms_disabled">SMS usage disabled</string>
-    <string name="not_active_user">Your account is not active</string>
-    <string name="action_remove">Remove</string>
-    <string name="comment">Comment</string>
-    <string name="rating">Rating</string>
-    <string name="help_us">Feedback</string>
-    <string name="required">Required</string>
-    <string name="invalid_rating_value">Please set rating value</string>
+    <string name="sms_disabled">SMS အသံုးျပဳခြင့္မရရွိပိတ္ထားသည္။</string>
+    <string name="not_active_user">သင့္အေကာင့္အသံုးျပဳမရႏိုင္ပါ</string>
+    <string name="action_remove">ဖယ္ရွားမည္</string>
+    <string name="comment">မွတ္ခ်က္ေရးမည္</string>
+    <string name="rating">သတ္မွတ္ခ်က္ေပးရန္</string>
+    <string name="help_us">အၾကံျပဳခ်က္ေပးရန္</string>
+    <string name="required">ထည့္ေပးရန္လိုအပ္ပါသည္</string>
+    <string name="invalid_rating_value">ေက်းဇူးျပဳ၍ သတ္မွတ္ခ်က္ေပးပါ၊</string>
     <string name="str_yes_i">Yes, OK</string>
-    <string name="invalid_comment_value">Please enter your comment</string>
-    <string name="send">Send</string>
-    <string name="success">Success</string>
-    <string name="success_feedback_msg">Thank you for your feedback</string>
+    <string name="invalid_comment_value">သင့္မွတ္ခ်က္ေရးသားရန္</string>
+    <string name="send">ေပးပို႔ရန္</string>
+    <string name="success">ေပးပို႔မႈေအာင္ျမင္ပါသည္</string>
+    <string name="success_feedback_msg">သင့္အၾကံျပဳခ်က္အတြက္ေက်းဇူးတင္ပါသည္</string>
 
 
 </resources>

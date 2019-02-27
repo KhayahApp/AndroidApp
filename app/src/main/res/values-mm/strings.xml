@@ -91,8 +91,8 @@
 
     <string name="notifications_admin_channel_name">Global channel</string>
     <string name="notifications_admin_channel_description">Notifications sent from the app admin</string>
-    <string name="noti_title">Khayah</string>
-    <string name="noti_text">Khayah</string>
+    <string name="noti_title">Khayar</string>
+    <string name="noti_text">Khayar</string>
     <string name="action_logout">Logout</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -151,7 +151,7 @@
     <string name="required">ထည့္ေပးရန္လိုအပ္ပါသည္</string>
     <string name="invalid_rating_value">ေက်းဇူးျပဳ၍ သတ္မွတ္ခ်က္ေပးပါ၊</string>
     <string name="str_yes_i">ရၿပီး</string>
-    <string name="str_sound_on_off">အသံအပိတ္အဖြင့္</string>
+    <string name="str_sound_on_off">အသံ ျမည္ရန္အမွန္ျခစ္ေရြးခ်ယ္ပါ</string>
     <string name="invalid_comment_value">သင့္မွတ္ခ်က္ေရးသားရန္</string>
     <string name="send">ေပးပို႔ရန္</string>
     <string name="success">ေပးပို႔မႈေအာင္ျမင္ပါသည္</string>

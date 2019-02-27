@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Khayah</string>
+    <string name="app_name">Khayar</string>
     <string name="action_settings">Settings</string>
     <string name="retry">Retry</string>
     <string name="unknown_error">Unknown Error</string>
@@ -72,7 +72,7 @@
     <string name="points">Points</string>
 
 
-    <string name="lbl_head_1">With Khayah, you are safe more than ever \n
+    <string name="lbl_head_1">With Khayar, you are safe more than ever \n
 Because your friends can virtually: \n - walk you home \n - keep an eyey on you \n - help you when you are in trouble</string>
     <string name="lbl_head_2">keep an eye on you and senses</string>
     <string name="lbl_head_3">if something is wrong</string>
@@ -93,8 +93,8 @@ Because your friends can virtually: \n - walk you home \n - keep an eyey on you 
     <string name="default_notification_channel_name" >News</string>
     <string name="notifications_admin_channel_name">Global channel</string>
     <string name="notifications_admin_channel_description">Notifications sent from the app admin</string>
-    <string name="noti_title">Khayah</string>
-    <string name="noti_text">Khayah</string>
+    <string name="noti_title">Khayar</string>
+    <string name="noti_text">Khayar</string>
     <string name="action_logout">Logout</string>
 
     <!-- TODO: Remove or change this placeholder text -->

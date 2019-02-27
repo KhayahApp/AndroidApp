@@ -338,20 +338,6 @@ public class LoginActivity extends BaseAppCompatActivity {
         });
     }
 
-    /*private void updateGcmDevice(User user) {
-        NetworkEngine.getInstance().updateGcmToken(DeviceUtil.getInstance(this).getID(), user.getId()).enqueue(new Callback<GcmToken>() {
-            @Override
-            public void onResponse(Call<GcmToken> call, Response<GcmToken> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<GcmToken> call, Throwable t) {
-
-            }
-        });
-    }*/
-
     @Nullable
     @Override
     public Intent getSupportParentActivityIntent() {

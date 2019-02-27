@@ -9,11 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -23,33 +18,24 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.ybq.android.spinkit.SpinKitView;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.jh.circularlist.CircularAdapter;
@@ -58,16 +44,19 @@ import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.clients.FCMNetworkEngine;
+import com.khayah.app.clients.LocationNetworkEngine;
 import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.CurrentLocation;
 import com.khayah.app.models.Data;
 import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.User;
+import com.khayah.app.models.UserGeo;
 import com.khayah.app.models.UserGroup;
-import com.khayah.app.ui.add_user.sms.SmsActivity;
 import com.khayah.app.ui.login.ProfileActivity;
-import com.khayah.app.ui.login.RegisterActivity;
 import com.khayah.app.util.CircleTransform;
+import com.khayah.app.util.GPSTracker;
+import com.khayah.app.util.StorageDriver;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -115,7 +104,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
     private static final int CALLPHONE = 0;
     private static final int SENDSMS = 1;
-    private static final int CUSTOMSENDSMS = 2;
+    private static final int REMOVEUSER = 2;
 
     private static final int RC_ALL_PERMISSIONS = 2;
     private static final String[] REQUIRED_PERMISSIONS = {
@@ -138,6 +127,10 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
     private FirebaseAnalytics mFirebaseAnalytics;
     private User user;
+    private LatLng currentLatLng;
+    private GPSTracker gpsTracker;
+    private boolean soundFlag = true;
+
     public TrustedUserFragment() {
         // Required empty public constructor
     }
@@ -208,6 +201,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 }
             });
 
+            // Track User Location
+            gpsTracker = new GPSTracker(getActivity());
+            if(gpsTracker.canGetLocation() && gpsTracker.getLongitude() > 0 && gpsTracker.getLongitude() > 0) {
+                currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+                sendUserGeo("Normal_Track");
+            }
+
         } else {
             Picasso.with(getActivity()).load(R.drawable.girl).transform(new CircleTransform()).into(imgUser);
         }
@@ -225,7 +225,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             @Override
             public void onItemClick(View view, int i) {
                 if (i >= 0) {
-                    userActionChoice(userList.get(i).getPhone());
+                    userActionChoice(userList.get(i), i);
                     userPhone = userList.get(i).getPhone();
                 } else {
 
@@ -233,8 +233,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             }
         });
 
-
-        final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
         final FloatingActionButton actionA = (FloatingActionButton) view.findViewById(R.id.action_a);
         actionA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,28 +242,51 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 startActivityForResult(intent, ADD_USER_RESULT, options.toBundle());
             }
         });
-        final FloatingActionButton actionB = (FloatingActionButton) view.findViewById(R.id.action_b);
-        actionB.setOnClickListener(new View.OnClickListener() {
+        Boolean sound = StorageDriver.getInstance().selectFrom("soundFlag");
+        if(sound != null) {
+            soundFlag = sound;
+        }
+        final FloatingActionButton actionSound = (FloatingActionButton) view.findViewById(R.id.action_sound);
+        actionSound.setIcon(soundFlag ? android.R.drawable.ic_lock_silent_mode_off: R.drawable.ic_speaker_off);
+        actionSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userList.size() == 0) return;
-                NetworkEngine.getInstance().deleteGroupUser(userList.get(0).getId()).enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if (response.isSuccessful()) {
-                            userList.remove(0);
-                            adapter.removeItemAt(0);
-                            adapter.notifyItemChange();
+                if (soundFlag) {
+                    soundFlag = false;
+                    StorageDriver.getInstance().saveTo("soundFlag", soundFlag);
+                    actionSound.setIcon(R.drawable.ic_speaker_off);
+                    if(bellFlag) {
+                        if(m.isPlaying()) {
+                            m.stop();
                         }
                     }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
+                } else {
+                    soundFlag = true;
+                    StorageDriver.getInstance().saveTo("soundFlag", soundFlag);
+                    actionSound.setIcon(android.R.drawable.ic_lock_silent_mode_off);
+                    if(bellFlag) {
+                        playBeep();
                     }
-                });
+                }
+            }
+        });
+        final FloatingActionButton actionAlert = (FloatingActionButton) view.findViewById(R.id.action_alert);
 
-
+        actionAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "action_bell");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "bell");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "noti_button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                if (!bellFlag) {
+                    actionAlert.setIcon(R.drawable.ic_close_bell);
+                    playAlert();
+                } else {
+                    actionAlert.setIcon(R.drawable.ic_bell_icon);
+                    unPlayAlert();
+                }
             }
         });
         return view;
@@ -320,36 +341,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         //mListener = null;
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.menu_bell, menu);
         this.menu = menu;
         this.menu.findItem(R.id.action_settings).setVisible(false);
-    }
-
-    
-    private void playAlert() {
-
-        bellFlag = true;
-        spnkitView.setVisibility(View.VISIBLE);
-        fyBell.setVisibility(View.VISIBLE);
-        sendFCMNotification();
-        sendNotificationtoUsers();
-        playBeep();
-    }
-    
-    private void unPlayAlert() {
-        //StopNotificationSend
-        spnkitView.setVisibility(View.INVISIBLE);
-        fyBell.setVisibility(View.INVISIBLE);
-        bellFlag = false;
-        if (m.isPlaying()) {
-            m.stop();
-            m.release();
-            m = new MediaPlayer();
-        }
     }
 
     @Override
@@ -377,7 +375,34 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }*/
+
+    
+    private void playAlert() {
+        bellFlag = true;
+        spnkitView.setVisibility(View.VISIBLE);
+        fyBell.setVisibility(View.VISIBLE);
+        sendFCMNotification();
+        sendNotificationToUsers();
+        sendUserGeo("Danger_Track");
+        playBeep();
+
+
     }
+    
+    private void unPlayAlert() {
+        //StopNotificationSend
+        spnkitView.setVisibility(View.INVISIBLE);
+        fyBell.setVisibility(View.INVISIBLE);
+        bellFlag = false;
+        if (m.isPlaying()) {
+            m.stop();
+            m.release();
+            m = new MediaPlayer();
+        }
+    }
+
+
 
     private void sendFCMNotification() {
         if(userList != null && userList.size() > 0) {
@@ -386,8 +411,11 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 Data data = new Data();
                 data.setTitle("Please help me, "+ group.getName());
                 data.setMessage("I am in danger: " + user.getFirstName() + " "+user.getLastName());
+                data.setUserId(user.getId());
+                data.setType("danger");
                 request.setTo("/topics/"+ Constant.FCM_COMMOM_TOPIC_FOR_USER+group.getPhone());
                 request.setData(data);
+                request.setSound("fire_alarm");
                 FCMNetworkEngine.getInstance().postFCMNotification(request).enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
@@ -407,17 +435,19 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         }
     }
 
-    private void sendNotificationtoUsers() {
+    private void sendNotificationToUsers() {
 
         User user = (User) KhayahApp.getUser();
         final FcmMessage fcmMessage = new FcmMessage();
-        fcmMessage.setTopicId("1");
+        fcmMessage.setTopicId(1);
+        fcmMessage.setUser_id(user.getId());
         fcmMessage.setTitle("Khayah");
-        fcmMessage.setMessage("I am in Danger."+ user.getUsername());
+        fcmMessage.setMessage("I am in danger, "+ user.getFirstName()+' '+user.getLastName());
         fcmMessage.setAvatar(user.getAvatar());
         fcmMessage.setImage("");
         fcmMessage.setType("Khayah_all");
         fcmMessage.setFcmServerId("2");
+        fcmMessage.setReceivers(new Gson().toJson(userList));
 
         NetworkEngine.getInstance().sendNotification(fcmMessage).enqueue(new Callback<FcmMessage>() {
             @Override
@@ -438,6 +468,57 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             }
         });
 
+    }
+
+    private void sendUserGeo(String type) {
+        if(currentLatLng != null) {
+            UserGeo geo = new UserGeo();
+            geo.setUserId(user.getId());
+            geo.setLat(currentLatLng.latitude);
+            geo.setLng(currentLatLng.longitude);
+            geo.setType(type);
+            NetworkEngine.getInstance().trackGeo(geo).enqueue(new Callback<UserGeo>() {
+                @Override
+                public void onResponse(Call<UserGeo> call, Response<UserGeo> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<UserGeo> call, Throwable t) {
+
+                }
+            });
+        }
+        else {
+            LocationNetworkEngine.getInstance().getCurrentLocation().enqueue(new Callback<CurrentLocation>() {
+                @Override
+                public void onResponse(Call<CurrentLocation> call, Response<CurrentLocation> response) {
+                    if(response.isSuccessful()) {
+                        UserGeo geo = new UserGeo();
+                        geo.setUserId(user.getId());
+                        geo.setLat(response.body().getLat());
+                        geo.setLng(response.body().getLon());
+                        geo.setType(type);
+                        NetworkEngine.getInstance().trackGeo(geo).enqueue(new Callback<UserGeo>() {
+                            @Override
+                            public void onResponse(Call<UserGeo> call, Response<UserGeo> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<UserGeo> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CurrentLocation> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     public interface OnFragmentInteractionListener {
@@ -510,14 +591,14 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     //Choose Action
-    private void userActionChoice(String phone) {
+    private void userActionChoice(UserGroup userGroup, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence callPhone;
         CharSequence sendSms;
         CharSequence customSms;
         callPhone = getResources().getString(R.string.action_call);
         sendSms = getResources().getString(R.string.action_sms);
-        customSms = getResources().getString(R.string.action_sms_custon);
+        customSms = getResources().getString(R.string.action_remove);
 
         builder.setCancelable(true).
                 setItems(new CharSequence[]{callPhone, sendSms, customSms},
@@ -526,29 +607,31 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (i == CALLPHONE) {
-                                    userPhone = phone;
-                                    callPhone(phone);
+                                    userPhone = userGroup.getPhone();
+                                    callPhone(userGroup.getPhone());
 
                                 } else if (i == SENDSMS) {
-                                    /*Toast.makeText(mContext,
-                                            "Sms Ph" + phone,
-                                            Toast.LENGTH_SHORT).show();*/
                                     if (checkForSmsPermission()) {
-                                        Toast.makeText(mContext,
-                                                "Sending...." + phone,
-                                                Toast.LENGTH_SHORT).show();
-                                        smsSendMessage(phone, "Help! I am in Danger!");
+                                        userPhone = userGroup.getPhone();
+                                        smsSendMessage(userPhone, "Help! I am in Danger!");
                                     }
 
-                                } else if (i == CUSTOMSENDSMS) {
-                                    Toast.makeText(mContext,
-                                            "Ph " + phone,
-                                            Toast.LENGTH_SHORT).show();
-                                    //startActivity(new Intent(mContext, SmsActivity.class));
-                                    Intent intent = new Intent(mContext, SmsActivity.class);
-                                    intent.putExtra(Constant.PHONE, phone);
-                                    startActivity(intent);
+                                } else if (i == REMOVEUSER) {
+                                    NetworkEngine.getInstance().deleteGroupUser(userGroup.getId()).enqueue(new Callback<String>() {
+                                        @Override
+                                        public void onResponse(Call<String> call, Response<String> response) {
+                                            if (response.isSuccessful()) {
+                                                userList.remove(position);
+                                                adapter.removeItemAt(position);
+                                                adapter.notifyItemChange();
+                                            }
+                                        }
 
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -615,7 +698,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     }
 
     private void playBeep() {
-        isFirstAlarmOpen = false;
         m = new MediaPlayer();
         try {
             if (m.isPlaying()) {
@@ -623,15 +705,15 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 m.release();
                 m = new MediaPlayer();
             }
-
             AssetFileDescriptor descriptor = mContext.getAssets().openFd("fire_alarm.mp3");
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
-
             m.prepare();
             m.setVolume(1f, 1f);
             m.setLooping(true);
-            m.start();
+            if(soundFlag) {
+                m.start();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -729,7 +811,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         // You don't always need a sequence, and for that there's a single time tap target
         final SpannableString spannedDesc = new SpannableString("You can add your trusted contacts for your safety connection!");
         spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "TapTargetView".length(), spannedDesc.length(), 0);
-        TapTargetView.showFor(getActivity(), TapTarget.forView(view.findViewById(R.id.multiple_actions), "Hello, Khayah is with you!", spannedDesc)
+        TapTargetView.showFor(getActivity(), TapTarget.forView(view.findViewById(R.id.action_a), "Hello, Khayah is with you!", spannedDesc)
                 .cancelable(true)
                 .drawShadow(true)
                 .titleTextDimen(R.dimen.title_text_size)

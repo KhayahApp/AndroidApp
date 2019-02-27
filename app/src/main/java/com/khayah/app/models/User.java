@@ -39,6 +39,9 @@ public class User implements Serializable {
     @SerializedName("avatar")
     @Expose
     private String avatar;
+    @SerializedName("active")
+    @Expose
+    private Integer active;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -144,6 +147,14 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
     }
 
     public String getCreatedAt() {

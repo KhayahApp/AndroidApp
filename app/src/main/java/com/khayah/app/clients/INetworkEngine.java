@@ -1,6 +1,7 @@
 package com.khayah.app.clients;
 
 
+import com.khayah.app.models.CurrentLocation;
 import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.Lawer;
@@ -8,6 +9,7 @@ import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
 import com.khayah.app.models.Station;
 import com.khayah.app.models.User;
+import com.khayah.app.models.UserGeo;
 import com.khayah.app.models.UserGroup;
 
 import java.util.List;
@@ -36,7 +38,6 @@ public interface INetworkEngine {
 
     @POST("/api/user")
     Call<String> register(@Body User user);
-
     @POST("/api/notification")
     Call<FcmMessage> sendNotification(@Body FcmMessage fcmMessage);
 
@@ -80,5 +81,11 @@ public interface INetworkEngine {
 
     @POST("/api/usergroup")
     Call<UserGroup> addUserFcmTokenandDeviceID(@Field("user_id") int user_id,@Field("device_id") String device_id,@Field("token") String token);
+
+    @POST("/api/usergeo")
+    Call<UserGeo> trackGeo(@Body UserGeo userGeo);
+
+    @GET("/json")
+    Call<CurrentLocation> getCurrentLocation();
 
 }

@@ -213,13 +213,28 @@ public class LoginActivity extends BaseAppCompatActivity {
                             @Override
                             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                                 if(response.isSuccessful()){
+                                    showLoading(false);
                                     if(response.body().size() == 0){
                                         register();
                                     }else{
-                                        KhayahApp.login(response.body().get(0));
-                                        //updateGcmDevice(response.body().get(0));
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                        finish();
+                                        if(response.body().get(0).getActive().equals(1)) {
+                                            KhayahApp.login(response.body().get(0));
+                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                            finish();
+                                        }else{
+                                            final CustomDialog dialog = new CustomDialog(LoginActivity.this);
+                                            dialog.setTitle(getResources().getString(R.string.invalid_value));
+                                            dialog.setMessageType(CustomDialog.Error);
+                                            dialog.setMessage(getResources().getString(R.string.not_active_user));
+                                            dialog.setOnClickPositiveListener(getResources().getString(R.string.try_again), new CustomDialog.OnClickPositiveListener() {
+                                                @Override
+                                                public void onClick() {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            dialog.show();
+                                        }
+
                                     }
                                 }
                             }

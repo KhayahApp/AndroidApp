@@ -15,7 +15,8 @@ public class Constant {
 
 
     //Firebase Message Type
-    public static String FCM_MESSAGE_TYPE ="type";
+    public static final String FCM_MESSAGE_TYPE ="type";
+    public static final String MSG_DANGER = "danger";
     public static String FCM_COMMOM_TOPIC_FOR_USER = "Khayah_";
     public static String FCM_COMMOM_TOPIC_FOR_ALL = "Khayah_all";
     public static String FCM_COMMOM_TOPIC_FOR_WOMEN = "Khayah_women";

@@ -5,27 +5,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class FCMRequest {
 
-@SerializedName("to")
-@Expose
-private String to;
-@SerializedName("data")
-@Expose
-private Data data;
+    @SerializedName("to")
+    @Expose
+    private String to;
+    @SerializedName("sound")
+    @Expose
+    private String sound;
+    @SerializedName("data")
+    @Expose
+    private Data data;
 
-public String getTo() {
-return to;
-}
+    public String getTo() {
+        return to;
+    }
 
-public void setTo(String to) {
-this.to = to;
-}
+    public void setTo(String to) {
+        this.to = to;
+    }
 
-public Data getData() {
-return data;
-}
+    public String getSound() {
+        return sound;
+    }
 
-public void setData(Data data) {
-this.data = data;
-}
+    public void setSound(String sound) {
+        this.sound = sound;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
 
 }

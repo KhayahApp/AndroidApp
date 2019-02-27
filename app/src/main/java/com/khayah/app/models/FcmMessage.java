@@ -9,7 +9,10 @@ public class FcmMessage implements Serializable {
 
     @SerializedName("topic_id")
     @Expose
-    private String topicId;
+    private Integer topicId;
+    @SerializedName("user_id")
+    @Expose
+    private Integer user_id;
     @SerializedName("title")
     @Expose
     private String title;
@@ -28,13 +31,24 @@ public class FcmMessage implements Serializable {
     @SerializedName("fcm_server_id")
     @Expose
     private String fcmServerId;
+    @SerializedName("receivers")
+    @Expose
+    private String receivers;
 
-    public String getTopicId() {
+    public Integer getTopicId() {
         return topicId;
     }
 
-    public void setTopicId(String topicId) {
+    public void setTopicId(Integer topicId) {
         this.topicId = topicId;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getTitle() {
@@ -85,4 +99,11 @@ public class FcmMessage implements Serializable {
         this.fcmServerId = fcmServerId;
     }
 
+    public String getReceivers() {
+        return receivers;
+    }
+
+    public void setReceivers(String receivers) {
+        this.receivers = receivers;
+    }
 }

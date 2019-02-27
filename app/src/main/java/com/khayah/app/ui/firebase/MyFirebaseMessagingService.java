@@ -205,7 +205,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         int notificationId = random.nextInt(9999 - 1000) + 1000;
         //int notificationId = new Random().nextInt(60000);
         String channelId = getString(R.string.default_notification_channel_id);
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = null;
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
@@ -217,9 +217,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData() != null && remoteMessage.getData().size() > 0) {
             mStrTitle = remoteMessage.getData().get(Constant.FCM_TITLE);
             mStrText = remoteMessage.getData().get(Constant.FCM_MESSAGE_TEXT);
-
             String type = remoteMessage.getData().get(Constant.FCM_MESSAGE_TYPE);
-
+            Log.i("Notification", "Notification: "+ new Gson().toJson(remoteMessage.getData()));
+            if(type != null && type.equals(Constant.MSG_DANGER)) {
+                Log.i("Notification", "Notification Type: "+ remoteMessage.getData().get(Constant.FCM_MESSAGE_TYPE));
+                defaultSoundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.fire_alarm);
+            }else{
+                defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            }
             //if (type.equalsIgnoreCase(Constant.FCM_COMMOM_TOPIC_FOR_ALL)) {
 
 
@@ -251,7 +256,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 .setContentIntent(post_pendingIntent);
                 Notification notification = notificationBuilder.build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
-                notification.defaults |= Notification.DEFAULT_SOUND;
+                //notification.defaults |= Notification.DEFAULT_SOUND;
                 notification.defaults |= Notification.DEFAULT_VIBRATE;
                 notificationManager.notify(notificationId /* ID of notification */, notification);
                 return;

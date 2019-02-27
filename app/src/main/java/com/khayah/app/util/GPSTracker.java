@@ -16,6 +16,15 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.khayah.app.KhayahApp;
+import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.User;
+import com.khayah.app.models.UserGeo;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class GPSTracker extends Service implements LocationListener {
 
@@ -35,10 +44,10 @@ public class GPSTracker extends Service implements LocationListener {
     double longitude; // longitude
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 100; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 10; // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -188,7 +197,25 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if(location != null){
-            //EventBus.getDefault().post(location);
+            if(KhayahApp.isLogin()) {
+                User user = (User)KhayahApp.getUser();
+                UserGeo geo = new UserGeo();
+                geo.setUserId(user.getId());
+                geo.setLat(location.getLatitude());
+                geo.setLng(location.getLongitude());
+                geo.setType("Normal_Track");
+                NetworkEngine.getInstance().trackGeo(geo).enqueue(new Callback<UserGeo>() {
+                    @Override
+                    public void onResponse(Call<UserGeo> call, Response<UserGeo> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserGeo> call, Throwable t) {
+
+                    }
+                });
+            }
         }
     }
  

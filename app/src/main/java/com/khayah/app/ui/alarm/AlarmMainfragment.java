@@ -201,7 +201,7 @@ public class AlarmMainfragment extends Fragment implements EasyPermissions.Permi
                 m = new MediaPlayer();
             }
 
-            AssetFileDescriptor descriptor = mContext.getAssets().openFd("fire_alarm.mp3");
+            AssetFileDescriptor descriptor = mContext.getAssets().openFd("raw/fire_alarm.mp3");
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
 

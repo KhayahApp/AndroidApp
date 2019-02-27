@@ -33,9 +33,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.directions.route.Routing;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -47,6 +49,7 @@ import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
+import com.khayah.app.models.UserGeo;
 import com.khayah.app.models.UserGroup;
 import com.khayah.app.service.PowerButtonReceiver;
 import com.khayah.app.service.SettingsContentObserver;
@@ -66,6 +69,7 @@ import com.khayah.app.ui.userlist.UserListFragment;
 import com.khayah.app.util.CircleTransform;
 //import com.khayah.app.vo.User;
 import com.khayah.app.util.DeviceUtil;
+import com.khayah.app.util.GPSTracker;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -92,6 +96,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
     private View view;
     String mToken;
     private boolean mAlert = false;
+    private LatLng currentLatLng;
 
     // [END declare_analytics]
 
@@ -131,7 +136,6 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         TextView accountName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_name);
         TextView accountEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_email);*/
         // Check already login
-        com.khayah.app.models.User usermain = (com.khayah.app.models.User) KhayahApp.getUser();
         LinearLayout accountHeader = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.layout_header);
         RoundedImageView accountImage = (RoundedImageView) navigationView.getHeaderView(0).findViewById(R.id.img_user);
         TextView accountName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_name);
@@ -147,37 +151,52 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             });
 
 
-            // Check already login
-            if (KhayahApp.isLogin()) {
-                User user = (User) KhayahApp.getUser();
-                if (mToken != null) {
-                    sendUserIDandfcmToken(user.getId(), DeviceUtil.getInstance(MainActivity.this).getID(), mToken);
+            User user = (User) KhayahApp.getUser();
+            if (mToken != null) {
+                sendUserIDandfcmToken(user.getId(), DeviceUtil.getInstance(MainActivity.this).getID(), mToken);
+            }
+
+            Log.i("FCM User","FCM User: "+Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
+            FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
+            Picasso.with(this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
+                    + "/uploads/users/" + user.getAvatar()
+                    : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
+                    .transform(new CircleTransform()).into(accountImage);
+            accountName.setText(user.getFirstName() + " " + user.getLastName());
+            accountEmail.setText(user.getEmail());
+            accountHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+
+                }
+            });
+
+            // Check for User is Activated
+            NetworkEngine.getInstance().profile(user.getId()).enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if(response.isSuccessful()) {
+                        if(response.body().getActive().equals(0)) {
+                            Log.i("Active", "Active: "+ response.body().getActive());
+                            KhayahApp.logout();
+                            closeAllActivities();
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }else{
+                            Log.i("Active", "Active: "+ response.body().getActive());
+                            KhayahApp.login(response.body());
+                        }
+                    }
+
                 }
 
-                //
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
 
-                Log.i("FCM User","FCM User: "+Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
-                FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
-                Picasso.with(this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
-                        + "/uploads/users/" + user.getAvatar()
-                        : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
-                        .transform(new CircleTransform()).into(accountImage);
-                accountName.setText(user.getFirstName() + " " + user.getLastName());
-                accountEmail.setText(user.getEmail());
-                accountHeader.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                }
+            });
 
-                    }
-                });
-
-            } else {
-                Picasso.with(this).load(R.drawable.girl).transform(new CircleTransform()).into(accountImage);
-            }
-        } else
-
-        {
+        } else {
             Picasso.with(this).load(R.drawable.girl).transform(new CircleTransform()).into(accountImage);
             accountHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,14 +211,14 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         displaySelectedScreen(R.id.nav_1);
 
         // add power button event
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        /*IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         PowerButtonReceiver mPowerButtonReceiver = new PowerButtonReceiver(this);
-        registerReceiver(mPowerButtonReceiver, filter);
+        registerReceiver(mPowerButtonReceiver, filter);*/
 
         // add volume button event
-        SettingsContentObserver mSettingsContentObserver = new SettingsContentObserver(this, new Handler());
-        getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, mSettingsContentObserver );
+        // SettingsContentObserver mSettingsContentObserver = new SettingsContentObserver(this, new Handler());
+        // getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, mSettingsContentObserver );
     }
 
 

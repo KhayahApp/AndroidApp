@@ -131,7 +131,7 @@
     </string>
 
     <string name="detail_desc_lbl">Description</string>
-    <string name="add_user">Add User</string>
+    <string name="add_user">Add Trusted Person</string>
 
     <string name="detais_similar_place_lbl">Similar places</string>
     <string name="coming_soon">COMING SOON</string>
@@ -143,6 +143,8 @@
     <string name="permission_not_granted">PERMISSION NOT GRANTED!</string>
     <string name="failure_permission">Failure to obtain permission!</string>
     <string name="sms_disabled">SMS usage disabled</string>
+    <string name="not_active_user">Your account is not active</string>
+    <string name="action_remove">Remove</string>
 
 
 </resources>

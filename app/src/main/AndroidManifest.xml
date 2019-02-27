@@ -170,6 +170,7 @@
                 android:value=".ui.home.MainActivity" />
         </activity>
         <activity android:name=".ui.add_user.AddActivity"></activity>
+        <activity android:name=".ui.settings.HelpUsActivity"></activity>
 
 
     </application>

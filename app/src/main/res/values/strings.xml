@@ -147,6 +147,16 @@
     <string name="sms_disabled">SMS usage disabled</string>
     <string name="not_active_user">Your account is not active</string>
     <string name="action_remove">Remove</string>
+    <string name="comment">Comment</string>
+    <string name="rating">Rating</string>
+    <string name="help_us">Feedback</string>
+    <string name="required">Required</string>
+    <string name="invalid_rating_value">Please set rating value</string>
+    <string name="str_yes_i">Yes, OK</string>
+    <string name="invalid_comment_value">Please enter your comment</string>
+    <string name="send">Send</string>
+    <string name="success">Success</string>
+    <string name="success_feedback_msg">Thank you for your feedback</string>
 
 
 </resources>

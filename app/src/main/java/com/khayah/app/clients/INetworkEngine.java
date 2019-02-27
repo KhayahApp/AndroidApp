@@ -4,6 +4,7 @@ package com.khayah.app.clients;
 import com.khayah.app.models.CurrentLocation;
 import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
+import com.khayah.app.models.Feedback;
 import com.khayah.app.models.Lawer;
 import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
@@ -87,5 +88,8 @@ public interface INetworkEngine {
 
     @GET("/json")
     Call<CurrentLocation> getCurrentLocation();
+
+    @POST("/api/feedback")
+    Call<Feedback> postFeedback(@Body Feedback feedback);
 
 }

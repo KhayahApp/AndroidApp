@@ -162,7 +162,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
             mParam1 = getArguments().getBoolean(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        setHasOptionsMenu(true);
+        // setHasOptionsMenu(true);
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 

@@ -30,6 +30,8 @@ import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.R;
 import com.khayah.app.ui.login.ProfileActivity;
 
+import java.util.Locale;
+
 
 public class DetailActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
@@ -139,7 +141,10 @@ public class DetailActivity extends BaseAppCompatActivity implements View.OnClic
             callPhone(txtPhone.getText().toString());
         }
         if (v == ryDirection ) {
-            //Toast.makeText(this, "Onclick....", Toast.LENGTH_SHORT).show();
+            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", mStation.getLatitude(), mStation.getLongitude(), mStation.getAddress());
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setPackage("com.google.android.apps.maps");
+            startActivity(intent);
         }
 
     }

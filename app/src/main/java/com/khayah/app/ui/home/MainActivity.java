@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +35,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.directions.route.Routing;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -64,6 +71,7 @@ import com.khayah.app.ui.login.LoginActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
 import com.khayah.app.ui.menu_record.RecordFragment;
+import com.khayah.app.ui.settings.HelpUsActivity;
 import com.khayah.app.ui.settings.SettingsActivity;
 import com.khayah.app.ui.userlist.UserListFragment;
 import com.khayah.app.util.CircleTransform;
@@ -97,6 +105,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
     String mToken;
     private boolean mAlert = false;
     private LatLng currentLatLng;
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
 
     // [END declare_analytics]
 
@@ -130,6 +140,9 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        shareDialog.registerCallback(callbackManager, fbCallback);
 
         /*LinearLayout accountHeader = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.layout_header);
         RoundedImageView accountImage = (RoundedImageView) navigationView.getHeaderView(0).findViewById(R.id.img_user);
@@ -221,6 +234,23 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         // getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, mSettingsContentObserver );
     }
 
+    private FacebookCallback<Sharer.Result> fbCallback = new FacebookCallback<Sharer.Result>() {
+        @Override
+        public void onSuccess(Sharer.Result result) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+
+        }
+    };
+
 
     @Override
     public void onBackPressed() {
@@ -310,11 +340,22 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             case R.id.nav_4:
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
-            /*case R.id.nav_5:
-                fragment = new ComingSoonFragment();
-                break;*/
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                break;
+            case R.id.nav_share:
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                            .setContentTitle("Hello, Khayar is with you!")
+                            .setContentDescription("You can add your trusted contacts for your safety connection!")
+                            .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName()))
+                            .setQuote("Available on Google Play Store")
+                            .build();
+                    shareDialog.show(linkContent);
+                }
+                break;
+            case R.id.nav_send:
+                startActivity(new Intent(getApplicationContext(), HelpUsActivity.class));
                 break;
 
         }

@@ -102,6 +102,9 @@
     <string name="menu_fake_call">အေယာင္ေဆာင္ေခၚဆိုမႈ</string>
     <string name="menu_setting">Setting</string>
 
+    <string name="menu_share">မွ်ေဝမည္</string>
+    <string name="menu_feedback">အၾကံ ျပဳခ်က္</string>
+
     <string name="menu_bell">Alarm System</string>
 
     <string name="Submit">ေပးပို႔ မည္</string>

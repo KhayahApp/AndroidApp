@@ -20,6 +20,8 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -632,6 +634,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
                                         }
                                     });
+
                                 }
                             }
                         });
@@ -751,6 +754,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
             }
         }
+    }
+
+    private void callNormalPhone(String ph) {
+        if (!TextUtils.isEmpty(ph)) {
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(ph))));
+        }
+
     }
 
     private boolean hasPermission(String permission) {

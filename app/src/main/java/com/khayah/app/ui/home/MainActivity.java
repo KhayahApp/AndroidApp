@@ -303,19 +303,16 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             case R.id.nav_2:
                 fragment = new NearbyMapFragment();
                 break;
-            case R.id.nav_3:
+            /*case R.id.nav_3:
                 //fragment = new RecordFragment();
                 fragment = new ComingSoonFragment();
-                break;
+                break;*/
             case R.id.nav_4:
-                //fragment = new Menu2();
-                //fragment =  UserListFragment.newInstance();
-                //fragment = new LawerListFragment();
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
-            case R.id.nav_5:
+            /*case R.id.nav_5:
                 fragment = new ComingSoonFragment();
-                break;
+                break;*/
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 break;

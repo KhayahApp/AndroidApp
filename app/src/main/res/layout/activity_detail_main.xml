@@ -74,6 +74,7 @@ android:layout_height="match_parent">
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/ry_call_now"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -101,6 +102,7 @@ android:layout_height="match_parent">
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/ry_direction"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

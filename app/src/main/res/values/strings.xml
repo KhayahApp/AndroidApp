@@ -107,6 +107,10 @@
     <string name="menu_fake_call">Fake Call</string>
     <string name="menu_setting">Setting</string>
 
+    <string name="menu_share">Share</string>
+    <string name="menu_feedback">Feedback</string>
+
+
     <string name="menu_bell">Alarm System</string>
 
     <string name="Submit">Submit</string>
@@ -129,10 +133,8 @@
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, an sit fugit officiis deserunt, audiam disputando at sit. Eu mel expetenda voluptatibus. Ius no accusam scripserit.\n\n Sea error iracundia ne, duo ne dicat partem sententiae. Nibh admodum facilisi ius in. Ius legere intellegam ei, in zril deserunt qui.At alii audire scripta mea, errem disputando quo
     </string>
-
-    <string name="detail_desc_lbl">Description</string>
+    <string name="detail_desc_lbl">Information</string>
     <string name="add_user">Add Trusted Person</string>
-
     <string name="detais_similar_place_lbl">Similar places</string>
     <string name="coming_soon">COMING SOON</string>
 

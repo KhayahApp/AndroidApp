@@ -26,6 +26,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -64,7 +65,6 @@ import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.User;
 import com.khayah.app.models.UserGroup;
-import com.khayah.app.ui.add_user.sms.SmsActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.login.RegisterActivity;
 import com.khayah.app.util.CircleTransform;
@@ -527,7 +527,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (i == CALLPHONE) {
                                     userPhone = phone;
-                                    callPhone(phone);
+                                    callNormalPhone(phone);
 
                                 } else if (i == SENDSMS) {
                                     /*Toast.makeText(mContext,
@@ -545,9 +545,9 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                             "Ph " + phone,
                                             Toast.LENGTH_SHORT).show();
                                     //startActivity(new Intent(mContext, SmsActivity.class));
-                                    Intent intent = new Intent(mContext, SmsActivity.class);
+                                    /*Intent intent = new Intent(mContext, SmsActivity.class);
                                     intent.putExtra(Constant.PHONE, phone);
-                                    startActivity(intent);
+                                    startActivity(intent);*/
 
                                 }
                             }
@@ -669,6 +669,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
             }
         }
+    }
+
+    private void callNormalPhone(String ph) {
+        if (!TextUtils.isEmpty(ph)) {
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(ph))));
+        }
+
     }
 
     private boolean hasPermission(String permission) {

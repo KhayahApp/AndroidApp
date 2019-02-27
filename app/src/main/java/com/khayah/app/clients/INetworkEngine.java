@@ -2,6 +2,7 @@ package com.khayah.app.clients;
 
 
 import com.khayah.app.models.CurrentLocation;
+import com.khayah.app.models.Error;
 import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.Feedback;
@@ -91,5 +92,8 @@ public interface INetworkEngine {
 
     @POST("/api/feedback")
     Call<Feedback> postFeedback(@Body Feedback feedback);
+
+    @POST("/api/androiderror")
+    Call<Error> postError(@Body Error error);
 
 }

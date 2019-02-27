@@ -8,5 +8,6 @@
         android:icon="@drawable/button_bg_selector"
         android:orderInCategory="100"
         android:title="@string/app_name"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>

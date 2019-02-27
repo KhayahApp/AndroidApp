@@ -29,7 +29,7 @@ public class KhayahApp extends Application implements HasActivityInjector {
         APIToolz apiToolz = APIToolz.getInstance();
         apiToolz.setClientId(3);
         apiToolz.setClientSecret("wKKJzMZ6rRCJjJREWeqpB4yeQn1bKr5meD4PlhKq");
-        apiToolz.setHostAddress("https://khayah.apitoolz.com");
+        apiToolz.setHostAddress("https://khayarapp.com");
         apiToolz.setStoragePath(getFilesDir().getAbsolutePath());
         APIToolzTokenManager.getInstance().getAccessToken();
         PACKAGE_NAME = getApplicationContext().getPackageName();

@@ -107,6 +107,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
     private LatLng currentLatLng;
     private CallbackManager callbackManager;
     private ShareDialog shareDialog;
+    private User user;
 
     // [END declare_analytics]
 
@@ -163,8 +164,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 }
             });
 
-
-            User user = (User) KhayahApp.getUser();
+            user = (User) KhayahApp.getUser();
             if (mToken != null) {
                 sendUserIDandfcmToken(user.getId(), DeviceUtil.getInstance(MainActivity.this).getID(), mToken);
             }
@@ -262,7 +262,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_test, menu);
@@ -282,7 +282,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

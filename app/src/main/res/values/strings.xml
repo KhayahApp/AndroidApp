@@ -157,6 +157,7 @@
     <string name="send">Send</string>
     <string name="success">Success</string>
     <string name="success_feedback_msg">Thank you for your feedback</string>
+    <string name="str_sound_on_off">On/Off Alert Sound</string>
 
 
 </resources>

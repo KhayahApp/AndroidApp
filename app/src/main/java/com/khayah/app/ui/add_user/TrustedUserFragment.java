@@ -216,6 +216,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
 
         firstPermissionSound();
         userList = new ArrayList<>();
+
         getUserGroup();
 
         // usage sample

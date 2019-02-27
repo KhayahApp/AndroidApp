@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.khayah.app.trace.ExceptionHandler;
 import com.khayah.app.util.CustomTypefaceSpan;
 import com.khayah.app.util.FontConverter;
 import com.khayah.app.util.StorageDriver;
@@ -79,7 +80,7 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ExceptionHandler.register(this);
+
         // Obtain the shared Tracker instance.
         // BaseApplication application = (BaseApplication) getApplication();
         //mTracker = application.getDefaultTracker();

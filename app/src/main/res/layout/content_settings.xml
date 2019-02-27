@@ -85,6 +85,20 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
 
+            <CheckBox
+                android:id="@+id/chk_sound"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_sound_on_off"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"/>
+
             <com.khayah.app.ui.widget.CustomTextView
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/version"

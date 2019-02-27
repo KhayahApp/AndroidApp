@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,6 +27,7 @@ import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.R;
 import com.khayah.app.models.Lang;
 import com.khayah.app.ui.home.MainActivity;
+import com.khayah.app.util.StorageDriver;
 import com.khayah.app.vo.Settings;
 
 import java.util.ArrayList;
@@ -45,6 +48,7 @@ public class SettingsActivity extends BaseAppCompatActivity {
     private boolean isCached;
     private boolean isNoti = true;
     private ArrayList<Lang> languages;
+    private CheckBox chk_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,15 @@ public class SettingsActivity extends BaseAppCompatActivity {
         rdo_default = (RadioButton) findViewById(R.id.rdo_default);
         rdo_zawgyi = (RadioButton) findViewById(R.id.rdo_zawgyi);
         rdo_unicode = (RadioButton) findViewById(R.id.rdo_unicode);
+        chk_sound = (CheckBox) findViewById(R.id.chk_sound);
+        Boolean soundOn = StorageDriver.getInstance().selectFrom("soundFlag");
+        if(soundOn) chk_sound.setChecked(soundOn);
+        chk_sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                StorageDriver.getInstance().saveTo("soundFlag", isChecked);
+            }
+        });
 
         languages = new ArrayList<>();
         languages.add(new Lang(R.drawable.ic_mm, "Myanmar", "mm"));

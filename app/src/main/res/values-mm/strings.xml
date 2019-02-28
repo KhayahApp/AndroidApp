@@ -105,6 +105,8 @@
     <string name="menu_directory">လမ္းၫႊန္ရာ</string>
     <string name="menu_fake_call">အေယာင္ေဆာင္ေခၚဆိုမႈ</string>
     <string name="menu_setting">ျပင္ဆင္ရန္</string>
+    <string name="menu_about_us"> ခရာအေၾကာင္း </string>
+
 
     <string name="menu_share">မွ်ေဝမည္</string>
     <string name="menu_feedback">အၾကံ ျပဳခ်က္</string>

@@ -28,6 +28,7 @@ public class Constant {
     public static final String FCM_POST_PERSON_IMG_URL = "avatar";
     public static final String FCM_TITLE = "title";
     public static final String FCM_MESSAGE_TEXT = "message";
+    public static final String ABOUT_US = "http://khayarapp.com/aboutus.html";
 
 
 

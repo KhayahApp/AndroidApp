@@ -124,7 +124,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
+        if (bundle != null) {
             mAlert = bundle.getBoolean("alert");
         }
         //tagTargetExplain(toolbar);
@@ -156,10 +156,10 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         TextView accountEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txt_email);
         if (KhayahApp.isLogin()) {
 
-            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
                 @Override
                 public void onSuccess(InstanceIdResult instanceIdResult) {
-                     mToken = instanceIdResult.getToken();
+                    mToken = instanceIdResult.getToken();
                     //Log.e("Token",mToken);
                 }
             });
@@ -169,8 +169,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 sendUserIDandfcmToken(user.getId(), DeviceUtil.getInstance(MainActivity.this).getID(), mToken);
             }
 
-            Log.i("FCM User","FCM User: "+Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
-            FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_USER+user.getPhone());
+            Log.i("FCM User", "FCM User: " + Constant.FCM_COMMOM_TOPIC_FOR_USER + user.getPhone());
+            FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_USER + user.getPhone());
             Picasso.with(this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
                     + "/uploads/users/" + user.getAvatar()
                     : "https://graph.facebook.com/" + user.getFacebookId() + "/picture?type=large")
@@ -189,14 +189,14 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             NetworkEngine.getInstance().profile(user.getId()).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    if(response.isSuccessful()) {
-                        if(response.body().getActive().equals(0)) {
-                            Log.i("Active", "Active: "+ response.body().getActive());
+                    if (response.isSuccessful()) {
+                        if (response.body().getActive().equals(0)) {
+                            Log.i("Active", "Active: " + response.body().getActive());
                             KhayahApp.logout();
                             closeAllActivities();
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        }else{
-                            Log.i("Active", "Active: "+ response.body().getActive());
+                        } else {
+                            Log.i("Active", "Active: " + response.body().getActive());
                             KhayahApp.login(response.body());
                         }
                     }
@@ -340,6 +340,9 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             case R.id.nav_4:
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
+            case R.id.nav_5:
+                fragment = new AboutUsFragment();
+                break;
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 break;
@@ -348,7 +351,7 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                     ShareLinkContent linkContent = new ShareLinkContent.Builder()
                             .setContentTitle("Hello, Khayar is with you!")
                             .setContentDescription("You can add your trusted contacts for your safety connection!")
-                            .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName()))
+                            .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()))
                             .setQuote("Available on Google Play Store")
                             .build();
                     shareDialog.show(linkContent);

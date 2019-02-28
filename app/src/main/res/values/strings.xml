@@ -107,6 +107,8 @@ Because your friends can virtually: \n - walk you home \n - keep an eyey on you 
     <string name="menu_directory">Directory</string>
     <string name="menu_fake_call">Fake Call</string>
     <string name="menu_setting">Setting</string>
+    <string name="menu_about_us">About Us</string>
+
 
     <string name="menu_share">Share</string>
     <string name="menu_feedback">Feedback</string>

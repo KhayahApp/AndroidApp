@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.khayah.app.APIToolz;
 import com.khayah.app.APIToolzTokenManager;
+import com.khayah.app.Constant;
 
 import java.io.IOException;
 
@@ -48,7 +49,7 @@ public class FCMNetworkEngine {
 			Request request = chain.request();
 			Request[] mRequest = {null};
 			mRequest[0] = request.newBuilder()
-					.header("Authorization", "key=AAAA2on3hWE:APA91bEkVMiNKjM8gi9VCS0l-K0MMu_Ki4e_y39yiBHyAqhqUjxdh9WUUwzWH5dFWEMh2I7zh7r-ujkovOQPX-xtni9BKDqBnBHRzwuZM5g3na9h270O9AnB6u5AQuO0KLc3xpOog81G")
+					.header("Authorization", Constant.FCM_RELEASE_KEY)
 					.header("Content-Encoding", "gzip, deflate, sdch")
 					.header("Accept", "application/json")
 					.method(request.method(), request.body())

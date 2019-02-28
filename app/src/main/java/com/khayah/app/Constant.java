@@ -29,6 +29,7 @@ public class Constant {
     public static final String FCM_POST_PERSON_IMG_URL = "avatar";
     public static final String FCM_TITLE = "title";
     public static final String FCM_MESSAGE_TEXT = "message";
+    public static final String ABOUT_US = "http://khayarapp.com/aboutus.html";
 
 
 
@@ -38,6 +39,10 @@ public class Constant {
     public static final int RC_NEW_THREAD_PICK_IMAGE = 3;
     public static final int RC_THREAD_COMMENT_CAPTURE_IMAGE = 4;
     public static final int RC_THREAD_COMMENT_PICK_IMAGE = 5;
+
+
+    public static String FCM_RELEASE_KEY="key=AAAAu8x510I:APA91bHNf8u1t_aAysLdDwBTuBp3lHnGh-3Z0Jae2kA79wnkZxQICrzxjpX7haGhbW8kxY6VVEBRVdqlc8YkbHTPPqtHV6-3lIlB2fPC9I7c4PT65VfxTgWW0-kX37gudG6WbrrwpiOE";
+    public static String FCM_DEVELOP_KEY="key=AAAA2on3hWE:APA91bEkVMiNKjM8gi9VCS0l-K0MMu_Ki4e_y39yiBHyAqhqUjxdh9WUUwzWH5dFWEMh2I7zh7r-ujkovOQPX-xtni9BKDqBnBHRzwuZM5g3na9h270O9AnB6u5AQuO0KLc3xpOog81G";
 
     public static String PHONE = "phone";
 

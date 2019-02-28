@@ -597,14 +597,14 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private void userActionChoice(UserGroup userGroup, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence callPhone;
-        CharSequence sendSms;
-        CharSequence customSms;
+        //CharSequence sendSms;
+        CharSequence cr_remove;
         callPhone = getResources().getString(R.string.action_call);
-        sendSms = getResources().getString(R.string.action_sms);
-        customSms = getResources().getString(R.string.action_remove);
+        //sendSms = getResources().getString(R.string.action_sms);
+        cr_remove = getResources().getString(R.string.action_remove);
 
         builder.setCancelable(true).
-                setItems(new CharSequence[]{callPhone, sendSms, customSms},
+                setItems(new CharSequence[]{callPhone, cr_remove},
                         new DialogInterface.OnClickListener() {
                             @TargetApi(Build.VERSION_CODES.M)
                             @Override
@@ -613,13 +613,13 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                     userPhone = userGroup.getPhone();
                                     callPhone("+"+userGroup.getPhone());
 
-                                } else if (i == SENDSMS) {
+                                } /*else if (i == SENDSMS) {
                                     if (checkForSmsPermission()) {
                                         userPhone = userGroup.getPhone();
                                         smsSendMessage(userPhone, "Help! I am in Danger!");
                                     }
 
-                                } else if (i == REMOVEUSER) {
+                                }*/ else if (i == REMOVEUSER) {
                                     NetworkEngine.getInstance().deleteGroupUser(userGroup.getId()).enqueue(new Callback<String>() {
                                         @Override
                                         public void onResponse(Call<String> call, Response<String> response) {

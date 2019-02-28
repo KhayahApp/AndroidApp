@@ -26,6 +26,9 @@ public class Station {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("image")
+    @Expose
+    private String image;
     @SerializedName("latitude")
     @Expose
     private Double latitude;
@@ -98,6 +101,14 @@ public class Station {
 
     public void setTownshipId(Integer townshipId) {
         this.townshipId = townshipId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getAddress() {

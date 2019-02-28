@@ -8,11 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.khayah.app.APIToolz;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.Constant;
 import com.khayah.app.R;
@@ -29,6 +31,7 @@ import retrofit2.Response;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.R;
 import com.khayah.app.ui.login.ProfileActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
@@ -45,6 +48,7 @@ public class DetailActivity extends BaseAppCompatActivity implements View.OnClic
     private TextView txtType;
     private RelativeLayout ryCallNow;
     private RelativeLayout ryDirection;
+    private ImageView imgStation;
 
 
     @Override
@@ -73,6 +77,7 @@ public class DetailActivity extends BaseAppCompatActivity implements View.OnClic
         txtType = (TextView) findViewById(R.id.detail_txt_type);
         ryCallNow = (RelativeLayout) findViewById(R.id.ry_call_now);
         ryDirection = (RelativeLayout) findViewById(R.id.ry_direction);
+        imgStation = (ImageView) findViewById(R.id.img_station);
 
         ryCallNow.setOnClickListener(this::onClick);
         ryDirection.setOnClickListener(this::onClick);
@@ -94,7 +99,7 @@ public class DetailActivity extends BaseAppCompatActivity implements View.OnClic
                 txtAddress.setText(mStation.getAddress());
                 txtType.setText(mStation.getType());
                 txtDesc.setText(mStation.getDescription());
-
+                Picasso.with(DetailActivity.this).load(APIToolz.getInstance().getHostAddress()+"/img/.stations/"+mStation.getImage()+"?w=800").placeholder(R.drawable.picture_placeholder).into(imgStation);
 
             }
 

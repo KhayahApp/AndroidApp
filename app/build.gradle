@@ -1,7 +1,7 @@
 // Manifest version information!
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 51
+def versionPatch = 52
 def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 apply plugin: 'com.android.application'
@@ -19,7 +19,7 @@ android {
         }
         release {
             keyAlias 'Khayahkey'
-            storeFile file('/Users/khinsandar/Documents/KhayahProjectFinal/KeyStoreFile/khayah.jks')
+            storeFile file('D:\\Android\\@Android_Studio_Workspace\\Khayah\\app\\khayah.jks')
             storePassword 'WeCanDo'
             keyPassword 'WeCanDo'
         }

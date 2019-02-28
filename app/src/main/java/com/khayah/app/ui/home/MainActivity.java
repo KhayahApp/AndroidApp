@@ -341,7 +341,9 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;
             case R.id.nav_5:
-                fragment = new AboutUsFragment();
+                //fragment = new AboutUsFragment();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constant.ABOUT_US));
+                startActivity(browserIntent);
                 break;
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));

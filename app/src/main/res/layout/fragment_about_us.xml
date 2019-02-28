@@ -36,7 +36,6 @@
     </android.support.design.widget.AppBarLayout>-->
 
     <LinearLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -45,10 +44,7 @@
         <WebView
             android:id="@+id/wv_about_us"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" />
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 </LinearLayout>

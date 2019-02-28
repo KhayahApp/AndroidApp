@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -56,24 +57,12 @@ public class AboutUsFragment extends Fragment{
         //textViewTitle = view.findViewById(R.id.toolbar_title);
 
         mWebView = view.findViewById(R.id.wv_about_us);
-        mWebView.getSettings().setSupportZoom(true);
-        mWebView.getSettings().setBuiltInZoomControls(true);
-        mWebView.getSettings().setDisplayZoomControls(true);
-        mWebView.getSettings().setJavaScriptEnabled(true);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         mWebView.loadUrl(Constant.ABOUT_US);
         mWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
 
-
-                //textViewTitle.setText(R.string.app_name);//Loading
-                //setProgress(progress * 100); //Make the bar disappear after URL is loaded
-                //setValue(progress);
-
-                super.onProgressChanged(view, progress);
-                // Return the app name after finish loading
-                if (progress == 100) {
-                    //textViewTitle.setText(R.string.menu_about_us);
-                }
             }
         });
 

@@ -11,7 +11,7 @@
         android:padding="@dimen/spacing_double">
 
         <com.mikepenz.iconics.view.IconicsImageView
-            android:id="@+id/rv_user_img"
+            android:id="@+id/img_station"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:padding="20dp"

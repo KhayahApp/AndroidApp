@@ -132,7 +132,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private LatLng currentLatLng;
     private GPSTracker gpsTracker;
     private boolean soundFlag = true;
-
     public TrustedUserFragment() {
         // Required empty public constructor
     }
@@ -410,32 +409,36 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private void sendFCMNotification() {
         if(userList != null && userList.size() > 0) {
             for (UserGroup group: userList) {
-                FCMRequest request = new FCMRequest();
-                Data data = new Data();
-                data.setTitle("Please help me, "+ group.getName());
-                data.setMessage("I am in danger: " + user.getFirstName() + " "+user.getLastName());
-                data.setUserId(user.getId());
-                data.setType("danger");
-                request.setTo("/topics/"+ Constant.FCM_COMMOM_TOPIC_FOR_USER+group.getPhone());
-                request.setData(data);
-                request.setSound("fire_alarm");
-                FCMNetworkEngine.getInstance().postFCMNotification(request).enqueue(new Callback<Object>() {
-                    @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
-                        if(response.isSuccessful()) {
-                            Toast.makeText(mContext,
-                                    "Sending...." + response.message(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-
-                    }
-                });
+                sendFCMNoti(group);
             }
         }
+    }
+
+    private void sendFCMNoti(UserGroup group) {
+        FCMRequest request = new FCMRequest();
+        Data data = new Data();
+        data.setTitle("Please help me, "+ group.getName());
+        data.setMessage("I am in danger: " + user.getFirstName() + " "+user.getLastName());
+        data.setUserId(user.getId());
+        data.setType("danger");
+        request.setTo("/topics/"+ Constant.FCM_COMMOM_TOPIC_FOR_USER+group.getPhone());
+        request.setData(data);
+        request.setSound("fire_alarm");
+        FCMNetworkEngine.getInstance().postFCMNotification(request).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(mContext,
+                            "Sending...." + response.message(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
     }
 
     private void sendNotificationToUsers() {
@@ -597,14 +600,14 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private void userActionChoice(UserGroup userGroup, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence callPhone;
-        //CharSequence sendSms;
+        CharSequence sendSms;
         CharSequence cr_remove;
         callPhone = getResources().getString(R.string.action_call);
-        //sendSms = getResources().getString(R.string.action_sms);
+        sendSms = getResources().getString(R.string.action_sms);
         cr_remove = getResources().getString(R.string.action_remove);
 
         builder.setCancelable(true).
-                setItems(new CharSequence[]{callPhone, cr_remove},
+                setItems(new CharSequence[]{callPhone, sendSms, cr_remove},
                         new DialogInterface.OnClickListener() {
                             @TargetApi(Build.VERSION_CODES.M)
                             @Override
@@ -612,14 +615,10 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                 if (i == CALLPHONE) {
                                     userPhone = userGroup.getPhone();
                                     callPhone("+"+userGroup.getPhone());
-
-                                } /*else if (i == SENDSMS) {
-                                    if (checkForSmsPermission()) {
-                                        userPhone = userGroup.getPhone();
-                                        smsSendMessage(userPhone, "Help! I am in Danger!");
-                                    }
-
-                                }*/ else if (i == REMOVEUSER) {
+                                } else if (i == SENDSMS) {
+                                    //Send FCM Message by one
+                                    sendFCMNoti(userGroup);
+                                } else if (i == REMOVEUSER) {
                                     NetworkEngine.getInstance().deleteGroupUser(userGroup.getId()).enqueue(new Callback<String>() {
                                         @Override
                                         public void onResponse(Call<String> call, Response<String> response) {

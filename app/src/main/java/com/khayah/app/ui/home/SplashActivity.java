@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
+import com.khayah.app.ui.alarm.PersonActivity;
 import com.khayah.app.ui.login.LoginActivity;
 
 

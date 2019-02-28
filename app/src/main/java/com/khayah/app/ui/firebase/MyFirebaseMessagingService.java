@@ -46,6 +46,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.khayah.app.Constant;
 import com.khayah.app.R;
+import com.khayah.app.ui.alarm.PersonActivity;
 import com.khayah.app.ui.home.MainActivity;
 import com.khayah.app.ui.home.SplashActivity;
 
@@ -66,6 +67,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
     private static final String ADMIN_CHANNEL_ID = "fcm_default_channel";
+    private static final String EXTRA_USER_ID = "user_id";
+    private static final String FCM_MESSAGE_USER_ID = "user_id";
     private NotificationManager notificationManager;
     private SharedPreferences mSharedPreferencesUserInfo;
 
@@ -218,21 +221,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mStrTitle = remoteMessage.getData().get(Constant.FCM_TITLE);
             mStrText = remoteMessage.getData().get(Constant.FCM_MESSAGE_TEXT);
             String type = remoteMessage.getData().get(Constant.FCM_MESSAGE_TYPE);
+            String userId = null;
+            Intent intent = null;
             Log.i("Notification", "Notification: "+ new Gson().toJson(remoteMessage.getData()));
             if(type != null && type.equals(Constant.MSG_DANGER)) {
-                Log.i("Notification", "Notification Type: "+ remoteMessage.getData().get(Constant.FCM_MESSAGE_TYPE));
+                userId = remoteMessage.getData().get(Constant.FCM_MESSAGE_USER_ID);
+                Log.i("userID", "Userid:"+ userId);
+                intent = new Intent(this, PersonActivity.class);
+                intent.putExtra(EXTRA_USER_ID, userId);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 defaultSoundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.fire_alarm);
             }else{
                 defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             }
             //if (type.equalsIgnoreCase(Constant.FCM_COMMOM_TOPIC_FOR_ALL)) {
-
-
-                Intent post_detail_intent = new Intent(this, SplashActivity.class);
-                    /*post_detail_intent.putExtra(EXTRA_POST_ID, fcmMessage.getPostId());
-                    post_detail_intent.putExtra(EXTRA_CATEGORY_ID, fcmMessage.getCategoryParentId());*/
-                post_detail_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent post_pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, post_detail_intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
                 /*if (remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL) != null) {
                     personImg = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL));
                 } else {
@@ -241,7 +244,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Bitmap bitmap_post_img = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_IMAGE_URL));*/
 
                 //Button
-                NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_bell_icon, mStrOpen, post_pendingIntent).build();
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_bell_icon, mStrOpen, pendingIntent).build();
                 NotificationCompat.Builder notificationBuilder =
                         new NotificationCompat.Builder(this, channelId)
                                 .setSmallIcon(R.drawable.ic_notification_icon)
@@ -253,7 +256,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(mStrTitle))
                                 .addAction(action)
                                 .setSound(defaultSoundUri)
-                                .setContentIntent(post_pendingIntent);
+                                .setContentIntent(pendingIntent);
                 Notification notification = notificationBuilder.build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
                 //notification.defaults |= Notification.DEFAULT_SOUND;

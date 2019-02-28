@@ -57,9 +57,9 @@
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
 
-    <item name="normal_speed" type="dimen" format="float">100</item>
-    <item name="high_speed" type="dimen" format="float">50</item>
-    <item name="low_speed" type="dimen" format="float">120</item>
+    <item name="normal_speed" format="float" type="dimen">100</item>
+    <item name="high_speed" format="float" type="dimen">50</item>
+    <item name="low_speed" format="float" type="dimen">120</item>
 
     <!-- Gallery image thumbnail sie of image chooser for NewThread -->
     <dimen name="gallery_image_thumbnail_size">120dp</dimen>
@@ -68,6 +68,8 @@
     <dimen name="button_margin">32dp</dimen>
     <dimen name="edittext_width">200dp</dimen>
     <dimen name="title_text_size">20dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 
 </resources>

@@ -96,4 +96,7 @@ public interface INetworkEngine {
     @POST("/api/androiderror")
     Call<Error> postError(@Body Error error);
 
+    @GET("/api/usergeo")
+    Call<List<UserGeo>> getUserGeo(@Query("search") String search, @Query("sort") String sort,  @Query("order") String order, @Query("page") Integer page, @Query("rows") Integer rows);
+
 }

@@ -67,7 +67,7 @@ public class SettingsActivity extends BaseAppCompatActivity {
         rdo_unicode = (RadioButton) findViewById(R.id.rdo_unicode);
         chk_sound = (CheckBox) findViewById(R.id.chk_sound);
         Boolean soundOn = StorageDriver.getInstance().selectFrom("soundFlag");
-        if(soundOn) chk_sound.setChecked(soundOn);
+        if(soundOn != null) chk_sound.setChecked(soundOn);
         chk_sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

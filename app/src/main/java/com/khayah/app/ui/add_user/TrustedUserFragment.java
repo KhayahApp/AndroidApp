@@ -420,6 +420,12 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         data.setTitle("Please help me, "+ group.getName());
         data.setMessage("I am in danger: " + user.getFirstName() + " "+user.getLastName());
         data.setUserId(user.getId());
+        data.setImageUrl(APIToolz.getInstance().getHostAddress()
+                + "/uploads/users/" + user.getAvatar());
+
+        //Log.i("userImageFCMNOti","===>" + user.getAvatar());
+
+
         data.setType("danger");
         request.setTo("/topics/"+ Constant.FCM_COMMOM_TOPIC_FOR_USER+group.getPhone());
         request.setData(data);

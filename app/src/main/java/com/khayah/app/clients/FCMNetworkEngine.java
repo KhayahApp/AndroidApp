@@ -49,7 +49,7 @@ public class FCMNetworkEngine {
 			Request request = chain.request();
 			Request[] mRequest = {null};
 			mRequest[0] = request.newBuilder()
-					.header("Authorization", Constant.FCM_RELEASE_KEY)
+					.header("Authorization", Constant.FCM_RELEASE_KEY)//TODO change release
 					.header("Content-Encoding", "gzip, deflate, sdch")
 					.header("Accept", "application/json")
 					.method(request.method(), request.body())

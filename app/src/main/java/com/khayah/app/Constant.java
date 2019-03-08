@@ -16,6 +16,7 @@ public class Constant {
 
     //Firebase Message Type
     public static final String FCM_MESSAGE_USER_ID = "user_id";
+
     public static final String FCM_MESSAGE_TYPE ="type";
     public static final String MSG_DANGER = "danger";
     public static String FCM_COMMOM_TOPIC_FOR_USER = "Khayah_";
@@ -26,7 +27,7 @@ public class Constant {
     public static String FCM_COMMOM_TOPIC_FOR_ = "Khayah";
 
     public static final String FCM_POST_IMAGE_URL = "image";
-    public static final String FCM_POST_PERSON_IMG_URL = "avatar";
+    public static final String FCM_POST_PERSON_IMG_URL = "image_url";
     public static final String FCM_TITLE = "title";
     public static final String FCM_MESSAGE_TEXT = "message";
     public static final String ABOUT_US = "http://khayarapp.com/aboutus.html";

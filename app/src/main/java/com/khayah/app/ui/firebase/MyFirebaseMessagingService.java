@@ -235,16 +235,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             }
             //if (type.equalsIgnoreCase(Constant.FCM_COMMOM_TOPIC_FOR_ALL)) {
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
-                /*if (remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL) != null) {
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, notificationId /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
+                /*if (remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL)!= null) {
                     personImg = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL));
-                } else {
-                    personImg = getBitmapFromURL(this, Constant.FCM_POST_PERSON_IMG_URL);
-                }
-                Bitmap bitmap_post_img = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_IMAGE_URL));*/
+                }*/
+            personImg = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_PERSON_IMG_URL));
+
+            Log.i("userImage", "Userid:"+ personImg);
+
+            //Bitmap bitmap_post_img = getBitmapFromURL(this, remoteMessage.getData().get(Constant.FCM_POST_IMAGE_URL));
 
                 //Button
-                NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_bell_icon, mStrOpen, pendingIntent).build();
+                //NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_bell_icon, mStrOpen, pendingIntent).build();
                 NotificationCompat.Builder notificationBuilder =
                         new NotificationCompat.Builder(this, channelId)
                                 .setSmallIcon(R.drawable.ic_notification_icon)
@@ -254,7 +256,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)//heads up notifications can only be shown in the default style)
                                 .setLargeIcon(personImg)
                                 .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(mStrTitle))
-                                .addAction(action)
+                                //.addAction(action)
                                 .setSound(defaultSoundUri)
                                 .setContentIntent(pendingIntent);
                 Notification notification = notificationBuilder.build();

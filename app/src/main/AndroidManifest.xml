@@ -79,7 +79,7 @@
         <!-- Permission: For Google Map -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyByPQvsFl9RcxbdJSVSTcWc3N3fq8iyZ7o" />
+            android:value="AIzaSyDszc5F50iCN7TrxP2jn8KHC6E7_tGo8ok" />
 
         <activity android:name=".ui.home.SplashActivity">
             <intent-filter>

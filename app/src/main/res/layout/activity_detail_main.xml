@@ -23,7 +23,6 @@ android:layout_height="match_parent">
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/asia_taw_win_cover"
             app:layout_collapseMode="parallax" />
 
         <android.support.v7.widget.Toolbar

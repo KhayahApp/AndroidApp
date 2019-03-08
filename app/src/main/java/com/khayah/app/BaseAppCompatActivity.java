@@ -80,7 +80,7 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ExceptionHandler.register(this);
         // Obtain the shared Tracker instance.
         // BaseApplication application = (BaseApplication) getApplication();
         //mTracker = application.getDefaultTracker();

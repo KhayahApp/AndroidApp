@@ -354,8 +354,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             case R.id.nav_share:
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
                     ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                            .setContentTitle("Hello, Khayar is with you!")
-                            .setContentDescription("You can add your trusted contacts for your safety connection!")
+                            //.setContentTitle("Hello, Khayar is with you!")
+                            //.setContentDescription("You can add your trusted contacts for your safety connection!")
                             .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()))
                             .setQuote("Available on Google Play Store")
                             .build();

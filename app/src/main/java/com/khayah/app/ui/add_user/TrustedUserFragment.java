@@ -21,7 +21,6 @@ import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -105,7 +104,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private ArrayList<UserGroup> userList;
 
     private static final int CALLPHONE = 0;
-    private static final int SENDSMS = 1;
+    private static final int SENDFCMNOTI = 1;
     private static final int REMOVEUSER = 2;
 
     private static final int RC_ALL_PERMISSIONS = 2;
@@ -117,13 +116,12 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private int previousSelectedPosition = -1;
     private boolean isFirstAlarmOpen = true;
     private String userPhone;
-    private final String call_phone_READ_PERMISSION = "android.permission.CALL_PHONE";
-    boolean call_phone_PermissionAccepted = false;
+
 
     //Try request code between 1 to 255
     private static final int INITIAL_REQUEST = 1;
     private static final int CALL_REQUEST = INITIAL_REQUEST + 4;
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_FCM = 1;
     private RoundedImageView imgUser;
     private FrameLayout layoutUser;
 
@@ -621,7 +619,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                                 if (i == CALLPHONE) {
                                     userPhone = userGroup.getPhone();
                                     callPhone("+"+userGroup.getPhone());
-                                } else if (i == SENDSMS) {
+                                } else if (i == SENDFCMNOTI) {
                                     //Send FCM Message by one
                                     sendFCMNoti(userGroup);
                                 } else if (i == REMOVEUSER) {
@@ -728,41 +726,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         }
     }
 
+
     private void callPhone(String ph) {
-        if (!hasPermission(call_phone_READ_PERMISSION)) {
-            //if no permission, request permission
-            String[] perms = {call_phone_READ_PERMISSION};
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(perms, CALL_REQUEST);
-            } else {
-                if (ph != null) {
-
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + Uri.encode(ph)));
-
-                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        startActivity(callIntent);
-                        //return;
-                    }
-                    startActivity(callIntent);
-
-                }
-            }
-
-        } else {
-            // Check if we were successful in obtaining the map.
-            //Log.e("<<<tlgLeaderPhno else >>>", "===>" + tlgLeaderPhno);
-            if (ph != null) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + Uri.encode(ph)));
-                startActivity(callIntent);
-                return;
-
-            }
-        }
-    }
-
-    private void callNormalPhone(String ph) {
         if (!TextUtils.isEmpty(ph)) {
             startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(ph))));
         }
@@ -786,12 +751,12 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         if (ActivityCompat.checkSelfPermission(mContext,
                 Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             // Permission not yet granted. Use requestPermissions().
-            // MY_PERMISSIONS_REQUEST_SEND_SMS is an
+            // MY_PERMISSIONS_REQUEST_SEND_FCM is an
             // app-defined int constant. The callback method gets the
             // result of the request.
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.SEND_SMS},
-                    MY_PERMISSIONS_REQUEST_SEND_SMS);
+                    MY_PERMISSIONS_REQUEST_SEND_FCM);
             return false;
         } else {
             // Permission already granted. Enable the SMS button.

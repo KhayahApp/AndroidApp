@@ -13,6 +13,9 @@ public class FcmMessage implements Serializable {
     @SerializedName("user_id")
     @Expose
     private Integer user_id;
+    @SerializedName("user")
+    @Expose
+    private User user;
     @SerializedName("title")
     @Expose
     private String title;
@@ -49,6 +52,14 @@ public class FcmMessage implements Serializable {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTitle() {

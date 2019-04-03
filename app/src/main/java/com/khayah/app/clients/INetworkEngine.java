@@ -43,6 +43,9 @@ public interface INetworkEngine {
     @POST("/api/notification")
     Call<FcmMessage> sendNotification(@Body FcmMessage fcmMessage);
 
+    @GET("/api/notification")
+    Call<List<FcmMessage>> getNotifications(@Query("search") String search, @Query("sort") String sort,  @Query("order") String order, @Query("page") Integer page, @Query("rows") Integer rows);
+
     @FormUrlEncoded
     @POST("/api/login")
     Call<User> authenticate(@Field("email") String email, @Field("password") String password);

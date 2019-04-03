@@ -74,6 +74,7 @@ import com.khayah.app.ui.login.LoginActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
 import com.khayah.app.ui.menu_record.RecordFragment;
+import com.khayah.app.ui.notification.NotificationActivity;
 import com.khayah.app.ui.settings.HelpUsActivity;
 import com.khayah.app.ui.settings.SettingsActivity;
 import com.khayah.app.ui.userlist.UserListFragment;
@@ -336,10 +337,9 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
             case R.id.nav_2:
                 fragment = new NearbyMapFragment();
                 break;
-            /*case R.id.nav_3:
-                //fragment = new RecordFragment();
-                fragment = new ComingSoonFragment();
-                break;*/
+            case R.id.nav_3:
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                break;
             case R.id.nav_4:
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
                 break;

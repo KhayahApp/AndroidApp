@@ -53,7 +53,7 @@ public class NotificationAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
         	convertView = mInflater.inflate(R.layout.list_item_notifications, null);
-        	holder.txt_name = (TextView) convertView.findViewById(R.id.txt_language);
+        	holder.txt_name = (TextView) convertView.findViewById(R.id.txt_name);
         	holder.txt_message = (TextView) convertView.findViewById(R.id.txt_message);
         	convertView.setTag(holder);
 		}else{

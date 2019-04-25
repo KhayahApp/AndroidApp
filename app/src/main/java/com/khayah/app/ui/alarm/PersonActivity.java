@@ -110,7 +110,7 @@ public class PersonActivity extends BaseAppCompatActivity implements OnMapReadyC
                 if (response.isSuccessful()) {
                     user = response.body();
                     getSupportActionBar().setTitle(user.getFirstName() + " " + user.getLastName());
-                    getSupportActionBar().setSubtitle("+"+user.getPhone());
+                    //getSupportActionBar().setSubtitle("+"+user.getPhone());
                     /*if (user.getAvatar() != null) {
                         Picasso.with(PersonActivity.this).load(user.getAvatar() != null ? APIToolz.getInstance().getHostAddress()
                                 + "/uploads/users/" + user.getAvatar()

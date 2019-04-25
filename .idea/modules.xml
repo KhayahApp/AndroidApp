@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Khayah.iml" filepath="$PROJECT_DIR$/Khayah.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KhayarApp.iml" filepath="$PROJECT_DIR$/KhayarApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

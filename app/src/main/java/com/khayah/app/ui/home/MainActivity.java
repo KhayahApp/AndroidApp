@@ -1,40 +1,27 @@
 package com.khayah.app.ui.home;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.Display;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.directions.route.Routing;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -42,7 +29,6 @@ import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,44 +36,31 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.gson.Gson;
 import com.khayah.app.APIToolz;
 import com.khayah.app.BaseAppCompatActivity;
 import com.khayah.app.Constant;
 import com.khayah.app.KhayahApp;
 import com.khayah.app.R;
 import com.khayah.app.clients.NetworkEngine;
-import com.khayah.app.models.Error;
-import com.khayah.app.models.UserGeo;
 import com.khayah.app.models.UserGroup;
-import com.khayah.app.service.PowerButtonReceiver;
-import com.khayah.app.service.SettingsContentObserver;
-import com.khayah.app.trace.G;
-import com.khayah.app.ui.add_user.CircleListActivity;
-import com.khayah.app.ui.add_user.TruestedUserListDialogFragment;
 import com.khayah.app.ui.add_user.TrustedUserFragment;
 import com.khayah.app.models.User;
-import com.khayah.app.ui.alarm.AlarmMainfragment;
 import com.khayah.app.ui.lawer.LawerActivity;
-import com.khayah.app.ui.lawer.LawerListFragment;
 import com.khayah.app.ui.login.LoginActivity;
 import com.khayah.app.ui.login.ProfileActivity;
 import com.khayah.app.ui.map.NearbyMapFragment;
-import com.khayah.app.ui.menu_record.RecordFragment;
 import com.khayah.app.ui.notification.NotificationActivity;
 import com.khayah.app.ui.settings.HelpUsActivity;
 import com.khayah.app.ui.settings.SettingsActivity;
-import com.khayah.app.ui.userlist.UserListFragment;
+import com.khayah.app.ui.trusted_list.TrustedListActivity;
 import com.khayah.app.util.CircleTransform;
 //import com.khayah.app.vo.User;
 import com.khayah.app.util.DeviceUtil;
-import com.khayah.app.util.GPSTracker;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import retrofit2.Call;
@@ -333,6 +306,9 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         switch (itemId) {
             case R.id.nav_1:
                 fragment = TrustedUserFragment.newInstance(mAlert, null);
+                break;
+            case R.id.nav_1_2:
+                startActivity(new Intent(getApplicationContext(), TrustedListActivity.class));
                 break;
             case R.id.nav_2:
                 fragment = new NearbyMapFragment();

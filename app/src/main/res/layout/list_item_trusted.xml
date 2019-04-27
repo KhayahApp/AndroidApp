@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
-        android:src="@drawable/ic_alarm"
+        android:src="@drawable/girl"
         android:layout_width="50dp"
         android:layout_height="50dp" />
     <LinearLayout
@@ -33,7 +33,7 @@
         </RelativeLayout>
 
         <com.khayah.app.ui.widget.CustomTextView
-            android:id="@+id/txt_message"
+            android:id="@+id/txt_phone"
             android:textAppearance="@android:style/TextAppearance.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

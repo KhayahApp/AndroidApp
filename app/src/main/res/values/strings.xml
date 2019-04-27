@@ -252,6 +252,20 @@ Because your friends can virtually: \n - walk you home \n - keep an eyey on you 
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="menu_notification">Notifications</string>
+    <string name="time_ago_prefix" translatable="false"></string>
+    <string name="time_ago_suffix" translatable="false">ago</string>
+    <string name="time_ago_seconds" translatable="false">less than a minute</string>
+    <string name="time_ago_minute" translatable="false">about a minute</string>
+    <string name="time_ago_minutes" translatable="false">%d minutes</string>
+    <string name="time_ago_hour" translatable="false">about an hour</string>
+    <string name="time_ago_hours" translatable="false">about %d hours</string>
+    <string name="time_ago_day" translatable="false">a day</string>
+    <string name="time_ago_days" translatable="false">%d days</string>
+    <string name="time_ago_month" translatable="false">about a month</string>
+    <string name="time_ago_months" translatable="false">%d months</string>
+    <string name="time_ago_year" translatable="false">about a year</string>
+    <string name="time_ago_years" translatable="false">%d years</string>
+    <string name="menu_trust_persons">Trust Person</string>
 
 
 </resources>

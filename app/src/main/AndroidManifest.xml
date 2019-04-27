@@ -39,7 +39,8 @@
         android:label="@string/app_name"
         android:theme="@style/Khayah"
         tools:replace="android:icon,android:label">
-        <activity android:name=".ui.notification.NotificationActivity"></activity>
+        <activity android:name=".ui.trusted_list.TrustedListActivity"></activity>
+        <activity android:name=".ui.notification.NotificationActivity" />
         <activity
             android:name=".ui.alarm.PersonActivity"
             android:label="@string/title_activity_person"

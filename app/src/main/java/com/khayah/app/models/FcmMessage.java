@@ -34,6 +34,9 @@ public class FcmMessage implements Serializable {
     @SerializedName("fcm_server_id")
     @Expose
     private String fcmServerId;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
     @SerializedName("receivers")
     @Expose
     private String receivers;
@@ -116,5 +119,13 @@ public class FcmMessage implements Serializable {
 
     public void setReceivers(String receivers) {
         this.receivers = receivers;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

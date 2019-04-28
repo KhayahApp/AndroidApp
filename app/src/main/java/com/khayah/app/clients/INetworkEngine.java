@@ -7,6 +7,7 @@ import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
 import com.khayah.app.models.Feedback;
 import com.khayah.app.models.Lawer;
+import com.khayah.app.models.Message;
 import com.khayah.app.models.RequestToken;
 import com.khayah.app.models.ResponseToken;
 import com.khayah.app.models.Station;
@@ -101,5 +102,8 @@ public interface INetworkEngine {
 
     @GET("/api/usergeo")
     Call<List<UserGeo>> getUserGeo(@Query("search") String search, @Query("sort") String sort,  @Query("order") String order, @Query("page") Integer page, @Query("rows") Integer rows);
+
+    @GET("/api/message")
+    Call<List<Message>> getMessages(@Query("sort") String sort, @Query("order") String order, @Query("page") Integer page, @Query("rows") Integer rows);
 
 }

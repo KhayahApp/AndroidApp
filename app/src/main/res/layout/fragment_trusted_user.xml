@@ -79,6 +79,19 @@
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"/>&ndash;&gt;
     </RelativeLayout>-->
+    <TextView
+        android:id = "@+id/txt_message"
+        android:textSize = "20dp"
+        android:textAlignment = "center"
+        android:layout_width = "match_parent"
+        android:ellipsize = "marquee"
+        android:fadingEdge = "horizontal"
+        android:marqueeRepeatLimit = "marquee_forever"
+        android:scrollHorizontally = "true"
+        android:textColor = "#ff4500"
+        android:layout_marginTop="10dp"
+        android:layout_height = "wrap_content"
+        android:singleLine = "true" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

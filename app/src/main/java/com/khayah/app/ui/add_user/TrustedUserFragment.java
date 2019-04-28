@@ -51,6 +51,7 @@ import com.khayah.app.models.CurrentLocation;
 import com.khayah.app.models.Data;
 import com.khayah.app.models.FCMRequest;
 import com.khayah.app.models.FcmMessage;
+import com.khayah.app.models.Message;
 import com.khayah.app.models.User;
 import com.khayah.app.models.UserGeo;
 import com.khayah.app.models.UserGroup;
@@ -130,6 +131,8 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
     private LatLng currentLatLng;
     private GPSTracker gpsTracker;
     private boolean soundFlag = true;
+    private TextView txtMessage;
+
     public TrustedUserFragment() {
         // Required empty public constructor
     }
@@ -182,6 +185,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         fyBell = (FrameLayout) view.findViewById(R.id.fy_bell);
         layoutUser = (FrameLayout) view.findViewById(R.id.layout_user);
         imgUser = (RoundedImageView) view.findViewById(R.id.img_user);
+        txtMessage = (TextView) view.findViewById(R.id.txt_message);
         spnkitView.setVisibility(View.INVISIBLE);
         fyBell.setVisibility(View.INVISIBLE);
 
@@ -215,6 +219,7 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         userList = new ArrayList<>();
 
         getUserGroup();
+        getMessages();
 
         // usage sample
         final com.jh.circularlist.CircularListView circularListView = (com.jh.circularlist.CircularListView) view.findViewById(R.id.my_circular_list);
@@ -291,6 +296,32 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
         });
         return view;
 
+    }
+
+    private void getMessages() {
+        NetworkEngine.getInstance().getMessages("id","desc",1,1).enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                if(response.isSuccessful()) {
+                    if(response.body().size() > 0) {
+                        txtMessage.setText(response.body().get(0).getMessage());
+                        txtMessage.setSelected(true);
+                        txtMessage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(response.body().get(0).getLink()));
+                                startActivity(browserIntent);
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getUserGroup() {
@@ -422,7 +453,6 @@ public class TrustedUserFragment extends Fragment implements Colors, EasyPermiss
                 + "/uploads/users/" + user.getAvatar());
 
         //Log.i("userImageFCMNOti","===>" + user.getAvatar());
-
 
         data.setType("danger");
         request.setTo("/topics/"+ Constant.FCM_COMMOM_TOPIC_FOR_USER+group.getPhone());

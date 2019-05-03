@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HelpUsActivity extends BaseAppCompatActivity {
+public class HelpUsActivity extends BaseAppCompatActivity implements View.OnClickListener {
     private TextView txt_title;
     private LinearLayout layout_loading;
     private RatingBar ratings;
@@ -46,6 +46,7 @@ public class HelpUsActivity extends BaseAppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         txt_title = (TextView) toolbar.findViewById(R.id.txt_title);
+        btn_send = (Button)findViewById(R.id.btn_send);
         txt_title.setText(getResources().getString(R.string.help_us));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,6 +54,8 @@ public class HelpUsActivity extends BaseAppCompatActivity {
         layout_loading          = (LinearLayout) findViewById(R.id.layout_loading);
         ratings                 = (RatingBar) findViewById(R.id.ratings);
         edt_commemt             = (EditText) findViewById(R.id.edt_comment);
+
+        btn_send.setOnClickListener(this);
     }
 
     private boolean checkField() {
@@ -157,5 +160,55 @@ public class HelpUsActivity extends BaseAppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        //todo
+        if (v == btn_send) {
+            if(checkField()){
+                layout_loading.setVisibility(View.VISIBLE);
+                Feedback fb = new Feedback();
+                fb.setUserId(((User) KhayahApp.getUser()).getId());
+                fb.setRatings((double) ratings.getRating());
+                fb.setComments(edt_commemt.getText().toString());
+                PackageInfo pInfo = null;
+                try {
+                    pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    fb.setVersion(pInfo.versionName);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+                NetworkEngine.getInstance().postFeedback(fb).enqueue(new Callback<Feedback>() {
+
+                    @Override
+                    public void onResponse(Call<Feedback> call, Response<Feedback> response) {
+                        layout_loading.setVisibility(View.GONE);
+                        if(response.isSuccessful()){
+                            final CustomDialog dialog = new CustomDialog(HelpUsActivity.this);
+                            dialog.setTitle(getResources().getString(R.string.success));
+                            dialog.setMessageType(CustomDialog.Success);
+                            dialog.setMessage(getResources().getString(R.string.success_feedback_msg));
+                            dialog.setOnClickPositiveListener(getResources().getString(R.string.str_yes_i), new CustomDialog.OnClickPositiveListener() {
+                                @Override
+                                public void onClick() {
+                                    dialog.dismiss();
+                                    finish();
+                                }
+                            });
+                            dialog.show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Feedback> call, Throwable t) {
+
+                    }
+
+                });
+            }
+        }
+
     }
 }

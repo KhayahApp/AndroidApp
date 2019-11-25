@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.khayah.app">
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Facebook Account Kit -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -31,6 +30,8 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.khayah.app.permission.MAPS_RECEIVE" />
+
+
 
     <application
         android:name=".KhayahApp"
@@ -83,6 +84,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDszc5F50iCN7TrxP2jn8KHC6E7_tGo8ok" />
 
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity android:name=".ui.home.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

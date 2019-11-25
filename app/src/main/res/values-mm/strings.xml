@@ -160,6 +160,7 @@
     <string name="success_feedback_msg">သင့္အၾကံျပဳခ်က္အတြက္ေက်းဇူးတင္ပါသည္</string>
     <string name="menu_notification">အေရးေပၚအေၾကာင္းၾကားစာ</string>
     <string name="menu_trust_persons">Trust Person</string>
+    <string name="send_feedback">ေပးပို႔မည္</string>
 
 
 </resources>

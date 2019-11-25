@@ -108,7 +108,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
 
         // [START subscribe_topics]
         FirebaseMessaging.getInstance().subscribeToTopic(Constant.FCM_COMMOM_TOPIC_FOR_ALL);
-
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -299,6 +300,8 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
 
     private void displaySelectedScreen(int itemId) {
 
+
+        String track_item_id = "menu_item_click";
         //creating fragment object
         Fragment fragment = null;
 
@@ -306,26 +309,33 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
         switch (itemId) {
             case R.id.nav_1:
                 fragment = TrustedUserFragment.newInstance(mAlert, null);
+                track_item_id= "Circle of Trust";
                 break;
             case R.id.nav_1_2:
                 startActivity(new Intent(getApplicationContext(), TrustedListActivity.class));
+                track_item_id= "Trust Person";
                 break;
             case R.id.nav_2:
                 fragment = new NearbyMapFragment();
+                track_item_id= "Map";
                 break;
             case R.id.nav_3:
                 startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                track_item_id= "Notification";
                 break;
             case R.id.nav_4:
                 startActivity(new Intent(getApplicationContext(), LawerActivity.class));
+                track_item_id= "Directory";
                 break;
             case R.id.nav_5:
                 //fragment = new AboutUsFragment();
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constant.ABOUT_US));
                 startActivity(browserIntent);
+                track_item_id= "About Us";
                 break;
             case R.id.nav_6:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                track_item_id= "Setting";
                 break;
             case R.id.nav_share:
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
@@ -336,10 +346,12 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
                             .setQuote("Available on Google Play Store")
                             .build();
                     shareDialog.show(linkContent);
+                    track_item_id= "Share";
                 }
                 break;
             case R.id.nav_send:
                 startActivity(new Intent(getApplicationContext(), HelpUsActivity.class));
+                track_item_id= "Feedback";
                 break;
 
         }
@@ -353,6 +365,14 @@ public class MainActivity extends BaseAppCompatActivity implements NavigationVie
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        //Tracking which button click most
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,track_item_id );
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, track_item_id);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Main Menu Item");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
     }
 
     /*@Override

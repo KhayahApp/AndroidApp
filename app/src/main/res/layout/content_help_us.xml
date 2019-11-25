@@ -40,6 +40,15 @@
             android:background="@android:color/transparent"
             android:inputType="textMultiLine" />
 
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/theme_primary"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:text="@string/send_feedback" />
+
     </LinearLayout>
 
     <include layout="@layout/content_loading" />

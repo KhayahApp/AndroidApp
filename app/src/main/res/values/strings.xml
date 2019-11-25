@@ -266,6 +266,7 @@ Because your friends can virtually: \n - walk you home \n - keep an eyey on you 
     <string name="time_ago_year" translatable="false">about a year</string>
     <string name="time_ago_years" translatable="false">%d years</string>
     <string name="menu_trust_persons">Trust Person</string>
+    <string name="send_feedback">Send</string>
 
 
 </resources>
